@@ -1,0 +1,9 @@
+# Test
+LIST=`find tests/ -name '*.js'|grep -v tests/yaml-test-suite.js|grep -v tests/doc/YAML-1.2.spec.js`
+if test "$AUTOPKGTEST_TMP" = ""; then
+	LIST="$LIST tests/doc/YAML-1.2.spec.js"
+fi
+jest -u --ci $LIST
+
+# Types test
+tsc --lib ES2017 --noEmit tests/typings.ts

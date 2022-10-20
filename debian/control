@@ -1,0 +1,32 @@
+Source: node-yaml
+Section: javascript
+Priority: optional
+Maintainer: Debian Javascript Maintainers <pkg-javascript-devel@lists.alioth.debian.org>
+Uploaders: Xavier Guimard <yadd@debian.org>
+Testsuite: autopkgtest-pkg-nodejs
+Build-Depends:
+ debhelper-compat (= 13)
+ , dh-sequence-nodejs (>= 0.9.62~)
+ , jest <!nocheck>
+ , node-babel7
+ , node-rollup-plugin-babel
+ , node-tslib <!nocheck>
+ , node-typescript <!nocheck>
+ , rollup
+Standards-Version: 4.5.1
+Homepage: https://eemeli.org/yaml/
+Vcs-Git: https://salsa.debian.org/js-team/node-yaml.git
+Vcs-Browser: https://salsa.debian.org/js-team/node-yaml
+Rules-Requires-Root: no
+
+Package: node-yaml
+Architecture: all
+Depends:
+ ${misc:Depends}
+ , nodejs (>= 6)
+Description: Nodejs parser and stringifier for YAML standard
+ yaml is a JavaScript parser and stringifier for YAML, a human friendly data
+ serialization standard. It supports both parsing and stringifying data using
+ all versions of YAML, along with all common data schemas. As a particularly
+ distinguishing feature, yaml fully supports reading and writing comments and
+ blank lines in YAML documents.

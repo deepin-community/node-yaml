@@ -1,0 +1,6 @@
+/browser/
+/dist/
+/docs-slate/
+/package-lock.json
+/playground/dist/
+/tests/yaml-test-suite/

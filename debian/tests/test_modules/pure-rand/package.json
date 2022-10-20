@@ -1,0 +1,56 @@
+{
+  "name": "pure-rand",
+  "version": "2.0.0",
+  "description": " Pure random number generator written in TypeScript",
+  "main": "lib/pure-rand.js",
+  "module": "lib/esm/pure-rand.js",
+  "types": "lib/types/pure-rand.d.ts",
+  "typesVersions": {
+    ">=3.2": {
+      "*": [
+        "lib/ts3.2/pure-rand.d.ts"
+      ]
+    }
+  },
+  "sideEffects": false,
+  "scripts": {
+    "format:check": "prettier --list-different \"**/*.{js,ts}\"",
+    "format:fix": "prettier --write \"**/*.{js,ts}\"",
+    "build": "tsc && tsc -p ./tsconfig.declaration.json && node ./buildTypes.js",
+    "build:esm": "tsc --module es2015 --outDir lib/esm --moduleResolution node",
+    "test": "jest --config jest.config.js --coverage",
+    "coverage": "cat ./coverage/lcov.info | coveralls",
+    "build:bench:old": "tsc --target es6",
+    "build:bench:new": "tsc --target es6 --outDir lib-new/",
+    "auto:bench": "git stash && npm run build:bench:old && git stash pop && npm run build:bench:new && node perf/benchmark.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dubzzz/pure-rand.git"
+  },
+  "author": "Nicolas DUBIEN <github@dubien.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dubzzz/pure-rand/issues"
+  },
+  "homepage": "https://github.com/dubzzz/pure-rand#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^24.9.0",
+    "@types/node": "^13.1.8",
+    "benchmark": "^2.1.4",
+    "coveralls": "^3.0.9",
+    "fast-check": "^1.21.0",
+    "glob": "^7.1.6",
+    "jest": "^24.9.0",
+    "prettier": "1.16.4",
+    "source-map-support": "^0.5.16",
+    "ts-jest": "^24.3.0",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
+  },
+  "keywords": [
+    "pure random",
+    "random number generator"
+  ]
+}

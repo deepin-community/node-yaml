@@ -1,0 +1,23 @@
+node-yaml (1.10.0-4) unstable; urgency=medium
+
+  * Drop one test during autopkgtest only
+
+ -- Xavier Guimard <yadd@debian.org>  Wed, 13 Jan 2021 22:11:12 +0100
+
+node-yaml (1.10.0-3) unstable; urgency=medium
+
+  * Flag test link to babel-jest with "test" (Closes: #980062)
+
+ -- Xavier Guimard <yadd@debian.org>  Wed, 13 Jan 2021 20:44:00 +0100
+
+node-yaml (1.10.0-2) unstable; urgency=medium
+
+  * Fix autopkgtest using pkg-js-autopkgtest ≥ 0.9.51
+
+ -- Xavier Guimard <yadd@debian.org>  Tue, 24 Nov 2020 05:51:09 +0100
+
+node-yaml (1.10.0-1) unstable; urgency=medium
+
+  * Initial release (Closes: #975508)
+
+ -- Xavier Guimard <yadd@debian.org>  Mon, 23 Nov 2020 06:07:32 +0100
