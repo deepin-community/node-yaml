@@ -1,5 +1,5 @@
-import Distribution from './Distribution';
+import { Distribution } from './Distribution';
 import { RandomGenerator } from '../generator/RandomGenerator';
-declare function uniformBigIntDistribution(from: any, to: any): Distribution<any>;
-declare function uniformBigIntDistribution(from: any, to: any, rng: RandomGenerator): [any, RandomGenerator];
+declare function uniformBigIntDistribution(from: bigint, to: bigint): Distribution<bigint>;
+declare function uniformBigIntDistribution(from: bigint, to: bigint, rng: RandomGenerator): [bigint, RandomGenerator];
 export { uniformBigIntDistribution };

@@ -1,6 +1,8 @@
 import { cloneMethod } from '../../symbols';
 import { CommandWrapper } from './CommandWrapper';
-/** @hidden */
+/**
+ * Iterable datastructure accepted as input for asyncModelRun and modelRun
+ */
 export declare class CommandsIterable<Model extends object, Real, RunResult, CheckAsync extends boolean = false> implements Iterable<CommandWrapper<Model, Real, RunResult, CheckAsync>> {
     readonly commands: CommandWrapper<Model, Real, RunResult, CheckAsync>[];
     readonly metadataForReplay: () => string;

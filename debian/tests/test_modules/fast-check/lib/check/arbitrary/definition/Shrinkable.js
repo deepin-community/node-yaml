@@ -1,52 +1,48 @@
 "use strict";
-exports.__esModule = true;
-var Stream_1 = require("../../../stream/Stream");
-var symbols_1 = require("../../symbols");
-var Shrinkable = (function () {
-    function Shrinkable(value_, shrink) {
-        if (shrink === void 0) { shrink = function () { return Stream_1.Stream.nil(); }; }
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Shrinkable = void 0;
+const Stream_1 = require("../../../stream/Stream");
+const symbols_1 = require("../../symbols");
+class Shrinkable {
+    constructor(value_, shrink = () => Stream_1.Stream.nil(), customGetValue = undefined) {
         this.value_ = value_;
         this.shrink = shrink;
-        this.hasToBeCloned = symbols_1.hasCloneMethod(value_);
+        this.hasToBeCloned = customGetValue !== undefined || (0, symbols_1.hasCloneMethod)(value_);
         this.readOnce = false;
-        Object.defineProperty(this, 'value', { get: this.getValue });
-    }
-    Shrinkable.prototype.getValue = function () {
         if (this.hasToBeCloned) {
-            if (!this.readOnce) {
-                this.readOnce = true;
-                return this.value_;
-            }
-            return this.value_[symbols_1.cloneMethod]();
+            Object.defineProperty(this, 'value', { get: customGetValue !== undefined ? customGetValue : this.getValue });
         }
-        return this.value_;
-    };
-    Shrinkable.prototype.applyMapper = function (mapper) {
-        var _this = this;
+        else {
+            this.value = value_;
+        }
+    }
+    getValue() {
+        if (!this.readOnce) {
+            this.readOnce = true;
+            return this.value_;
+        }
+        return this.value_[symbols_1.cloneMethod]();
+    }
+    applyMapper(mapper) {
         if (this.hasToBeCloned) {
-            var out = mapper(this.value);
+            const out = mapper(this.value);
             if (out instanceof Object) {
-                out[symbols_1.cloneMethod] = function () { return mapper(_this.value); };
+                out[symbols_1.cloneMethod] = () => this.applyMapper(mapper);
             }
             return out;
         }
         return mapper(this.value);
-    };
-    Shrinkable.prototype.map = function (mapper) {
-        var _this = this;
-        return new Shrinkable(this.applyMapper(mapper), function () { return _this.shrink().map(function (v) { return v.map(mapper); }); });
-    };
-    Shrinkable.prototype.filter = function (refinement) {
-        var _this = this;
-        var refinementOnShrinkable = function (s) {
-            return refinement(s.value);
+    }
+    map(mapper) {
+        return new Shrinkable(this.applyMapper(mapper), () => this.shrink().map((v) => v.map(mapper)));
+    }
+    filter(refinement) {
+        const refinementOnShrinkable = (s) => {
+            return refinement(s.value_);
         };
-        return new Shrinkable(this.value, function () {
-            return _this.shrink()
-                .filter(refinementOnShrinkable)
-                .map(function (v) { return v.filter(refinement); });
-        });
-    };
-    return Shrinkable;
-}());
+        return new Shrinkable(this.value, () => this.shrink()
+            .filter(refinementOnShrinkable)
+            .map((v) => v.filter(refinement)));
+    }
+}
 exports.Shrinkable = Shrinkable;

@@ -1,6 +1,6 @@
 import { PreconditionFailure } from './PreconditionFailure.js';
-export var pre = function (expectTruthy) {
+export function pre(expectTruthy) {
     if (!expectTruthy) {
         throw new PreconditionFailure();
     }
-};
+}

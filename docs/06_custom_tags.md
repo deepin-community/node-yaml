@@ -1,18 +1,15 @@
 # Custom Data Types
 
 ```js
-YAML.parse('!!timestamp 2001-12-15 2:59:43')
-// YAMLWarning:
-//   The tag tag:yaml.org,2002:timestamp is unavailable,
-//   falling back to tag:yaml.org,2002:str
+import { parse, parseDocument } from 'yaml'
+
+parse('2001-12-15 2:59:43')
 // '2001-12-15 2:59:43'
 
-YAML.defaultOptions.customTags = ['timestamp']
+parse('!!timestamp 2001-12-15 2:59:43')
+// 2001-12-15T02:59:43.000Z (Date instance)
 
-YAML.parse('2001-12-15 2:59:43') // returns a Date instance
-// 2001-12-15T02:59:43.000Z
-
-const doc = YAML.parseDocument('2001-12-15 2:59:43')
+const doc = parseDocument('2001-12-15 2:59:43', { customTags: ['timestamp'] })
 doc.contents.value.toDateString()
 // 'Sat Dec 15 2001'
 ```
@@ -24,16 +21,14 @@ For further customisation, `customTags` may also be a function `(Tag[]) => (Tag[
 ## Built-in Custom Tags
 
 ```js
-YAML.parse('[ one, true, 42 ]').map(v => typeof v)
-// [ 'string', 'boolean', 'number' ]
+parse('[ one, true, 42 ]')
+// [ 'one', true, 42 ]
 
-let opt = { schema: 'failsafe' }
-YAML.parse('[ one, true, 42 ]', opt).map(v => typeof v)
-// [ 'string', 'string', 'string' ]
+parse('[ one, true, 42 ]', { schema: 'failsafe' })
+// [ 'one', 'true', '42' ]
 
-opt = { schema: 'failsafe', customTags: ['int'] }
-YAML.parse('[ one, true, 42 ]', opt).map(v => typeof v)
-// [ 'string', 'string', 'number' ]
+parse('[ one, true, 42 ]', { schema: 'failsafe', customTags: ['int'] })
+// [ 'one', 'true', 42 ]
 ```
 
 ### YAML 1.2 Core Schema
@@ -57,34 +52,36 @@ If including more than one custom tag from this set, make sure that the `'float'
 
 These tags are a part of the YAML 1.1 [language-independent types](https://yaml.org/type/), but are not a part of any default YAML 1.2 schema.
 
-| Identifier    | YAML Type                                             | JS Type      | Description                                                                                                                                                                        |
-| ------------- | ----------------------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `'binary'`    | [`!!binary`](https://yaml.org/type/binary.html)       | `Uint8Array` | Binary data, represented in YAML as base64 encoded characters.                                                                                                                     |
-| `'floatTime'` | [`!!float`](https://yaml.org/type/float.html)         | `Number`     | Sexagesimal floating-point number format, e.g. `190:20:30.15`. To stringify with this tag, the node `format` must be `'TIME'`.                                                     |
-| `'intTime'`   | [`!!int`](https://yaml.org/type/int.html)             | `Number`     | Sexagesimal integer number format, e.g. `190:20:30`. To stringify with this tag, the node `format` must be `'TIME'`.                                                               |
-| `'omap'`      | [`!!omap`](https://yaml.org/type/omap.html)           | `Map`        | Ordered sequence of key: value pairs without duplicates. Using `mapAsMap: true` together with this tag is not recommended, as it makes the parse → stringify loop non-idempotent.  |
-| `'pairs'`     | [`!!pairs`](https://yaml.org/type/pairs.html)         | `Array`      | Ordered sequence of key: value pairs allowing duplicates. To create from JS, you'll need to explicitly use `'!!pairs'` as the third argument of [`createNode()`](#creating-nodes). |
-| `'set'`       | [`!!set`](https://yaml.org/type/set.html)             | `Set`        | Unordered set of non-equal values.                                                                                                                                                 |
-| `'timestamp'` | [`!!timestamp`](https://yaml.org/type/timestamp.html) | `Date`       | A point in time, e.g. `2001-12-15T02:59:43`.                                                                                                                                       |
+| Identifier    | YAML Type                                             | JS Type      | Description                                                                                                                                                                       |
+| ------------- | ----------------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `'binary'`    | [`!!binary`](https://yaml.org/type/binary.html)       | `Uint8Array` | Binary data, represented in YAML as base64 encoded characters.                                                                                                                    |
+| `'floatTime'` | [`!!float`](https://yaml.org/type/float.html)         | `Number`     | Sexagesimal floating-point number format, e.g. `190:20:30.15`. To stringify with this tag, the node `format` must be `'TIME'`.                                                    |
+| `'intTime'`   | [`!!int`](https://yaml.org/type/int.html)             | `Number`     | Sexagesimal integer number format, e.g. `190:20:30`. To stringify with this tag, the node `format` must be `'TIME'`.                                                              |
+| `'omap'`      | [`!!omap`](https://yaml.org/type/omap.html)           | `Map`        | Ordered sequence of key: value pairs without duplicates. Using `mapAsMap: true` together with this tag is not recommended, as it makes the parse → stringify loop non-idempotent. |
+| `'pairs'`     | [`!!pairs`](https://yaml.org/type/pairs.html)         | `Array`      | Ordered sequence of key: value pairs allowing duplicates. To create from JS, use `doc.createNode(array, { tag: '!!pairs' })`.                                                     |
+| `'set'`       | [`!!set`](https://yaml.org/type/set.html)             | `Set`        | Unordered set of non-equal values.                                                                                                                                                |
+| `'timestamp'` | [`!!timestamp`](https://yaml.org/type/timestamp.html) | `Date`       | A point in time, e.g. `2001-12-15T02:59:43`.                                                                                                                                      |
 
 ## Writing Custom Tags
 
 ```js
+import { YAMLMap, stringify } from 'yaml'
 import { stringifyString } from 'yaml/util'
 
 const regexp = {
   identify: value => value instanceof RegExp,
   tag: '!re',
-  resolve(doc, cst) {
-    const match = cst.strValue.match(/^\/([\s\S]+)\/([gimuy]*)$/)
+  resolve(str) {
+    const match = str.match(/^\/([\s\S]+)\/([gimuy]*)$/)
+    if (!match) throw new Error('Invalid !re value')
     return new RegExp(match[1], match[2])
   }
 }
 
 const sharedSymbol = {
-  identify: value => value.constructor === Symbol,
+  identify: value => value?.constructor === Symbol,
   tag: '!symbol/shared',
-  resolve: (doc, cst) => Symbol.for(cst.strValue),
+  resolve: str => Symbol.for(str),
   stringify(item, ctx, onComment, onChompKeep) {
     const key = Symbol.keyFor(item.value)
     if (key === undefined) throw new Error('Only shared symbols are supported')
@@ -92,49 +89,147 @@ const sharedSymbol = {
   }
 }
 
-YAML.defaultOptions.customTags = [regexp, sharedSymbol]
+class YAMLNullObject extends YAMLMap {
+  tag = '!nullobject'
+  toJSON(_, ctx) {
+    const obj = super.toJSON(_, { ...ctx, mapAsMap: false }, Object)
+    return Object.assign(Object.create(null), obj)
+  }
+}
 
-YAML.stringify({
-  regexp: /foo/gi,
-  symbol: Symbol.for('bar')
-})
+const nullObject = {
+  tag: '!nullobject',
+  collection: 'map',
+  nodeClass: YAMLNullObject,
+  identify: v => !!(typeof v === 'object' && v && !Object.getPrototypeOf(v))
+}
+
+// slightly more complicated object type
+class YAMLError extends YAMLMap {
+  tag = '!error'
+  toJSON(_, ctx) {
+    const { name, message, stack, ...rest } = super.toJSON(
+      _,
+      { ...ctx, mapAsMap: false },
+      Object
+    )
+    // craft the appropriate error type
+    const Cls =
+      name === 'EvalError'
+        ? EvalError
+        : name === 'RangeError'
+        ? RangeError
+        : name === 'ReferenceError'
+        ? ReferenceError
+        : name === 'SyntaxError'
+        ? SyntaxError
+        : name === 'TypeError'
+        ? TypeError
+        : name === 'URIError'
+        ? URIError
+        : Error
+    if (Cls.name !== name) {
+      Object.defineProperty(er, 'name', {
+        value: name,
+        enumerable: false,
+        configurable: true
+      })
+    }
+    Object.defineProperty(er, 'stack', {
+      value: stack,
+      enumerable: false,
+      configurable: true
+    })
+    return Object.assign(er, rest)
+  }
+
+  static from(schema, obj, ctx) {
+    const { name, message, stack } = obj
+    // ensure these props remain, even if not enumerable
+    return super.from(schema, { ...obj, name, message, stack }, ctx)
+  }
+}
+
+const error = {
+  tag: '!error',
+  collection: 'map',
+  nodeClass: YAMLError,
+  identify: v => !!(typeof v === 'object' && v && v instanceof Error)
+}
+
+stringify(
+  {
+    regexp: /foo/gi,
+    symbol: Symbol.for('bar'),
+    nullobj: Object.assign(Object.create(null), { a: 1, b: 2 }),
+    error: new Error('This was an error')
+  },
+  { customTags: [regexp, sharedSymbol, nullObject, error] }
+)
 // regexp: !re /foo/gi
 // symbol: !symbol/shared bar
+// nullobj: !nullobject
+//   a: 1
+//   b: 2
+// error: !error
+//   name: Error
+//   message: 'This was an error'
+//   stack: |
+//     at some-file.js:1:3
 ```
 
 In YAML-speak, a custom data type is represented by a _tag_. To define your own tag, you need to account for the ways that your data is both parsed and stringified. Furthermore, both of those processes are split into two stages by the intermediate AST node structure.
 
-If you wish to implement your own custom tags, the [`!!binary`](https://github.com/eemeli/yaml/blob/master/src/tags/yaml-1.1/binary.js) and [`!!set`](https://github.com/eemeli/yaml/blob/master/src/tags/yaml-1.1/set.js) tags provide relatively cohesive examples to study in addition to the simple examples in the sidebar here.
+If you wish to implement your own custom tags, the [`!!binary`](https://github.com/eemeli/yaml/blob/main/src/schema/yaml-1.1/binary.ts) and [`!!set`](https://github.com/eemeli/yaml/blob/main/src/schema/yaml-1.1/set.ts) tags provide relatively cohesive examples to study in addition to the simple examples in the sidebar here.
+
+Custom collection types (ie, Maps, Sets, objects, and arrays; anything with child properties that may not be propertly serialized to a scalar value) may provide a `nodeClass` property that extends the [`YAMLMap`](https://github.com/eemeli/yaml/blob/main/src/nodes/YAMLMap.ts) and [`YAMLSeq`](https://github.com/eemeli/yaml/blob/main/src/nodes/YAMLSeq.ts) classes, which will be used for parsing and stringifying objects with the specified tag.
 
 ### Parsing Custom Data
 
-At the lowest level, [`YAML.parseCST()`](#cst-parser) will take care of turning string input into a concrete syntax tree (CST). In the CST all scalar values are available as strings, and maps & sequences as collections of nodes. Each schema includes a set of default data types, which handle converting at least strings, maps and sequences into their AST nodes. These are considered to have _implicit_ tags, and are autodetected. Custom tags, on the other hand, should almost always define an _explicit_ `tag` with which their value will be prefixed. This may be application-specific local `!tag`, a shorthand `!ns!tag`, or a verbatim `!<tag:example.com,2019:tag>`.
+At the lowest level, the [`Lexer`](#lexer) and [`Parser`](#parser) will take care of turning string input into a concrete syntax tree (CST).
+In the CST all scalar values are available as strings, and maps & sequences as collections of nodes.
+Each schema includes a set of default data types, which handle converting at least strings, maps and sequences into their AST nodes.
+These are considered to have _implicit_ tags, and are autodetected.
+Custom tags, on the other hand, should almost always define an _explicit_ `tag` with which their value will be prefixed.
+This may be application-specific local `!tag`, a shorthand `!ns!tag`, or a verbatim `!<tag:example.com,2019:tag>`.
 
-Once identified by matching the `tag`, the `resolve(doc, cstNode): Node | any` function will turn a CST node into an AST node. For scalars, this is relatively simple, as the stringified node value is directly available, and should be converted to its actual value. Collections are trickier, and it's almost certain that it'll make sense to use the `parseMap(doc, cstNode)` and `parseSeq(doc, cstNode)` functions exported from `'yaml/util'` to initially resolve the CST collection into a `YAMLMap` or `YAMLSeq` object, and to work with that instead -- this is for instance what the YAML 1.1 collections do.
+Once identified by matching the `tag`, the `resolve(value, onError): Node | any` function will turn a parsed value into an AST node.
+`value` may be either a `string`, a `YAMLMap` or a `YAMLSeq`, depending on the node's shape.
+A custom tag should verify that value is of its expected type.
 
-Note that during the CST -> AST parsing, the anchors and comments attached to each node are also resolved for each node. This metadata will unfortunately be lost when converting the values to JS objects, so collections should have values that extend one of the existing collection classes. Collections should therefore either fall back to their parent classes' `toJSON()` methods, or define their own in order to allow their contents to be expressed as the appropriate JS object.
+Note that during the CST -> AST composition, the anchors and comments attached to each node are also resolved for each node.
+This metadata will unfortunately be lost when converting the values to JS objects, so collections should have values that extend one of the existing collection classes.
+Collections should therefore either fall back to their parent classes' `toJSON()` methods, or define their own in order to allow their contents to be expressed as the appropriate JS object.
 
 ### Creating Nodes and Stringifying Custom Data
 
-As with parsing, turning input data into its YAML string representation is a two-stage process as the input is first turned into an AST tree before stringifying it. This allows for metadata and comments to be attached to each node, and for e.g. circular references to be resolved. For scalar values, this means just wrapping the value within a `Scalar` class while keeping it unchanged.
+As with parsing, turning input data into its YAML string representation is a two-stage process as the input is first turned into an AST tree before stringifying it.
+This allows for metadata and comments to be attached to each node, and for e.g. circular references to be resolved.
+For scalar values, this means just wrapping the value within a `Scalar` class while keeping it unchanged.
 
-As values may be wrapped within objects and arrays, `YAML.createNode()` uses each tag's `identify(value): boolean` function to detect custom data types. For the same reason, collections need to define their own `createNode(schema, value, ctx): Collection` functions that may recursively construct their equivalent collection class instances.
+As values may be wrapped within objects and arrays, `doc.createNode()` uses each tag's `identify(value): boolean` function to detect custom data types.
+For the same reason, collections need to define their own `createNode(schema, value, ctx): Collection` functions that may recursively construct their equivalent collection class instances.
 
-Finally, `stringify(item, ctx, ...): string` defines how your data should be represented as a YAML string, in case the default stringifiers aren't enough. For collections in particular, the default stringifier should be perfectly sufficient. `'yaml/util'` exports `stringifyNumber(item)` and `stringifyString(item, ctx, ...)`, which may be of use for custom scalar data.
+Finally, `stringify(item, ctx, ...): string` defines how your data should be represented as a YAML string, in case the default stringifiers aren't enough.
+For collections in particular, the default stringifier should be perfectly sufficient.
+`'yaml/util'` exports `stringifyNumber(item)` and `stringifyString(item, ctx, ...)`, which may be of use for custom scalar data.
 
 ### Custom Tag API
 
-<!-- prettier-ignore -->
 ```js
 import {
+  createNode, // (value, tagName, ctx) => Node -- Create a new node
+  createPair, // (key, value, ctx) => Pair -- Create a new pair
+  debug, // (logLevel, ...messages) => void -- Log debug messages to console
   findPair, // (items, key) => Pair? -- Given a key, find a matching Pair
-  parseMap, // (doc, cstNode) => new YAMLMap
-  parseSeq, // (doc, cstNode) => new YAMLSeq
+  foldFlowLines, // (text, indent, mode, options) => string -- Fold long lines
+  mapTag, // CollectionTag
+  seqTag, // CollectionTag
+  stringTag, // ScalarTag
   stringifyNumber, // (node) => string
   stringifyString, // (node, ctx, ...) => string
-  toJSON, // (value, arg, ctx) => any -- Recursively convert to plain JS
-  Type, // { [string]: string } -- Used as enum for node types
-  YAMLReferenceError, YAMLSemanticError, YAMLSyntaxError, YAMLWarning
+  toJS, // (value, arg, ctx) => any -- Recursively convert to plain JS
+  warn // (logLevel, warning) => void -- Emit a warning
 } from 'yaml/util'
 ```
 
@@ -142,10 +237,9 @@ To define your own tag, you'll need to define an object comprising of some of th
 
 - `createNode(schema, value, ctx): Node` is an optional factory function, used e.g. by collections when wrapping JS objects as AST nodes.
 - `format: string` If a tag has multiple forms that should be parsed and/or stringified differently, use `format` to identify them. Used by `!!int` and `!!float`.
-- **`identify(value): boolean`** is used by `YAML.createNode` to detect your data type, e.g. using `typeof` or `instanceof`. Required.
+- **`identify(value): boolean`** is used by `doc.createNode()` to detect your data type, e.g. using `typeof` or `instanceof`. Required.
 - `nodeClass: Node` is the `Node` child class that implements this tag. Required for collections and tags that have overlapping JS representations.
-- `options: Object` is used by some tags to configure their stringification.
-- **`resolve(doc, cstNode): Node | any`** turns a CST node into an AST node; `doc` is the resulting `YAML.Document` instance. If returning a non-`Node` value, the output will be wrapped as a `Scalar`. Required.
+- **`resolve(value, onError): Node | any`** turns a parsed value into an AST node; `value` is either a `string`, a `YAMLMap` or a `YAMLSeq`. `onError(msg)` should be called with an error message string when encountering errors, as it'll allow you to still return some value for the node. If returning a non-`Node` value, the output will be wrapped as a `Scalar`. Required.
 - `stringify(item, ctx, onComment, onChompKeep): string` is an optional function stringifying the `item` AST node in the current context `ctx`. `onComment` and `onChompKeep` are callback functions for a couple of special cases. If your data includes a suitable `.toString()` method, you can probably leave this undefined and use the default stringifier.
 - **`tag: string`** is the identifier for your data type, with which its stringified form will be prefixed. Should either be a !-prefixed local `!tag`, or a fully qualified `tag:domain,date:foo`. Required.
 - `test: RegExp` and `default: boolean` allow for values to be stringified without an explicit tag and detected using a regular expression. For most cases, it's unlikely that you'll actually want to use these, even if you first think you do.

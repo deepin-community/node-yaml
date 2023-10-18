@@ -1,3 +1,3 @@
 import { property } from './Property.generated';
-import { IProperty } from './Property.generic';
-export { property, IProperty };
+import { IProperty, IPropertyWithHooks, PropertyHookFunction } from './Property.generic';
+export { property, IProperty, IPropertyWithHooks, PropertyHookFunction };

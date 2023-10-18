@@ -4,24 +4,20 @@ Upstream-Contact: https://github.com/eemeli/yaml/issues
 Source: https://eemeli.org/yaml/
 
 Files: *
-Copyright: 2018 Eemeli Aro <eemeli@gmail.com>
+Copyright: Eemeli Aro <eemeli@gmail.com>
 License: ISC
 
 Files: debian/*
-Copyright: 2020 Xavier Guimard <yadd@debian.org>
+Copyright: 2020-2022 Yadd <yadd@debian.org>
 License: ISC
-
-Files: debian/tests/test_modules/babel-plugin-trace/*
-Copyright: 2016 codemix.com
-License: Expat
-
-Files: debian/tests/test_modules/common-tags/*
-Copyright: Declan de Wet
-License: Expat
 
 Files: debian/tests/test_modules/fast-check/*
  debian/tests/test_modules/pure-rand/*
 Copyright: 2017-2018 Nicolas DUBIEN
+License: Expat
+
+Files: debian/tests/test_modules/jest-ts-webcompat-resolver/*
+Copyright: 2019 Ayogo Health Inc.
 License: Expat
 
 License: Expat

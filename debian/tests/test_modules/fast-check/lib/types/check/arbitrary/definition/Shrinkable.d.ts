@@ -1,14 +1,16 @@
 import { Stream } from '../../../stream/Stream';
 /**
- * A Shrinkable<T, TShrink = T> holds an internal value of type `T`
+ * A `Shrinkable<T, TShrink = T>` holds an internal value of type `T`
  * and can shrink it to smaller `TShrink` values
+ *
+ * @remarks Since 0.0.7
+ * @public
  */
 export declare class Shrinkable<T, TShrink extends T = T> {
-    readonly value_: T;
-    readonly shrink: () => Stream<Shrinkable<TShrink>>;
     /**
      * State storing the result of hasCloneMethod
-     * If <true> the value will be cloned each time it gets accessed
+     * If `true` the value will be cloned each time it gets accessed
+     * @remarks Since 1.8.0
      */
     readonly hasToBeCloned: boolean;
     /**
@@ -19,24 +21,32 @@ export declare class Shrinkable<T, TShrink extends T = T> {
     private readOnce;
     /**
      * Safe value of the shrinkable
-     * Depending on {@link hasToBeCloned} it will either be {@link value_} or a clone of it
+     * Depending on `hasToBeCloned` it will either be `value_` or a clone of it
+     * @remarks Since 1.8.0
      */
     readonly value: T;
     /**
-     * @param value Internal value of the shrinkable
-     * @param shrink Function producing Stream of shrinks associated to value
+     * Internal value of the shrinkable
+     * @remarks Since 1.8.0
      */
-    constructor(value_: T, shrink?: () => Stream<Shrinkable<TShrink>>);
-    /** @hidden */
-    private getValue;
-    /** @hidden */
-    private applyMapper;
+    readonly value_: T;
+    /**
+     * Function producing Stream of shrinks associated to value
+     * @remarks Since 0.0.1
+     */
+    readonly shrink: () => Stream<Shrinkable<TShrink>>;
+    /**
+     * @param value_ - Internal value of the shrinkable
+     * @param shrink - Function producing Stream of shrinks associated to value
+     * @param customGetValue - Limited to internal usages (to ease migration to next), it will be removed on next major
+     */
+    constructor(value_: T, shrink?: () => Stream<Shrinkable<TShrink>>, customGetValue?: (() => T) | undefined);
     /**
      * Create another shrinkable by mapping all values using the provided `mapper`
      * Both the original value and the shrunk ones are impacted
-     *
-     * @param mapper Map function, to produce a new element based on an old one
+     * @param mapper - Map function, to produce a new element based on an old one
      * @returns New shrinkable with mapped elements
+     * @remarks Since 0.0.1
      */
     map<U>(mapper: (t: T) => U): Shrinkable<U>;
     /**
@@ -50,8 +60,10 @@ export declare class Shrinkable<T, TShrink extends T = T> {
      * When using refinement - `(t: T) => t is U` - only the shrunk values are ensured to be of type U.
      * The type of the current value of the Shrinkable is your responsability.
      *
-     * @param refinement Predicate, to test each produced element. Return true to keep the element, false otherwise
+     * @param refinement - Predicate, to test each produced element. Return true to keep the element, false otherwise
      * @returns New shrinkable filtered using predicate
+     *
+     * @remarks Since 1.23.0
      */
     filter<U extends TShrink>(refinement: (t: TShrink) => t is U): Shrinkable<T, U>;
     /**
@@ -60,9 +72,10 @@ export declare class Shrinkable<T, TShrink extends T = T> {
      *
      * All the shrunk values produced by the resulting `Shrinkable<T>`
      * satisfy `predicate(value) == true`
-     *
-     * @param predicate Predicate, to test each produced element. Return true to keep the element, false otherwise
+     * @param predicate - Predicate, to test each produced element. Return true to keep the element, false otherwise
      * @returns New shrinkable filtered using predicate
+     *
+     * @remarks Since 0.0.1
      */
     filter(predicate: (t: TShrink) => boolean): Shrinkable<T, TShrink>;
 }

@@ -1,13 +1,21 @@
 "use strict";
-exports.__esModule = true;
-var UnbiasedProperty = (function () {
-    function UnbiasedProperty(property) {
-        var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UnbiasedProperty = void 0;
+class UnbiasedProperty {
+    constructor(property) {
         this.property = property;
-        this.isAsync = function () { return _this.property.isAsync(); };
-        this.generate = function (mrng, _runId) { return _this.property.generate(mrng); };
-        this.run = function (v) { return _this.property.run(v); };
     }
-    return UnbiasedProperty;
-}());
+    isAsync() {
+        return this.property.isAsync();
+    }
+    generate(mrng, _runId) {
+        return this.property.generate(mrng, undefined);
+    }
+    shrink(value) {
+        return this.property.shrink(value);
+    }
+    run(v) {
+        return this.property.run(v);
+    }
+}
 exports.UnbiasedProperty = UnbiasedProperty;

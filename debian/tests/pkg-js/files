@@ -1,4 +1,3 @@
-babel.config.js
-debian/tests/test_modules
+config
 src
 tests

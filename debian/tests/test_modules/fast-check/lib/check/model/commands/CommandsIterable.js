@@ -1,25 +1,25 @@
 "use strict";
-exports.__esModule = true;
-var symbols_1 = require("../../symbols");
-var CommandsIterable = (function () {
-    function CommandsIterable(commands, metadataForReplay) {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CommandsIterable = void 0;
+const symbols_1 = require("../../symbols");
+class CommandsIterable {
+    constructor(commands, metadataForReplay) {
         this.commands = commands;
         this.metadataForReplay = metadataForReplay;
     }
-    CommandsIterable.prototype[Symbol.iterator] = function () {
+    [Symbol.iterator]() {
         return this.commands[Symbol.iterator]();
-    };
-    CommandsIterable.prototype[symbols_1.cloneMethod] = function () {
-        return new CommandsIterable(this.commands.map(function (c) { return c.clone(); }), this.metadataForReplay);
-    };
-    CommandsIterable.prototype.toString = function () {
-        var serializedCommands = this.commands
-            .filter(function (c) { return c.hasRan; })
-            .map(function (c) { return c.toString(); })
+    }
+    [symbols_1.cloneMethod]() {
+        return new CommandsIterable(this.commands.map((c) => c.clone()), this.metadataForReplay);
+    }
+    toString() {
+        const serializedCommands = this.commands
+            .filter((c) => c.hasRan)
+            .map((c) => c.toString())
             .join(',');
-        var metadata = this.metadataForReplay();
-        return metadata.length !== 0 ? serializedCommands + " /*" + metadata + "*/" : serializedCommands;
-    };
-    return CommandsIterable;
-}());
+        const metadata = this.metadataForReplay();
+        return metadata.length !== 0 ? `${serializedCommands} /*${metadata}*/` : serializedCommands;
+    }
+}
 exports.CommandsIterable = CommandsIterable;

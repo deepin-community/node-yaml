@@ -1,19 +1,15 @@
 "use strict";
-exports.__esModule = true;
-var tslib_1 = require("tslib");
-var PreconditionFailure = (function (_super) {
-    tslib_1.__extends(PreconditionFailure, _super);
-    function PreconditionFailure(interruptExecution) {
-        if (interruptExecution === void 0) { interruptExecution = false; }
-        var _this = _super.call(this) || this;
-        _this.interruptExecution = interruptExecution;
-        _this.footprint = PreconditionFailure.SharedFootPrint;
-        return _this;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PreconditionFailure = void 0;
+class PreconditionFailure extends Error {
+    constructor(interruptExecution = false) {
+        super();
+        this.interruptExecution = interruptExecution;
+        this.footprint = PreconditionFailure.SharedFootPrint;
     }
-    PreconditionFailure.isFailure = function (err) {
+    static isFailure(err) {
         return err != null && err.footprint === PreconditionFailure.SharedFootPrint;
-    };
-    PreconditionFailure.SharedFootPrint = Symbol["for"]('fast-check/PreconditionFailure');
-    return PreconditionFailure;
-}(Error));
+    }
+}
 exports.PreconditionFailure = PreconditionFailure;
+PreconditionFailure.SharedFootPrint = Symbol('fast-check/PreconditionFailure');

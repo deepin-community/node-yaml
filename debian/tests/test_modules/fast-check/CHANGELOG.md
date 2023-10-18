@@ -1,971 +1,1025 @@
-# 1.24.2
+# 2.24.0
 
-_Fix `constantFrom` not compatible with older versions of node_
-
-# Fixes
-
-- ([PR#583](https://github.com/dubzzz/fast-check/pull/583)) Bug: `constantFrom` not compatible with old browsers
-- ([PR#569](https://github.com/dubzzz/fast-check/pull/569)) Clean: Prebuild to cjs extension 
-- ([PR#568](https://github.com/dubzzz/fast-check/pull/568)) Doc: Broken links
-- ([PR#575](https://github.com/dubzzz/fast-check/pull/575)) Doc: Invalid code in example of the README 
-- ([PR#578](https://github.com/dubzzz/fast-check/pull/578)) Doc: Schedule native timers
-- ([PR#576](https://github.com/dubzzz/fast-check/pull/576)) Example: Fibonacci example
-- ([PR#577](https://github.com/dubzzz/fast-check/pull/577)) Example: Fix decompPrime example for CodeSandbox
-- ([PR#581](https://github.com/dubzzz/fast-check/pull/581)) Example: Fix wrong usages of userEvent.type
-- ([PR#579](https://github.com/dubzzz/fast-check/pull/579)) Example: Race conditions with timers
-
-# 1.24.1
-
-_Fixes a code issue detected in `fc.object()` when using `withNullPrototype`_
-
-## Fixes
-
-- ([PR#567](https://github.com/dubzzz/fast-check/pull/567)) Bug: Error in the code of `fc.object()` when using `withNullPrototype`
-
-# 1.24.0
-
-_Model based testing and race condition detection_
+_Add a way to wait only for minimal stuff with `fc.scheduler`_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.24.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.23.2...v2.24.0)]
 
 ## Features
 
-- ([PR#491](https://github.com/dubzzz/fast-check/pull/491)) Add ability to run commands in a scheduled context
+- ([PR#2807](https://github.com/dubzzz/fast-check/pull/2807)) Add ability to wait until the end of a given task from `fc.scheduler`
 
 ## Fixes
 
-- ([PR#565](https://github.com/dubzzz/fast-check/pull/565)) Doc: Broken documentation build
-- ([PR#566](https://github.com/dubzzz/fast-check/pull/566)) Doc: Document how race conditions can be detected
+- ([PR#2826](https://github.com/dubzzz/fast-check/pull/2826)) Bug: Narrow return type of readConfigureGlobal
+- ([PR#2819](https://github.com/dubzzz/fast-check/pull/2819)) Doc: Corrected uniqueArray signatures
+- ([PR#2813](https://github.com/dubzzz/fast-check/pull/2813)) Doc: Add examples based on supertest
 
 ---
 
-# 1.23.0
+# 2.23.2
 
-_Better typings for `filter` and `oneof` plus support for null prototypes_
-
-## Features
-
-- ([PR#548](https://github.com/dubzzz/fast-check/pull/548)) Stringify should distinguish `{}` from `Object.create(null)` 
-- ([PR#552](https://github.com/dubzzz/fast-check/pull/552)) Add ability to generate objects without prototype
-- ([PR#555](https://github.com/dubzzz/fast-check/pull/555)) Support type guards while filtering :warning:
-- ([PR#556](https://github.com/dubzzz/fast-check/pull/556)) Better typings for oneof and frequency :warning:
+_Add missing "types" to "exports" for all dependencies_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.23.2)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.23.1...v2.23.2)]
 
 ## Fixes
 
-- ([PR#554](https://github.com/dubzzz/fast-check/pull/554)) Doc: Add an example on atomic Counter for race conditions feature
-- ([PR#557](https://github.com/dubzzz/fast-check/pull/557)) Doc: Add example based on decomposition in prime numbers
+- ([PR#2806](https://github.com/dubzzz/fast-check/pull/2806)) Bug: Bump `pure-rand` for `moduleResolution` fix
+- ([PR#2805](https://github.com/dubzzz/fast-check/pull/2805)) Test: Run fast-check against `--moduleResolution nodenext`
+
+# 2.23.1
+
+_Add missing "types" to "exports"_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.23.1)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.23.0...v2.23.1)]
+
+## Fixes
+
+- ([PR#2803](https://github.com/dubzzz/fast-check/pull/2803)) Bug: Add `"types"` to `"exports"`
+- ([PR#2793](https://github.com/dubzzz/fast-check/pull/2793)) Clean: Remove unused test on array
+- ([PR#2789](https://github.com/dubzzz/fast-check/pull/2789)) Script: Generate changelog also bumps the npm version
+- ([PR#2791](https://github.com/dubzzz/fast-check/pull/2791)) Script: Properly change package.json when generating changelog
+
+# 2.23.0
+
+_Introduce `fc.uniqueArray` as a replacement for `fc.set`_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.23.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.22.0...v2.23.0)]
+
+## Features
+
+- ([PR#2616](https://github.com/dubzzz/fast-check/pull/2616)) Add new arbitrary called `uniqueArray`
+- ([PR#2784](https://github.com/dubzzz/fast-check/pull/2784)) Mark `fc.set` as deprecated
+
+## Fixes
+
+- ([PR#2786](https://github.com/dubzzz/fast-check/pull/2786)) CI: Stop creating the tags via action
+- ([PR#2787](https://github.com/dubzzz/fast-check/pull/2787)) CI: Preserve Jest's cache accross runs
+- ([PR#2750](https://github.com/dubzzz/fast-check/pull/2750)) Doc: Reorder assert overloads to render better documentation
+- ([PR#2785](https://github.com/dubzzz/fast-check/pull/2785)) Script: Mark changes for "deprecated" as feature
+- ([PR#2766](https://github.com/dubzzz/fast-check/pull/2766)) Test: Add some tests onto `ArrayArbitrary`
+- ([PR#2783](https://github.com/dubzzz/fast-check/pull/2783)) Test: Better coverage for `selector` and `comparator` in `uniqueArray`
 
 ---
 
-# 1.22.2
+# 2.22.0
 
-_Remove unused files from the final bundle_
-
-## Fixes
-
-- ([PR#550](https://github.com/dubzzz/fast-check/pull/550)) Clean: Switch from npmignore to files to whitelist bundled files instead of blacklisting them
-- ([PR#549](https://github.com/dubzzz/fast-check/pull/549)) Clean: Various typos in letrec unit-test
-- ([PR#551](https://github.com/dubzzz/fast-check/pull/551)) Clean: CI was not considered as failed when examples failed
-
-# 1.22.1
-
-_Fix broken bundle_
-
-# 1.22.0
-
-_Better random values and ability to shrink very large data-structures_
+_Introduce the notion of `size` to avoid having to specify `maxLength` not being real constraints_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.22.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.21.0...v2.22.0)]
 
 ## Features
 
-- ([PR#534](https://github.com/dubzzz/fast-check/pull/534)) Better independance between generated values during a test suite :warning:
-- ([PR#536](https://github.com/dubzzz/fast-check/pull/536)) Exclude internationalized-like domains :warning: - ([PR#538](https://github.com/dubzzz/fast-check/pull/538))
-- ([PR#537](https://github.com/dubzzz/fast-check/pull/537)) Add xoroshiro128plsu in the list of random generators
-- ([PR#539](https://github.com/dubzzz/fast-check/pull/539)) Add js extension onto esm files
-- ([PR#540](https://github.com/dubzzz/fast-check/pull/540)) Add metadata on the generated sources (see `fc.__version`)
+- ([PR#2652](https://github.com/dubzzz/fast-check/pull/2652)) Stop defaulting `maxLength` when not provided on arrays
+- ([PR#2664](https://github.com/dubzzz/fast-check/pull/2664)) Support shrink of any length with `stringOf`
+- ([PR#2666](https://github.com/dubzzz/fast-check/pull/2666)) Introduce the notion of `size`
+- ([PR#2668](https://github.com/dubzzz/fast-check/pull/2668)) Introduce the notion of relative `size`
+- ([PR#2669](https://github.com/dubzzz/fast-check/pull/2669)) Add ability to configure a base size
+- ([PR#2670](https://github.com/dubzzz/fast-check/pull/2670)) Add built-in support for `size` to `set`
+- ([PR#2671](https://github.com/dubzzz/fast-check/pull/2671)) Add ability to configure constraints on `dictionary`
+- ([PR#2673](https://github.com/dubzzz/fast-check/pull/2673)) Add support for size onto object arbitraries
+- ([PR#2672](https://github.com/dubzzz/fast-check/pull/2672)) Add support for size onto string arbitraries
+- ([PR#2690](https://github.com/dubzzz/fast-check/pull/2690)) Add support for `size` onto `sparseArray`
+- ([PR#2699](https://github.com/dubzzz/fast-check/pull/2699)) Forward size of `anything` to underlying `sparseArray`
+- ([PR#2701](https://github.com/dubzzz/fast-check/pull/2701)) Make ipV6 independent of size global settings
+- ([PR#2700](https://github.com/dubzzz/fast-check/pull/2700)) Add support for size on typed arrays
+- ([PR#2703](https://github.com/dubzzz/fast-check/pull/2703)) Add support for `size` onto `lorem`
+- ([PR#2712](https://github.com/dubzzz/fast-check/pull/2712)) Add support for sized webUrl and related
+- ([PR#2728](https://github.com/dubzzz/fast-check/pull/2728)) Add support for `size` on `commands`
 
 ## Fixes
 
-- ([PR#505](https://github.com/dubzzz/fast-check/pull/505)) Bug: Fix stack overflow when shrinking large arrays
-- ([PR#541](https://github.com/dubzzz/fast-check/pull/541)) Bug: Fix stack overflow when shrinking large arrays of commands
-- ([PR#511](https://github.com/dubzzz/fast-check/pull/511)) Doc: Add Jest example in the README
-- ([PR#542](https://github.com/dubzzz/fast-check/pull/542)) Doc: Example with function arbitrary
-- ([PR#518](https://github.com/dubzzz/fast-check/pull/518)) Doc: Fix typos in Arbitraries.md
-- ([PR#523](https://github.com/dubzzz/fast-check/pull/523)) Doc: Fix typos in Arbitraries.md
-- ([PR#533](https://github.com/dubzzz/fast-check/pull/533)) Doc: Fix typos in Arbitraries.md
-- ([PR#529](https://github.com/dubzzz/fast-check/pull/529)) Doc: Tip explaining how to avoid timeouts
-- ([PR#519](https://github.com/dubzzz/fast-check/pull/519)) Clean: Add missing files in \*ignore
-- ([PR#535](https://github.com/dubzzz/fast-check/pull/535)) Clean: Better logs for GenericArbitraryHelper
+- ([PR#2674](https://github.com/dubzzz/fast-check/pull/2674)) Bug: `fc.object` not applying constraint `maxKeys` at root
+- ([PR#2675](https://github.com/dubzzz/fast-check/pull/2675)) Bug: Don't shrink array with trailing hole when not supporting it
+- ([PR#2709](https://github.com/dubzzz/fast-check/pull/2709)) Bug: Cap the max generated length with max length
+- ([PR#2725](https://github.com/dubzzz/fast-check/pull/2725)) Bug: Pass length related constraints to internals in `anything`
+- ([PR#2727](https://github.com/dubzzz/fast-check/pull/2727)) Bug: Pass size to any key and default value in `anything`
+- ([PR#2639](https://github.com/dubzzz/fast-check/pull/2639)) CI: Properly define the tag when publishing versions
+- ([PR#2661](https://github.com/dubzzz/fast-check/pull/2661)) CI: Support fire emoji in changelog
+- ([PR#2660](https://github.com/dubzzz/fast-check/pull/2660)) Clean: Remove redundant computation in `sparseArray`
+- ([PR#2649](https://github.com/dubzzz/fast-check/pull/2649)) Refactor: Split maxLength into two facets inside the internal for arrays
+- ([PR#2676](https://github.com/dubzzz/fast-check/pull/2676)) Test: Add more tests around shrinker of `sparseArray`
+- ([PR#2702](https://github.com/dubzzz/fast-check/pull/2702)) Test: More stable test on StrictlyEqualSet
+- ([PR#2710](https://github.com/dubzzz/fast-check/pull/2710)) Test: Add more tests on size related helpers
+- ([PR#2729](https://github.com/dubzzz/fast-check/pull/2729)) Test: Stabilize tests of `adapter` by switching to `Object.is`
 
 ---
 
-# 1.21.0
+# 2.21.0
 
-_Better typings for `beforeEach` and `afterEach` and more options on `fc.scheduler`_
+_More performant arbitrary for arrays of unique values_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.21.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.20.0...v2.21.0)]
 
 ## Features
 
-- ([PR#493](https://github.com/dubzzz/fast-check/pull/493)) Automatically wrap tasks using an `act` function in `fc.scheduler` if provided
-- ([PR#492](https://github.com/dubzzz/fast-check/pull/492)) Also return the sequence task in `fc.scheduleSequence`
-- ([PR#489](https://github.com/dubzzz/fast-check/pull/489)) Allow looser types for beforeEach and afterEach, more accurate and stricter types :warning:
+- ([PR#2600](https://github.com/dubzzz/fast-check/pull/2600)) Improve performance of `set`
+- ([PR#2601](https://github.com/dubzzz/fast-check/pull/2601)) Selector-based compare for `set`
+- ([PR#2602](https://github.com/dubzzz/fast-check/pull/2602)) Add types of operators for set
+- ([PR#2603](https://github.com/dubzzz/fast-check/pull/2603)) Switch to optimized compare of set internally
+- ([PR#2617](https://github.com/dubzzz/fast-check/pull/2617)) Use relevant comparator to build `anything`
 
 ## Fixes
 
-- ([PR#509](https://github.com/dubzzz/fast-check/pull/509)) Bug: `letrec` crashed when asking to generate `__proto__`
-- ([PR#510](https://github.com/dubzzz/fast-check/pull/510)) Bug: `letrec` crashed when builder instantiates an object having `__proto__` set to `null`
-- ([PR#503](https://github.com/dubzzz/fast-check/pull/503)) Doc: Note on `expect` or `assert`
+- ([PR#2594](https://github.com/dubzzz/fast-check/pull/2594)) CI: More verbose "please debug"
+- ([PR#2595](https://github.com/dubzzz/fast-check/pull/2595)) CI: More generic "please merge"
+- ([PR#2597](https://github.com/dubzzz/fast-check/pull/2597)) CI: Rewrite "please merge" with JavaScript
+- ([PR#2598](https://github.com/dubzzz/fast-check/pull/2598)) CI: Wrong ref retrieval in "please merge"
+- ([PR#2599](https://github.com/dubzzz/fast-check/pull/2599)) CI: Nicer log in "please merge"
+- ([PR#2618](https://github.com/dubzzz/fast-check/pull/2618)) CI: Attempt to generate changelog from GitHub Actions
+- ([PR#2619](https://github.com/dubzzz/fast-check/pull/2619)) CI: Verbose fails when generating changelogs
+- ([PR#2620](https://github.com/dubzzz/fast-check/pull/2620)) CI: Attempt to fix action building changelog
+- ([PR#2621](https://github.com/dubzzz/fast-check/pull/2621)) CI: Do not quote changes for changelog computation
+- ([PR#2622](https://github.com/dubzzz/fast-check/pull/2622)) CI: Do not scope variables inside try/catch for changelog
+- ([PR#2623](https://github.com/dubzzz/fast-check/pull/2623)) CI: Report errors in logs instead of throwing when computing changelog
+- ([PR#2624](https://github.com/dubzzz/fast-check/pull/2624)) CI: Fix typo when building maintenance changelog
+- ([PR#2625](https://github.com/dubzzz/fast-check/pull/2625)) CI: Last little changes to adapt auto changelog script
+- ([PR#2626](https://github.com/dubzzz/fast-check/pull/2626)) CI: Add a publish version GitHub Action
+- ([PR#2629](https://github.com/dubzzz/fast-check/pull/2629)) CI: Extract the script generating changelog
+- ([PR#2630](https://github.com/dubzzz/fast-check/pull/2630)) CI: Create PRs with updated CHANGELOG.md from action
+- ([PR#2631](https://github.com/dubzzz/fast-check/pull/2631)) CI: Import from fs and not fs/promises for action
+- ([PR#2632](https://github.com/dubzzz/fast-check/pull/2632)) CI: Fill head with the name of the newly created branch
+- ([PR#2634](https://github.com/dubzzz/fast-check/pull/2634)) CI: Better naming for branches generated by actions
+- ([PR#2636](https://github.com/dubzzz/fast-check/pull/2636)) CI: Some refinements for commit name of actions
 
 ---
 
-# 1.20.1
+# 2.20.0
 
-_Reduce bundle size_
-
-## Fixes
-
-- ([PR#494](https://github.com/dubzzz/fast-check/pull/494)) Clean: Remove tsbuildinfo files from the bundle
-- ([PR#495](https://github.com/dubzzz/fast-check/pull/495)) Clean: Remove unneeded `@param` in JSDoc of `property` and `tuple`
-
-# 1.20.0
-
-_Built-in support for race condition detection_
+_Some refinements on object-related arbitraries_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.20.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.19.0...v2.20.0)]
 
 ## Features
 
-- ([PR#479](https://github.com/dubzzz/fast-check/pull/479)) Add `fc.scheduler` arbitrary
+- ([PR#2459](https://github.com/dubzzz/fast-check/pull/2459)) More precise typings for `json` and `unicodeJson` :warning:
+- ([PR#2461](https://github.com/dubzzz/fast-check/pull/2461)) Mark `integer(min, max)` as deprecated
+- ([PR#2460](https://github.com/dubzzz/fast-check/pull/2460)) More precise typing for jsonObject and related :warning:
+- ([PR#2463](https://github.com/dubzzz/fast-check/pull/2463)) Mark forked typings of pure-rand as deprecated
+- ([PR#2465](https://github.com/dubzzz/fast-check/pull/2465)) Warn users earlier for wrong params on integer :warning:
+- ([PR#2490](https://github.com/dubzzz/fast-check/pull/2490)) `depthFactor` on arbitraries for objects
+- ([PR#2464](https://github.com/dubzzz/fast-check/pull/2464)) Prepare rename of `jsonObject` into `jsonValue`
 
 ## Fixes
 
-- ([PR#487](https://github.com/dubzzz/fast-check/pull/487)) Doc: Clean autocomplete example
+- ([PR#2496](https://github.com/dubzzz/fast-check/pull/2496)) Bug: No dangerous transform in codemod
+- ([PR#2480](https://github.com/dubzzz/fast-check/pull/2480)) Doc: Remove outdated dependabot's badge
+- ([PR#2493](https://github.com/dubzzz/fast-check/pull/2493)) Refactor: Simplify codemod to be more focused
+- ([PR#2458](https://github.com/dubzzz/fast-check/pull/2458)) Test: Avoid Error tags in reports caused by some tests
+- ([PR#2492](https://github.com/dubzzz/fast-check/pull/2492)) Test: Add some tests for codemods
+- ([PR#2497](https://github.com/dubzzz/fast-check/pull/2497)) Test: Check codemod against several parsers
+- ([PR#2472](https://github.com/dubzzz/fast-check/pull/2472)) Typo: Documentation fix for `fc.oneof`
+- ([PR#2508](https://github.com/dubzzz/fast-check/pull/2508)) Typo: Fix various typos in the documentation
 
 ---
 
-# 1.19.0
+# 2.19.0
 
-_Interrupt test-suites after a given delay while the number of runs have not been reached_
+_Move to next generation of properties and unlock shrink on user definable examples_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.19.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.18.0...v2.19.0)]
 
 ## Features
 
-- ([PR#428](https://github.com/dubzzz/fast-check/pull/428)) Implement `interruptAfterTimeLimit`
-- ([PR#463](https://github.com/dubzzz/fast-check/pull/463)) Adapt and expose `IRawProperty`, `IProperty` and `IAsyncProperty` types
+- ([PR#2391](https://github.com/dubzzz/fast-check/pull/2391)) Automatically shrink user defined examples
+- ([PR#2393](https://github.com/dubzzz/fast-check/pull/2393)) Support shrink on examples with unshrinkable parts
+- ([PR#2395](https://github.com/dubzzz/fast-check/pull/2395)) Better shrinker for arrays requested minLength
+- ([PR#2423](https://github.com/dubzzz/fast-check/pull/2423)) Make fixed sized arrays as biased as tuples
 
 ## Fixes
 
-- ([PR#455](https://github.com/dubzzz/fast-check/pull/455)) Clean: Add watch mode test and build scripts
-- ([PR#456](https://github.com/dubzzz/fast-check/pull/456)) Clean: Bump all dev dependencies
-- ([PR#457](https://github.com/dubzzz/fast-check/pull/457)) Clean: Use `ts-jest/utils` `mocked` instead of our own `mockModule`
-- ([PR#449](https://github.com/dubzzz/fast-check/pull/449)) Clean: Moving away from npm, switching to yarn
-- ([PR#471](https://github.com/dubzzz/fast-check/pull/471)) Clean: Minor fixes related to internal typings
-- ([PR#473](https://github.com/dubzzz/fast-check/pull/473)) Clean: Remove unused variables in units
-- ([PR#474](https://github.com/dubzzz/fast-check/pull/474)) Clean: Enable no-unused-vars eslint rule
-- ([PR#465](https://github.com/dubzzz/fast-check/pull/465)) Doc: Examples served by CodeSandbox and improvement of the examples - ([PR#466](https://github.com/dubzzz/fast-check/pull/466)), ([PR#467](https://github.com/dubzzz/fast-check/pull/467)), ([PR#469](https://github.com/dubzzz/fast-check/pull/469)), ([PR#470](https://github.com/dubzzz/fast-check/pull/470)), ([PR#472](https://github.com/dubzzz/fast-check/pull/472)), ([PR#476](https://github.com/dubzzz/fast-check/pull/476))
-- ([PR#475](https://github.com/dubzzz/fast-check/pull/475)) Test: Do not run travis outside of master and PRs for master
-- ([PR#464](https://github.com/dubzzz/fast-check/pull/464)) Test: Add tests for typings based on tsd
-- ([PR#481](https://github.com/dubzzz/fast-check/pull/481)) Test: Configure CodeSandbox CI
+- ([PR#2371](https://github.com/dubzzz/fast-check/pull/2371)) Refactor: Declare API and converters for the next gen property
+- ([PR#2372](https://github.com/dubzzz/fast-check/pull/2372)) Refactor: Migrate runners to rely on next gen properties
+- ([PR#2373](https://github.com/dubzzz/fast-check/pull/2373)) Refactor: Migrate UnbiasedProperty to next gen property
+- ([PR#2374](https://github.com/dubzzz/fast-check/pull/2374)) Refactor: Migrate IgnoreEqualValuesProperty to next gen property
+- ([PR#2375](https://github.com/dubzzz/fast-check/pull/2375)) Refactor: Migrate TimeoutProperty to next gen property
+- ([PR#2376](https://github.com/dubzzz/fast-check/pull/2376)) Refactor: Migrate SkipAfterProperty to next gen property
+- ([PR#2387](https://github.com/dubzzz/fast-check/pull/2387)) Refactor: Produce next gen properties via decorateProperty
+- ([PR#2388](https://github.com/dubzzz/fast-check/pull/2388)) Refactor: Migrate property builders to produce next gen
+- ([PR#2377](https://github.com/dubzzz/fast-check/pull/2377)) Typo: Typo in error thrown when invalid arguments passed to frequency
+- ([PR#2394](https://github.com/dubzzz/fast-check/pull/2394)) Bug: Properly re-wrap values on shrink in properties
+- ([PR#2399](https://github.com/dubzzz/fast-check/pull/2399)) Test: Ensure correct min/max for float32/64Arrays in tests
+- ([PR#2402](https://github.com/dubzzz/fast-check/pull/2402)) Test: Reduce the maximal minLength requested in tests
+- ([PR#2415](https://github.com/dubzzz/fast-check/pull/2415)) Refactor: Update the way we use flags for mixedCase
+- ([PR#2416](https://github.com/dubzzz/fast-check/pull/2416)) Refactor: Do not favor numeric values over others in json arbitraries
+- ([PR#2403](https://github.com/dubzzz/fast-check/pull/2403)) Test: Better asserts of shrinks by going deeper in path
+- ([PR#2417](https://github.com/dubzzz/fast-check/pull/2417)) Bug: Unmapper function of hexa was not unmapping properly
+- ([PR#2421](https://github.com/dubzzz/fast-check/pull/2421)) Bug: Accept already cloneable values as output of .map
+- ([PR#2424](https://github.com/dubzzz/fast-check/pull/2424)) CI: Run tests with verbose flag enabled
+- ([PR#2426](https://github.com/dubzzz/fast-check/pull/2426)) Doc: Document shrink of user definable values
+- ([PR#2427](https://github.com/dubzzz/fast-check/pull/2427)) Test: Stop flakiness on legacy tests of float/double
 
 ---
 
-# 1.18.1
+# 2.18.1
 
-_Typings regression for `fc.object`_
+_Fix regression when mapper returns an already cloneable value_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.18.1)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.18.0...v2.18.1)]
 
 ## Fixes
 
-- Bug: Typing regression on `fc.object`
+- ([PR#2421](https://github.com/dubzzz/fast-check/pull/2421)) Bug: Accept already cloneable values as output of `.map`
 
-# 1.18.0
+# 2.18.0
 
-_Support for global parameters with `fc.configureGlobal(parameters)`_
+_All built-ins arbitraries rely on the new API and most of them can now shrink user-definable values_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.18.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.17.0...v2.18.0)]
 
 ## Features
 
-- ([PR#439](https://github.com/dubzzz/fast-check/pull/439)) Support for global parameters
+- ([PR#2031](https://github.com/dubzzz/fast-check/pull/2031)) Add built-in unmapper support onto uuid and uuidV
+- ([PR#2035](https://github.com/dubzzz/fast-check/pull/2035)) Add built-in unmapper support onto domain
+- ([PR#2036](https://github.com/dubzzz/fast-check/pull/2036)) Add built-in unmapper support onto emailAddress
+- ([PR#2037](https://github.com/dubzzz/fast-check/pull/2037)) Add built-in unmapper support onto webAuthority
+- ([PR#2056](https://github.com/dubzzz/fast-check/pull/2056)) Add built-in unmapper support onto webUrl
+- ([PR#2089](https://github.com/dubzzz/fast-check/pull/2089)) Add built-in unmapper support onto object arbitraries
+- ([PR#2199](https://github.com/dubzzz/fast-check/pull/2199)) Add built-in unmapper support onto float
+- ([PR#2200](https://github.com/dubzzz/fast-check/pull/2200)) Add built-in unmapper support onto double
+- ([PR#2204](https://github.com/dubzzz/fast-check/pull/2204)) Add built-in unmapper support onto typed-arrays
+- ([PR#2309](https://github.com/dubzzz/fast-check/pull/2309)) Lighter implementation for anything arbitrary
+- ([PR#2318](https://github.com/dubzzz/fast-check/pull/2318)) Implement unmapping for sparseArray
+- ([PR#2361](https://github.com/dubzzz/fast-check/pull/2361)) Add umapping capabilities on mixedCase
 
 ## Fixes
 
-- ([PR#438](https://github.com/dubzzz/fast-check/pull/438)) Clean: Add sideEffects flag into package.json
-- ([PR#440](https://github.com/dubzzz/fast-check/pull/440)) Clean: Migrate from tslint to eslint - ([PR#447](https://github.com/dubzzz/fast-check/pull/447)), ([PR#451](https://github.com/dubzzz/fast-check/pull/451))
-- ([PR#443](https://github.com/dubzzz/fast-check/pull/443)) Doc: Export missing `WeightedArbitrary`
-- ([PR#444](https://github.com/dubzzz/fast-check/pull/444)) Doc: Add missing documentation for `fc.frequency`
-- ([PR#446](https://github.com/dubzzz/fast-check/pull/446)) Doc: Add code contributors widget directly in README.md
-- ([PR#436](https://github.com/dubzzz/fast-check/pull/436)) Typings: Better typings for `fc.anything`-like arbitraries
+- ([PR#2262](https://github.com/dubzzz/fast-check/pull/2262)) Bug: Cap auto-maxLength of array to 2\*\*31-1
+- ([PR#2359](https://github.com/dubzzz/fast-check/pull/2359)) Bug: Too many keys in the sparse arrays of anything
+- ([PR#2256](https://github.com/dubzzz/fast-check/pull/2256)) CI: Check typings against RC releases of TypeScript
+- ([PR#2087](https://github.com/dubzzz/fast-check/pull/2087)) Doc: Clarify the case of -0 on jsonObject and unicodeJsonObject
+- ([PR#2237](https://github.com/dubzzz/fast-check/pull/2237)) Doc: stringify then parse in code example
+- ([PR#2308](https://github.com/dubzzz/fast-check/pull/2308)) Doc: Use predicate instead of property to define a property
+- ([PR#2368](https://github.com/dubzzz/fast-check/pull/2368)) Doc: Update contributing guide
+- ([PR#2032](https://github.com/dubzzz/fast-check/pull/2032)) Move: Move web arbitraries into /arbitrary
+- ([PR#2033](https://github.com/dubzzz/fast-check/pull/2033)) Move: Move text escapers into internals of /arbitrary
+- ([PR#2034](https://github.com/dubzzz/fast-check/pull/2034)) Move: Move sparseArray arbitrary into /arbitrary
+- ([PR#2085](https://github.com/dubzzz/fast-check/pull/2085)) Move: Move object arbitraries into /arbitrary
+- ([PR#2090](https://github.com/dubzzz/fast-check/pull/2090)) Move: Move floating point arbitraries into /arbitrary
+- ([PR#2154](https://github.com/dubzzz/fast-check/pull/2154)) Move: Move commands arbitrary into /arbitrary
+- ([PR#2366](https://github.com/dubzzz/fast-check/pull/2366)) Move: Move and clean tests helpers
+- ([PR#2153](https://github.com/dubzzz/fast-check/pull/2153)) Refactor: Migrate commands to NextArbitrary
+- ([PR#2150](https://github.com/dubzzz/fast-check/pull/2150)) Refactor: Migrate \*subarray to NextArbitrary
+- ([PR#2339](https://github.com/dubzzz/fast-check/pull/2339)) Refactor: Simplify conversion to qualified object's constraints
+- ([PR#2177](https://github.com/dubzzz/fast-check/pull/2177)) Script: Add test:debug script for easier debugging
+- ([PR#2091](https://github.com/dubzzz/fast-check/pull/2091)) Test: Rewrite tests on next generation of floating point arbitraries
+- ([PR#2146](https://github.com/dubzzz/fast-check/pull/2146)) Test: Fix tests on legacy versions of integer
+- ([PR#2151](https://github.com/dubzzz/fast-check/pull/2151)) Test: Rework no regressions tests for subarrays
+- ([PR#2178](https://github.com/dubzzz/fast-check/pull/2178)) Test: Rewrite tests on subarray
+- ([PR#2198](https://github.com/dubzzz/fast-check/pull/2198)) Test: Rewrite tests dealing with typed arrays
+- ([PR#2205](https://github.com/dubzzz/fast-check/pull/2205)) Test: Rewrite tests on legacy float/double
+- ([PR#2209](https://github.com/dubzzz/fast-check/pull/2209)) Test: Rewrite tests dealing with sparseArray
+- ([PR#2210](https://github.com/dubzzz/fast-check/pull/2210)) Test: Rewrite func-related tests
+- ([PR#2263](https://github.com/dubzzz/fast-check/pull/2263)) Test: Add some basic tests for array and set
+- ([PR#2291](https://github.com/dubzzz/fast-check/pull/2291)) Test: Adapt e2e on scheduler for node 16
+- ([PR#2274](https://github.com/dubzzz/fast-check/pull/2274)) Test: Make sure --exactOptionalPropertyTypes is properly handled
+- ([PR#2315](https://github.com/dubzzz/fast-check/pull/2315)) Test: Migrate tests of arrayInt64 to new format
+- ([PR#2338](https://github.com/dubzzz/fast-check/pull/2338)) Test: Add tests for JSON arbitraries
+- ([PR#2360](https://github.com/dubzzz/fast-check/pull/2360)) Test: Move tests on object to new approach
+- ([PR#2365](https://github.com/dubzzz/fast-check/pull/2365)) Test: Move tests on mixedCase to new approach
+- ([PR#2059](https://github.com/dubzzz/fast-check/pull/2059)) Typo: Invalid HTML element in PureRand.ts
+- ([PR#2149](https://github.com/dubzzz/fast-check/pull/2149)) Typo: Remove unused arbitraries from properties in unit-tests
+- ([PR#2147](https://github.com/dubzzz/fast-check/pull/2147)) Typo: Clean badly renamed import in integer
 
 ---
 
-# 1.17.0
+# 2.17.1
 
-_Multiple new arbitraries: date, ipv4 extended, uuid, mixed case and many settings_
-
-## Features
-
-- ([PR#420](https://github.com/dubzzz/fast-check/pull/420)) Add `fc.date` arbitrary
-- ([PR#427](https://github.com/dubzzz/fast-check/pull/427)) Add `fc.mixedCase` arbitrary
-- ([PR#393](https://github.com/dubzzz/fast-check/pull/393)) Support all the range of valid ipV4 with `fc.ipV4Extended` arbitrary
-- ([PR#401](https://github.com/dubzzz/fast-check/pull/401)) Add ability to customize the null value of `fc.option`
-- ([PR#411](https://github.com/dubzzz/fast-check/pull/411)) Add `fc.uuid` arbitrary
-- ([PR#433](https://github.com/dubzzz/fast-check/pull/433)) Add `fc.uuidV` to tackle specific version of uuid
-- ([PR#400](https://github.com/dubzzz/fast-check/pull/400)) Add `withObjectString` flag in `fc.object`/`fc.anything`
+_Fix regression when mapper returns an already cloneable value_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.17.1)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.17.0...v2.17.1)]
 
 ## Fixes
 
-- ([PR#425](https://github.com/dubzzz/fast-check/pull/425)) Bug: skipAllAfterTimeLimit throws when it passes time limit
-- ([PR#409](https://github.com/dubzzz/fast-check/pull/409)) Bug: Web authority should not produce port outside 0-65535
-- ([PR#418](https://github.com/dubzzz/fast-check/pull/418)) Bug: Infinite loop when path is one level deep and all runs succeed
-- ([PR#430](https://github.com/dubzzz/fast-check/pull/430)) Bug: No timeout expiration on node blocks exit
-- ([PR#396](https://github.com/dubzzz/fast-check/pull/396)) Clean: Update dependencies and dev dependencies
-- ([PR#432](https://github.com/dubzzz/fast-check/pull/432)) Clean: Prepare code for ts3.7-pr33401
-- ([PR#410](https://github.com/dubzzz/fast-check/pull/410)) Contrib: Document how to add new arbitraries in fast-check
-- ([PR#408](https://github.com/dubzzz/fast-check/pull/408)) Doc: Usage in conjonction with faker
-- ([PR#412](https://github.com/dubzzz/fast-check/pull/412)) Doc: Diff format in shrinking example
-- ([PR#414](https://github.com/dubzzz/fast-check/pull/414)) Doc: Update ts-jest config (tsConfigFile -> tsConfig)
-- ([PR#417](https://github.com/dubzzz/fast-check/pull/417)) Doc: Add section "Migrate from jsverify to fast-check"
-- ([PR#434](https://github.com/dubzzz/fast-check/pull/434)) Doc: Add table of contents on top of the documentation
-- ([PR#397](https://github.com/dubzzz/fast-check/pull/397)) Test: Reduce flakyness of tests on letrec
-- ([PR#422](https://github.com/dubzzz/fast-check/pull/422)) Test: Rework unit tests of DateArbitrary
+- ([PR#2421](https://github.com/dubzzz/fast-check/pull/2421)) Bug: Accept already cloneable values as output of `.map`
+
+# 2.17.0
+
+_Better typings for `constantFrom` and better support for Promises in `stringify`_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.17.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.16.0...v2.17.0)]
+
+## Features
+
+- ([PR#1969](https://github.com/dubzzz/fast-check/pull/1969)) Enhance typings of constantFrom
+- ([PR#1953](https://github.com/dubzzz/fast-check/pull/1953)) Speed-up random by using unsafe methods of pure-rand
+- ([PR#1996](https://github.com/dubzzz/fast-check/pull/1996)) Fork paths of array/set in ArrayArbitrary::generate
+- ([PR#1984](https://github.com/dubzzz/fast-check/pull/1984)) Async reporters can enrich the output with async data
+- ([PR#1972](https://github.com/dubzzz/fast-check/pull/1972)) Enhance stringify on Promise
+- ([PR#2006](https://github.com/dubzzz/fast-check/pull/2006)) Support custom\* async serializer in stringify (\*via internal symbol)
+- ([PR#2015](https://github.com/dubzzz/fast-check/pull/2015)) Forward the custom toString methods of the underlying commands
+- ([PR#2014](https://github.com/dubzzz/fast-check/pull/2014)) Better stringified value for func producing async values
+- ([PR#2018](https://github.com/dubzzz/fast-check/pull/2018)) Better stringified value for infiniteStream producing async values
+- ([PR#2019](https://github.com/dubzzz/fast-check/pull/2019)) Expose custom to string methods
+
+## Fixes
+
+- ([PR#1997](https://github.com/dubzzz/fast-check/pull/1997)) Bug: Default reporter performed side-effects on the output
+- ([PR#2017](https://github.com/dubzzz/fast-check/pull/2017)) Bug: Better detection for objects that could define cloneMethod in `map`
+- ([PR#2016](https://github.com/dubzzz/fast-check/pull/2016)) Bug: Safer check for cloneMethod to also support prototype-less objects
+- ([PR#1954](https://github.com/dubzzz/fast-check/pull/1954)) CI: Rewrite reaction to comment action using github-script
+- ([PR#1981](https://github.com/dubzzz/fast-check/pull/1981)) CI: Drop Node 10 from CI tool-chain
+- ([PR#1982](https://github.com/dubzzz/fast-check/pull/1982)) CI: Drop Node 10 from CI tool-chain
+- ([PR#1983](https://github.com/dubzzz/fast-check/pull/1983)) CI: Override default version of node in codesandbox with node 14
+- ([PR#1951](https://github.com/dubzzz/fast-check/pull/1951)) Doc: Add "Performance" category into the PR template
+- ([PR#1970](https://github.com/dubzzz/fast-check/pull/1970)) Doc: Fix wrong format command and add lint fixing command
+- ([PR#2005](https://github.com/dubzzz/fast-check/pull/2005)) Doc: Fix typo barely -> nearly
+- ([PR#2007](https://github.com/dubzzz/fast-check/pull/2007)) Doc: Prefer more explicit async/await properties in examples/
+- ([PR#2001](https://github.com/dubzzz/fast-check/pull/2001)) Refactor: No more use of window for global configuration
+- ([PR#2002](https://github.com/dubzzz/fast-check/pull/2002)) Refactor: Build context when building the item itself in ArrayArbitrary
 
 ---
 
-# 1.16.3
+# 2.16.1
 
-_skipAllAfterTimeLimit throws when it passes time limit_
-
-## Fixes
-
-- ([PR#425](https://github.com/dubzzz/fast-check/pull/425)) skipAllAfterTimeLimit throws when it passes time limit
-
-# 1.16.2
-
-_Web authority ports should be within 0-65535_
+_Fix regression when mapper returns an already cloneable value_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.16.1)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.16.0...v2.16.1)]
 
 ## Fixes
 
-- ([PR#409](https://github.com/dubzzz/fast-check/pull/409)) Web authority should not produce port outside 0-65535
+- ([PR#2421](https://github.com/dubzzz/fast-check/pull/2421)) Bug: Accept already cloneable values as output of `.map`
 
-# 1.16.1
+# 2.16.0
 
-_Infinite loop on replays with one-level-deep path_
-
-## Fixes
-
-- ([PR#418](https://github.com/dubzzz/fast-check/pull/418)) Infinite loop when path is one level deep and all runs succeed
-
-# 1.16.0
-
-_Easier recursive data-structures_
+_Performance improvements (+50% in avg compared to 2.14.0, +150% in avg compared to 2.15.0)_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.16.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.15.0...v2.16.0)]
 
 ## Features
 
-- ([PR#377](https://github.com/dubzzz/fast-check/pull/377)) Add `fc.letrec` arbitrary
-- ([PR#378](https://github.com/dubzzz/fast-check/pull/378)) Add `fc.memo` arbitrary
-- ([PR#385](https://github.com/dubzzz/fast-check/pull/385)) Add caching for `withBias` of `fc.letrec` arbitrary
-- ([PR#370](https://github.com/dubzzz/fast-check/pull/370)) Add minimum and maximum validation to integer and nat
-- ([PR#382](https://github.com/dubzzz/fast-check/pull/382)) Take `fc.cloneMethod` into account for commands
-- ([PR#372](https://github.com/dubzzz/fast-check/pull/372)) Stringify Date as valid JavaScript
-- ([PR#371](https://github.com/dubzzz/fast-check/pull/371)) Stringify Symbol as valid JavaScript
+- ([PR#1943](https://github.com/dubzzz/fast-check/pull/1943)) Try to optimize conversions from/to NextValue
+- ([PR#1944](https://github.com/dubzzz/fast-check/pull/1944)) Call generate on the NextArbitrary from Property
+- ([PR#1945](https://github.com/dubzzz/fast-check/pull/1945)) Faster generate for constant and constantFrom
+- ([PR#1946](https://github.com/dubzzz/fast-check/pull/1946)) Speed-up conversions from/to NextValue
+- ([PR#1948](https://github.com/dubzzz/fast-check/pull/1948)) More performant non-cloneable values in NextValue
 
 ## Fixes
 
-- ([PR#375](https://github.com/dubzzz/fast-check/pull/375)) Clean: Bump TypeScript to 3.5
-- ([PR#384](https://github.com/dubzzz/fast-check/pull/384)) Clean: Remove circular dependency in WebArbitrary file
-- ([PR#389](https://github.com/dubzzz/fast-check/pull/389)) Test: Check that `fc.memo` and `fc.letrec` are compatible with node 0.12
-- ([PR#376](https://github.com/dubzzz/fast-check/pull/376)) Test: Fix broken e2e tests
-- ([PR#385](https://github.com/dubzzz/fast-check/pull/385)) Test: Mark warnings as errors in rollup config
-- ([PR#388](https://github.com/dubzzz/fast-check/pull/388)) Type: Fix type inferrence bug in `modelRun`
-- ([PR#379](https://github.com/dubzzz/fast-check/pull/379)) Refactoring: Re-implement `fc.object` with `fc.memo`
+- ([PR#1947](https://github.com/dubzzz/fast-check/pull/1947)) Test: Escape strings passed to userEvent.type in examples
 
 ---
 
-# 1.15.4
+# 2.15.1
 
-_skipAllAfterTimeLimit throws when it passes time limit_
-
-## Fixes
-
-- ([PR#425](https://github.com/dubzzz/fast-check/pull/425)) skipAllAfterTimeLimit throws when it passes time limit
-
-# 1.15.3
-
-_Web authority ports should be within 0-65535_
+_Fix regression when mapper returns an already cloneable value_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.15.1)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.15.0...v2.15.1)]
 
 ## Fixes
 
-- ([PR#409](https://github.com/dubzzz/fast-check/pull/409)) Web authority should not produce port outside 0-65535
+- ([PR#2421](https://github.com/dubzzz/fast-check/pull/2421)) Bug: Accept already cloneable values as output of `.map`
 
-# 1.15.2
+# 2.15.0
 
-_Infinite loop on replays with one-level-deep path_
-
-## Fixes
-
-- ([PR#418](https://github.com/dubzzz/fast-check/pull/418)) Infinite loop when path is one level deep and all runs succeed
-
-# 1.15.1
-
-_Documentation updates_
-
-## Fixes
-
-- ([PR#363](https://github.com/dubzzz/fast-check/pull/363)) Clean: Bump dev dependencies
-- ([PR#366](https://github.com/dubzzz/fast-check/pull/366)) Clean: Incremental build
-- ([PR#362](https://github.com/dubzzz/fast-check/pull/362)) Clean: Test against node 12
-- ([PR#361](https://github.com/dubzzz/fast-check/pull/361)) Doc: Clarify replay of commands
-- ([PR#368](https://github.com/dubzzz/fast-check/pull/368)) Doc: Direct link to genrated documentation
-- ([PR#364](https://github.com/dubzzz/fast-check/pull/364)) Doc: Extra badges in README
-- ([PR#358](https://github.com/dubzzz/fast-check/pull/358)) Doc: Fix various typos
-- ([PR#355](https://github.com/dubzzz/fast-check/pull/355)) Test: Add no regression snapshot tests
-
-# 1.15.0
-
-_Add auto-skip after time limit option for runners_
+_New logo, new way to define fully custom arbitraries using `NextArbitrary`_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.15.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.14.0...v2.15.0)]
 
 ## Features
 
-- ([PR#352](https://github.com/dubzzz/fast-check/pull/352)) Ability to auto skip runs after time limit
-- ([PR#348](https://github.com/dubzzz/fast-check/pull/348)) Expose `fc.stringify` in the API
+- ([PR#1678](https://github.com/dubzzz/fast-check/pull/1678)) Introduce NextArbitrary, new way to define arbitraries
+- ([PR#1690](https://github.com/dubzzz/fast-check/pull/1690)) Document and expose clone related methods
+- ([PR#1730](https://github.com/dubzzz/fast-check/pull/1730)) Ensure bigint are always instanciated with valid ranges
+- ([PR#1750](https://github.com/dubzzz/fast-check/pull/1750)) Add support for cloneable instances in fc.constant and fc.constantFrom
+- ([PR#1756](https://github.com/dubzzz/fast-check/pull/1756)) Add support for bias in clone (and dedup)
+- ([PR#1758](https://github.com/dubzzz/fast-check/pull/1758)) Add support for bias in mixedCase
+- ([PR#1794](https://github.com/dubzzz/fast-check/pull/1794)) Support canGenerate and shrink of user-defined values on map
+- ([PR#1799](https://github.com/dubzzz/fast-check/pull/1799)) Implement unmappers for char arbitraries
+- ([PR#1632](https://github.com/dubzzz/fast-check/pull/1632)) New logo supports dark mode and fits better within README
+- ([PR#1812](https://github.com/dubzzz/fast-check/pull/1812)) Add unmappers for built-in arbitraries on strings
+- ([PR#1836](https://github.com/dubzzz/fast-check/pull/1836)) Add built-in unmapper support onto mapToConstant
+- ([PR#1838](https://github.com/dubzzz/fast-check/pull/1838)) Add built-in unmapper support onto lorem
+- ([PR#1857](https://github.com/dubzzz/fast-check/pull/1857)) Add built-in unmapper support onto dictionary
+- ([PR#1866](https://github.com/dubzzz/fast-check/pull/1866)) Add built-in unmapper support onto date
+- ([PR#1888](https://github.com/dubzzz/fast-check/pull/1888)) Add built-in unmapper support onto ip
+- ([PR#1912](https://github.com/dubzzz/fast-check/pull/1912)) Add built-in unmapper support onto record
 
 ## Fixes
 
-- ([PR#354](https://github.com/dubzzz/fast-check/pull/354)) Doc: Add examples of issues discovered using fast-check
-- ([PR#353](https://github.com/dubzzz/fast-check/pull/353)) Doc: Better logo
-- ([PR#351](https://github.com/dubzzz/fast-check/pull/351)) Size: Add dependency to tslib - *should reduce size of the bundle*
-- ([PR#349](https://github.com/dubzzz/fast-check/pull/349)) Test: No regression snapshot tests
+- ([PR#1693](https://github.com/dubzzz/fast-check/pull/1693)) Bug: Apply cloneMethod on map/filter instances of Shrinkable
+- ([PR#1712](https://github.com/dubzzz/fast-check/pull/1712)) Bug: Shrinker on integers was possibly generating out-of-range values
+- ([PR#1713](https://github.com/dubzzz/fast-check/pull/1713)) Bug: canGenerate method on integer should reject -0
+- ([PR#1736](https://github.com/dubzzz/fast-check/pull/1736)) Bug: canGenerate of FrequencyArbitrary was not using depth properly
+- ([PR#1737](https://github.com/dubzzz/fast-check/pull/1737)) Bug: freq of 0 not considered the same way in constraints-based and simple arg
+- ([PR#1755](https://github.com/dubzzz/fast-check/pull/1755)) Bug: infiniteStream was not properly cloning cloneable instances
+- ([PR#1759](https://github.com/dubzzz/fast-check/pull/1759)) Bug: Not properly biased mixedCase
+- ([PR#1776](https://github.com/dubzzz/fast-check/pull/1776)) Bug: ConstantArbitrary must not shrink towards the first if it is already the first
+- ([PR#1780](https://github.com/dubzzz/fast-check/pull/1780)) Bug: clone must use Object.is and check values on canGenerate
+- ([PR#1783](https://github.com/dubzzz/fast-check/pull/1783)) Bug: StreamArbitrary should print any value that have been pulled
+- ([PR#1784](https://github.com/dubzzz/fast-check/pull/1784)) Bug: Stream.take pull one unneeded value from the source
+- ([PR#1787](https://github.com/dubzzz/fast-check/pull/1787)) Bug: SchedulerArbitrary is wrongly cloning the passed Random
+- ([PR#1822](https://github.com/dubzzz/fast-check/pull/1822)) Bug: .map should check canGenerate on source before calling shrink
+- ([PR#1821](https://github.com/dubzzz/fast-check/pull/1821)) Bug: mixedCase should only call context-based shrinkers for the string
+- ([PR#1837](https://github.com/dubzzz/fast-check/pull/1837)) Bug: maxCount of 0 was overriden to 5 in lorem instead of being rejected
+- ([PR#1856](https://github.com/dubzzz/fast-check/pull/1856)) Bug: Build reverse-mapping built by mapToConstant for node 10
+- ([PR#1910](https://github.com/dubzzz/fast-check/pull/1910)) Bug: Stricter unmapper for dictionary to prevent unmapping unrelated values
+- ([PR#1914](https://github.com/dubzzz/fast-check/pull/1914)) Bug: option can now properly shrink without any context (incl. to nil)
+- ([PR#1647](https://github.com/dubzzz/fast-check/pull/1647)) CI: Stricter conditions to trigger workflow on push
+- ([PR#1663](https://github.com/dubzzz/fast-check/pull/1663)) CI: Stricter conditions to trigger workflow on push
+- ([PR#1830](https://github.com/dubzzz/fast-check/pull/1830)) CI: Build against Node 16.x
+- ([PR#1760](https://github.com/dubzzz/fast-check/pull/1760)) Clean: Remove duplicated tests for letrec
+- ([PR#1892](https://github.com/dubzzz/fast-check/pull/1892)) Clean: Remove unneeded map in record for required keys
+- ([PR#1917](https://github.com/dubzzz/fast-check/pull/1917)) Clean: Remove unneeded checks in map for context-less shrink
+- ([PR#1664](https://github.com/dubzzz/fast-check/pull/1664)) Doc: Only mark relevant titles as H* in the Readme
+- ([PR#1665](https://github.com/dubzzz/fast-check/pull/1665)) Doc: Move back to H2 for titles in the Readme
+- ([PR#1697](https://github.com/dubzzz/fast-check/pull/1697)) Doc: Fic grammar
+- ([PR#1883](https://github.com/dubzzz/fast-check/pull/1883)) Doc: Rework PR template
+- ([PR#1907](https://github.com/dubzzz/fast-check/pull/1907)) Doc: Fix typos in naming for describe on nat
+- ([PR#1906](https://github.com/dubzzz/fast-check/pull/1906)) Doc: Update mug.svg to be aligned with logo.svg
+- ([PR#1911](https://github.com/dubzzz/fast-check/pull/1911)) Doc: Fit svg to mug.svg
+- ([PR#1919](https://github.com/dubzzz/fast-check/pull/1919)) Doc: Fix typo in PR template
+- ([PR#1915](https://github.com/dubzzz/fast-check/pull/1915)) Doc: Document how to extend fast-check with NextArbitrary
+- ([PR#1920](https://github.com/dubzzz/fast-check/pull/1920)) Doc: Update outdated links in AdvancedArbitraries.md
+- ([PR#1709](https://github.com/dubzzz/fast-check/pull/1709)) Move: Move integer arbitraries into /arbitrary
+- ([PR#1715](https://github.com/dubzzz/fast-check/pull/1715)) Move: Move bigint arbitraries into /arbitrary
+- ([PR#1716](https://github.com/dubzzz/fast-check/pull/1716)) Move: Move array arbitraries into /arbitrary
+- ([PR#1727](https://github.com/dubzzz/fast-check/pull/1727)) Move: Move frequency arbitraries into /arbitrary
+- ([PR#1739](https://github.com/dubzzz/fast-check/pull/1739)) Move: Move tuple arbitraries into /arbitrary
+- ([PR#1743](https://github.com/dubzzz/fast-check/pull/1743)) Move: Move letrec arbitrary into /arbitrary
+- ([PR#1744](https://github.com/dubzzz/fast-check/pull/1744)) Move: Move memo arbitrary into /arbitrary
+- ([PR#1748](https://github.com/dubzzz/fast-check/pull/1748)) Move: Move constant arbitraries into /arbitrary
+- ([PR#1763](https://github.com/dubzzz/fast-check/pull/1763)) Move: Move clone arbitraries into /arbitrary
+- ([PR#1761](https://github.com/dubzzz/fast-check/pull/1761)) Move: Move stream arbitraries into /arbitrary
+- ([PR#1779](https://github.com/dubzzz/fast-check/pull/1779)) Move: Move mixedCase arbitrary into /arbitrary
+- ([PR#1786](https://github.com/dubzzz/fast-check/pull/1786)) Move: Move scheduler arbitrary into /arbitrary
+- ([PR#1798](https://github.com/dubzzz/fast-check/pull/1798)) Move: Move char arbitraries into /arbitrary
+- ([PR#1801](https://github.com/dubzzz/fast-check/pull/1801)) Move: Move boolean arbitrary into /arbitrary
+- ([PR#1802](https://github.com/dubzzz/fast-check/pull/1802)) Move: Move string arbitraries into /arbitrary
+- ([PR#1831](https://github.com/dubzzz/fast-check/pull/1831)) Move: Move date arbitrary into /arbitrary
+- ([PR#1832](https://github.com/dubzzz/fast-check/pull/1832)) Move: Extract internal mapper into its own file
+- ([PR#1834](https://github.com/dubzzz/fast-check/pull/1834)) Move: Move mapToConstant arbitrary into /arbitrary
+- ([PR#1835](https://github.com/dubzzz/fast-check/pull/1835)) Move: Move lorem arbitrary into /arbitrary
+- ([PR#1839](https://github.com/dubzzz/fast-check/pull/1839)) Move: Move ip arbitraries into /arbitrary
+- ([PR#1840](https://github.com/dubzzz/fast-check/pull/1840)) Move: Move dictionary arbitraries into /arbitrary
+- ([PR#1887](https://github.com/dubzzz/fast-check/pull/1887)) Move: Move ip arbitraries into /arbitrary
+- ([PR#1889](https://github.com/dubzzz/fast-check/pull/1889)) Move: Move typed-arrays arbitraries into /arbitrary
+- ([PR#1890](https://github.com/dubzzz/fast-check/pull/1890)) Move: Move record arbitrary into /arbitrary
+- ([PR#1691](https://github.com/dubzzz/fast-check/pull/1691)) Refactor: Migrate tuple to NextArbitrary
+- ([PR#1701](https://github.com/dubzzz/fast-check/pull/1701)) Refactor: Migrate memo to NextArbitrary
+- ([PR#1702](https://github.com/dubzzz/fast-check/pull/1702)) Refactor: Migrate letrec to NextArbitrary
+- ([PR#1704](https://github.com/dubzzz/fast-check/pull/1704)) Refactor: Simplify letrec initial construction
+- ([PR#1705](https://github.com/dubzzz/fast-check/pull/1705)) Refactor: Migrate integer/bigint/double to NextArbitrary
+- ([PR#1706](https://github.com/dubzzz/fast-check/pull/1706)) Refactor: Migrate array/set to NextArbitrary
+- ([PR#1707](https://github.com/dubzzz/fast-check/pull/1707)) Refactor: Migrate frequency to NextArbitrary
+- ([PR#1714](https://github.com/dubzzz/fast-check/pull/1714)) Refactor: Remove unneeded if-branch in shrinker for integer
+- ([PR#1728](https://github.com/dubzzz/fast-check/pull/1728)) Refactor: Remove unneeded if-branch in shrinker for bigint
+- ([PR#1740](https://github.com/dubzzz/fast-check/pull/1740)) Refactor: Migrate missing snippets to our new APIs
+- ([PR#1742](https://github.com/dubzzz/fast-check/pull/1742)) Refactor: Simplify internal implementation of memo
+- ([PR#1746](https://github.com/dubzzz/fast-check/pull/1746)) Refactor: Migrate constant to NextArbitrary
+- ([PR#1747](https://github.com/dubzzz/fast-check/pull/1747)) Refactor: Migrate clone to NextArbitrary
+- ([PR#1757](https://github.com/dubzzz/fast-check/pull/1757)) Refactor: Migrate infiniteStream to NextArbitrary
+- ([PR#1762](https://github.com/dubzzz/fast-check/pull/1762)) Refactor: Migrate scheduler to NextArbitrary
+- ([PR#1764](https://github.com/dubzzz/fast-check/pull/1764)) Refactor: Migrate mixedCase to NextArbitrary
+- ([PR#1891](https://github.com/dubzzz/fast-check/pull/1891)) Refactor: Always use shared-partial record implementation for record
+- ([PR#1918](https://github.com/dubzzz/fast-check/pull/1918)) Refactor: Enforce explicit context-passing for NextArbitrary and related
+- ([PR#1916](https://github.com/dubzzz/fast-check/pull/1916)) Rename: Rename canGenerate into canShrinkWithoutContext before 1st release
+- ([PR#1668](https://github.com/dubzzz/fast-check/pull/1668)) Test: Add non-regression for filter/map/chain
+- ([PR#1669](https://github.com/dubzzz/fast-check/pull/1669)) Test: Add non-regression for context
+- ([PR#1694](https://github.com/dubzzz/fast-check/pull/1694)) Test: Add more non-regression tests on recursive structures
+- ([PR#1695](https://github.com/dubzzz/fast-check/pull/1695)) Test: Rework testFunc for non-regression tests
+- ([PR#1700](https://github.com/dubzzz/fast-check/pull/1700)) Test: Update snapshots for letrec due to migration of tuple
+- ([PR#1711](https://github.com/dubzzz/fast-check/pull/1711)) Test: Rewrite tests dealing with integer
+- ([PR#1729](https://github.com/dubzzz/fast-check/pull/1729)) Test: Rewrite tests dealing with bigInt
+- ([PR#1735](https://github.com/dubzzz/fast-check/pull/1735)) Test: Rewrite tests dealing with frequency
+- ([PR#1741](https://github.com/dubzzz/fast-check/pull/1741)) Test: Rewrite tests dealing with tuple
+- ([PR#1745](https://github.com/dubzzz/fast-check/pull/1745)) Test: Rewrite tests dealing with letrec
+- ([PR#1751](https://github.com/dubzzz/fast-check/pull/1751)) Test: Rewrite tests dealing with constant
+- ([PR#1775](https://github.com/dubzzz/fast-check/pull/1775)) Test: FIX Assumptions in tests related to ConstantArbitrary
+- ([PR#1781](https://github.com/dubzzz/fast-check/pull/1781)) Test: Rewrite tests dealing with clone
+- ([PR#1782](https://github.com/dubzzz/fast-check/pull/1782)) Test: Rewrite tests dealing with infiniteStream
+- ([PR#1788](https://github.com/dubzzz/fast-check/pull/1788)) Test: Rewrite tests dealing with scheduler
+- ([PR#1881](https://github.com/dubzzz/fast-check/pull/1881)) Test: Adapt inputs for wrongly defined property on date
+- ([PR#1886](https://github.com/dubzzz/fast-check/pull/1886)) Test: Fix wrongly written isCorrect in tests on dictionary
+- ([PR#1923](https://github.com/dubzzz/fast-check/pull/1923)) Test: Integer spec was asking if integer can produce -0
+- ([PR#1922](https://github.com/dubzzz/fast-check/pull/1922)) Test: Reduce duplication of assertions on NextArbitrary
 
 ---
 
-# 1.14.2
+# 2.14.0
 
-_Web authority ports should be within 0-65535_
-
-## Fixes
-
-- ([PR#409](https://github.com/dubzzz/fast-check/pull/409)) Web authority should not produce port outside 0-65535
-
-# 1.14.1
-
-_Infinite loop on replays with one-level-deep path_
-
-## Fixes
-
-- ([PR#418](https://github.com/dubzzz/fast-check/pull/418)) Infinite loop when path is one level deep and all runs succeed
-
-# 1.14.0
-
-_New generated documentation and new arbitraries_
+_Easier recursive strcutures and ability discard already seen runs_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.14.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.13.0...v2.14.0)]
 
 ## Features
 
-- ([PR#339](https://github.com/dubzzz/fast-check/pull/339)) Add `fc.ipV4()` and `fc.ipV6()` arbitraries
-- ([PR#340](https://github.com/dubzzz/fast-check/pull/340)) Add `fc.mapToConstant()` arbitrary
-- ([PR#344](https://github.com/dubzzz/fast-check/pull/344)) Add `fc.webUrl()` and other web urls related arbitraries
-- ([PR#345](https://github.com/dubzzz/fast-check/pull/345)) Add `fc.emailAddress()` arbitrary
+- ([PR#1581](https://github.com/dubzzz/fast-check/pull/1581)) Reject invalid weights on `fc.frequency`
+- ([PR#1598](https://github.com/dubzzz/fast-check/pull/1598)) Add `withCrossShrink` constraint on `fc.frequency`
+- ([PR#1586](https://github.com/dubzzz/fast-check/pull/1586))  Add a way to ignore already covered cases
+- ([PR#1601](https://github.com/dubzzz/fast-check/pull/1601)) Add `maxDepth` constraint on `fc.frequency`
+- ([PR#1602](https://github.com/dubzzz/fast-check/pull/1602)) Stricter checks on args of `fc.frequency`
+- ([PR#1603](https://github.com/dubzzz/fast-check/pull/1603)) Add `depthFactor` constraint on `fc.frequency`
+- ([PR#1606](https://github.com/dubzzz/fast-check/pull/1606)) Adopt variadic tuples for signatures of tuple
+- ([PR#1607](https://github.com/dubzzz/fast-check/pull/1607)) Ability to share depth accross instances
+- ([PR#1609](https://github.com/dubzzz/fast-check/pull/1609)) Add recursive constraints on `fc.option`
+- ([PR#1611](https://github.com/dubzzz/fast-check/pull/1611)) Add recursive constraints on `fc.oneof`
+- ([PR#1624](https://github.com/dubzzz/fast-check/pull/1624)) Mark `fc.genericTuple` as deprecated
+- ([PR#1629](https://github.com/dubzzz/fast-check/pull/1629)) Introduce a way to mark equal values as skipped
 
 ## Fixes
 
-- ([PR#343](https://github.com/dubzzz/fast-check/pull/343)) Doc: Generate the API documentation with docsify
+- ([PR#1493](https://github.com/dubzzz/fast-check/pull/1493)) Bug: `add64` is not supposed to produce negative zeros
+- ([PR#1514](https://github.com/dubzzz/fast-check/pull/1514)) Doc: Build status should open actions page filtered on main
+- ([PR#1515](https://github.com/dubzzz/fast-check/pull/1515)) Doc: Build status should open builds page filtered on main
+- ([PR#1521](https://github.com/dubzzz/fast-check/pull/1521)) Tooling: Enable strict mode in tsconfig
+- ([PR#1524](https://github.com/dubzzz/fast-check/pull/1524)) Test: Add CJS/ESM tests using esbuild
+- ([PR#1525](https://github.com/dubzzz/fast-check/pull/1525)) CI: Relax check ensuring default seed defined in CI
+- ([PR#1534](https://github.com/dubzzz/fast-check/pull/1534)) Test: Fix coverage flakiness on `add64(0, 0)`
+- ([PR#1555](https://github.com/dubzzz/fast-check/pull/1555)) Test: Run ESM tests against node 13
+- ([PR#1578](https://github.com/dubzzz/fast-check/pull/1578)) Refactor: Rework initialisation phase of `fc.frequency`
+- ([PR#1577](https://github.com/dubzzz/fast-check/pull/1577)) Refactor: Rework initialisation phase of `fc.oneof`
+- ([PR#1597](https://github.com/dubzzz/fast-check/pull/1597)) Test: Rework tests on frequency
+- ([PR#1600](https://github.com/dubzzz/fast-check/pull/1600)) CI: Checkout code before publishing the documentation
+- ([PR#1604](https://github.com/dubzzz/fast-check/pull/1604)) Refactor: Re-use `fc.frequency` for `fc.oneof`
+- ([PR#1605](https://github.com/dubzzz/fast-check/pull/1605)) Refactor: Re-use `fc.frequency` for `fc.option`
+- ([PR#1608](https://github.com/dubzzz/fast-check/pull/1608)) Test: Better errors for isValidValue in helpers
+- ([PR#1610](https://github.com/dubzzz/fast-check/pull/1610)) Doc: Add missing annotations and jsdoc
+- ([PR#1612](https://github.com/dubzzz/fast-check/pull/1612)) Doc: Better documentation for `fc.letrec`
+- ([PR#1613](https://github.com/dubzzz/fast-check/pull/1613)) Doc: Update some `fc.memo` to `fc.letrec`
+- ([PR#1625](https://github.com/dubzzz/fast-check/pull/1625)) Fix: Add missing export for `OneOfConstraints`
 
 ---
 
-# 1.13.1
+# 2.13.0
 
-_Infinite loop on replays with one-level-deep path_
-
-## Fixes
-
-- ([PR#418](https://github.com/dubzzz/fast-check/pull/418)) Infinite loop when path is one level deep and all runs succeed
-
-# 1.13.0
-
-_Remove dependency to lorem-ipsum and more control over `fc.anything` and `fc.object`_
+_Built-in arbitrary for sparse arrays_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.13.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.12.1...v2.13.0)]
 
 ## Features
 
-- ([PR#336](https://github.com/dubzzz/fast-check/pull/336)) Remove dependency to lorem-ipsum
-- ([PR#337](https://github.com/dubzzz/fast-check/pull/337)) `fc.frequency()` should be compatible with legacy node
-- ([PR#338](https://github.com/dubzzz/fast-check/pull/338)) Add parameter to customize size of `fc.object()` and `fc.anything()`
+- ([PR#1443](https://github.com/dubzzz/fast-check/pull/1443)) Support sparse arrays in stringify
+- ([PR#1447](https://github.com/dubzzz/fast-check/pull/1447)) Add a new arbitrary for sparse arrays
+- ([PR#1451](https://github.com/dubzzz/fast-check/pull/1451)) Add support for sparse arrays in `fc.object`
+
+## Fixes
+
+- ([PR#1452](https://github.com/dubzzz/fast-check/pull/1452)) Bug: Reduce bias towards typed arrays in `fc.object`
+- ([PR#1429](https://github.com/dubzzz/fast-check/pull/1429)) CI: Action to publish to Netlify on comment
+- ([PR#1430](https://github.com/dubzzz/fast-check/pull/1430)) CI: Rework workflow "Request Deploy Netlify"
+- ([PR#1431](https://github.com/dubzzz/fast-check/pull/1431)) CI: Clean old netlify job
+- ([PR#1432](https://github.com/dubzzz/fast-check/pull/1432)) CI: Fix skip check for 'Deploy to Netlify'
+- ([PR#1433](https://github.com/dubzzz/fast-check/pull/1433)) CI: Fix API calls for octokit in Netlify job
+- ([PR#1434](https://github.com/dubzzz/fast-check/pull/1434)) CI: Post reactions for netlify on issue comment
+- ([PR#1435](https://github.com/dubzzz/fast-check/pull/1435)) CI: Do not add new lines when adding comit hash in deploy message
+- ([PR#1436](https://github.com/dubzzz/fast-check/pull/1436)) CI: Do not add new lines when adding comit hash in deploy message
+- ([PR#1441](https://github.com/dubzzz/fast-check/pull/1441)) CI: Add `--strict` option for tests on types
+- ([PR#1466](https://github.com/dubzzz/fast-check/pull/1466)) CI: Check typings against more versions of TS
+- ([PR#1471](https://github.com/dubzzz/fast-check/pull/1471)) CI: Stop sending e2e coverage into codecov
+- ([PR#1214](https://github.com/dubzzz/fast-check/pull/1214)) Clean: Reduce the number of lint warnings
+- ([PR#1440](https://github.com/dubzzz/fast-check/pull/1440)) Doc: Add tip regarding "Value depending on another one"
+- ([PR#1475](https://github.com/dubzzz/fast-check/pull/1475)) Doc: Document when each feature has been released (jsdoc)
+- ([PR#1479](https://github.com/dubzzz/fast-check/pull/1479)) Misc: Rename master into main
+- ([PR#1490](https://github.com/dubzzz/fast-check/pull/1490)) Misc: Split changelog by major
+- ([PR#1464](https://github.com/dubzzz/fast-check/pull/1464)) Refactor: No special case for sparse arrays without trailing holes and no elements
+- ([PR#1442](https://github.com/dubzzz/fast-check/pull/1442)) Test: Add `--strict` option for tests on types
+- ([PR#1444](https://github.com/dubzzz/fast-check/pull/1444)) Test: Better coverage for stringify of sparse arrays
+- ([PR#1474](https://github.com/dubzzz/fast-check/pull/1474)) Test: Increase numRuns for bias e2e to limit flakiness
+- ([PR#1465](https://github.com/dubzzz/fast-check/pull/1465)) Typing: Regression introduced in typings for `record`
+- ([PR#1478](https://github.com/dubzzz/fast-check/pull/1478)) Typing: Add missing export for double constraints
 
 ---
 
-# 1.12.2
+# 2.12.2
 
-_Infinite loop on replays with one-level-deep path_
-
-## Fixes
-
-- ([PR#418](https://github.com/dubzzz/fast-check/pull/418)) Infinite loop when path is one level deep and all runs succeed
-
-# 1.12.1
-
-_Lighter bundle_
+_Fix regression in typings of record_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.12.2)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.12.1...v2.12.2)]
 
 ## Fixes
 
-- ([PR#327](https://github.com/dubzzz/fast-check/pull/327)) Doc: Ability to copy-paste snippets in HandsOnPropertyBased.md
-- ([PR#334](https://github.com/dubzzz/fast-check/pull/334)) Size: Reduce the size of the bundle - *Potential issue if your code directly references TupleArbitrary<T1...>, it should be replaced by Arbitrary<[T1,...]>*
+- ([PR#1478](https://github.com/dubzzz/fast-check/pull/1478)) Typing: Add missing export for double constraints
+- ([PR#1465](https://github.com/dubzzz/fast-check/pull/1465)) Typing: Regression introduced in typings for `record`
 
-# 1.12.0
+# 2.12.1
 
-_Better balance between values produced by `fc.anything()`_
+_Avoid unsafe eval_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.12.1)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.12.0...v2.12.1)]
+
+## Fixes
+
+- ([PR#1408](https://github.com/dubzzz/fast-check/pull/1408)) Bug/Security: Avoid using unsafe-eval in implementation of getGlobal
+- ([PR#1389](https://github.com/dubzzz/fast-check/pull/1389)) Doc: Add badge from packagequality.com
+- ([PR#1391](https://github.com/dubzzz/fast-check/pull/1391)) Doc: Setup a security policy
+- ([PR#1392](https://github.com/dubzzz/fast-check/pull/1392)) Doc: Add a code of conduct
+- ([PR#1390](https://github.com/dubzzz/fast-check/pull/1390)) Doc: Add Snyk badge for package quality
+- ([PR#1393](https://github.com/dubzzz/fast-check/pull/1393)) Doc: Add semver stability badge
+- ([PR#1394](https://github.com/dubzzz/fast-check/pull/1394)) Doc: Remove dependencies related badges
+- ([PR#1395](https://github.com/dubzzz/fast-check/pull/1395)) Doc: Correct misspellings & other errors in English
+
+# 2.12.0
+
+_More efficient shrinkers_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.12.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.11.0...v2.12.0)]
 
 ## Features
 
-- ([PR#325](https://github.com/dubzzz/fast-check/pull/325)) Better balance between values produced by `fc.anything()`
+- ([PR#1354](https://github.com/dubzzz/fast-check/pull/1354)) Split internal shrinkNumeric for better performances
+- ([PR#1355](https://github.com/dubzzz/fast-check/pull/1355)) Introduce new helper ArbitraryWithContextualShrink
+- ([PR#1358](https://github.com/dubzzz/fast-check/pull/1358)) More efficient shrinker for integer
+- ([PR#1372](https://github.com/dubzzz/fast-check/pull/1372)) More efficient shrinker for bigint
+- ([PR#1377](https://github.com/dubzzz/fast-check/pull/1377)) More efficient shrinker for array
+- ([PR#1382](https://github.com/dubzzz/fast-check/pull/1382)) More efficient shrinker for subarray
+- ([PR#1383](https://github.com/dubzzz/fast-check/pull/1383)) More efficient shrinker for mixedCase
+- ([PR#1384](https://github.com/dubzzz/fast-check/pull/1384)) More efficient shrinker for double
+
+## Fixes
+
+- ([PR#1347](https://github.com/dubzzz/fast-check/pull/1347)) Bug: Legacy float/double should never reach the max specified value
+- ([PR#1359](https://github.com/dubzzz/fast-check/pull/1359)) Bug: Calling `shrinkableFor` should never apply contextual shrinker
+- ([PR#1350](https://github.com/dubzzz/fast-check/pull/1350)) Clean: Re-generate yarn.lock files
+- ([PR#1331](https://github.com/dubzzz/fast-check/pull/1331)) Doc: Deploy temporary documentation and package to Netlify
+- ([PR#1352](https://github.com/dubzzz/fast-check/pull/1352)) Doc: Performance impacts of filter
+- ([PR#1379](https://github.com/dubzzz/fast-check/pull/1379)) Doc: Only specify a single entryPoint in TypeDoc
+- ([PR#1357](https://github.com/dubzzz/fast-check/pull/1357)) Refactor: Re-implement shrinker for integer based on contextual shrinker
+- ([PR#1373](https://github.com/dubzzz/fast-check/pull/1373)) Refactor: Re-use contextual shrinker of integer in array
+- ([PR#1376](https://github.com/dubzzz/fast-check/pull/1376)) Refactor: Re-use contextual shrinker of integer in commands
+- ([PR#1385](https://github.com/dubzzz/fast-check/pull/1385)) Refactor: Extract Stream.of logic for re-use
+- ([PR#1387](https://github.com/dubzzz/fast-check/pull/1387)) Refactor: Restructure implementations of ArbitraryWithContextualShrink
+- ([PR#1353](https://github.com/dubzzz/fast-check/pull/1353)) Test: Add unit tests for stringify on Regex
+- ([PR#1368](https://github.com/dubzzz/fast-check/pull/1368)) Test: Add non-regression tests on shrinking quality
+- ([PR#1375](https://github.com/dubzzz/fast-check/pull/1375)) Test: Typings of ArbitraryWithContextualShrink
+- ([PR#1380](https://github.com/dubzzz/fast-check/pull/1380)) Test: Typings of constantFrom and chain
+- ([PR#1381](https://github.com/dubzzz/fast-check/pull/1381)) Test: Tests on typings should fail with explicit errors
+- ([PR#1386](https://github.com/dubzzz/fast-check/pull/1386)) Test: Add tests for ArbitraryWithContextualShrink
+- ([PR#1388](https://github.com/dubzzz/fast-check/pull/1388)) Test: Add snapshot tests for new core shrinkers: integer, bigint, arrayInt64
 
 ---
 
-# 1.11.1
+# 2.11.1
 
-_Infinite loop on replays with one-level-deep path_
+_Avoid unsafe eval and fix regression in typings of record_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.11.1)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.11.0...v2.11.1)]
 
 ## Fixes
 
-- ([PR#418](https://github.com/dubzzz/fast-check/pull/418)) Infinite loop when path is one level deep and all runs succeed
+- ([PR#1408](https://github.com/dubzzz/fast-check/pull/1408)) Bug/Security: Avoid using unsafe-eval in implementation of getGlobal
+- ([PR#1478](https://github.com/dubzzz/fast-check/pull/1478)) Typing: Add missing export for double constraints
+- ([PR#1465](https://github.com/dubzzz/fast-check/pull/1465)) Typing: Regression introduced in typings for `record`
 
-# 1.11.0
+# 2.11.0
 
-_Replay ability for commands and new arbitraries_
+_Add support for Symbol properties and ability to mark keys as required in `fc.record`_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.11.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.10.0...v2.11.0)]
 
 ## Features
 
-- ([PR#321](https://github.com/dubzzz/fast-check/pull/321)) Add new flags for `fc.anything` and `fc.object`: `withBoxedValues`, `withSet`, `withMap`
-- ([PR#320](https://github.com/dubzzz/fast-check/pull/320)) Better string representation of failing values
-- ([PR#317](https://github.com/dubzzz/fast-check/pull/317)) Add `fc.dedup` arbitrary
-- ([PR#294](https://github.com/dubzzz/fast-check/pull/294)) Replay ability for commands
-- ([PR#292](https://github.com/dubzzz/fast-check/pull/292)) Flag to stop the test as soon as it fails
-- ([PR#288](https://github.com/dubzzz/fast-check/pull/288)) Add `fc.maxSafeInteger` and `fc.maxSafeNat` arbitraries
+- ([PR#1265](https://github.com/dubzzz/fast-check/pull/1265)) Switch from Object.keys to for..in in record _[reverted]_
+- ([PR#1266](https://github.com/dubzzz/fast-check/pull/1266)) Arbitrary records with optional fields
+- ([PR#1306](https://github.com/dubzzz/fast-check/pull/1306)) Prefer unique symbols over `Symbol.for` :warning:
+- ([PR#1328](https://github.com/dubzzz/fast-check/pull/1328)) Better handling of known symbols with `fc.stringify`
+- ([PR#1321](https://github.com/dubzzz/fast-check/pull/1321)) Add support for Symbol keys in record
+- ([PR#1327](https://github.com/dubzzz/fast-check/pull/1327)) Properly handle objects with symbols as keys in `fc.stringify`
+- ([PR#1329](https://github.com/dubzzz/fast-check/pull/1329)) Throw if non enumerable keys declared in requiredKeys of record
 
 ## Fixes
 
-- ([PR#295](https://github.com/dubzzz/fast-check/pull/295)) Bug: Not shrinking commands themselves
-- ([PR#290](https://github.com/dubzzz/fast-check/pull/290)) Bug: ExecutionStatus defined as const enum
-- ([PR#298](https://github.com/dubzzz/fast-check/pull/298)) Clean: Factorize code of Runner
-- ([PR#297](https://github.com/dubzzz/fast-check/pull/297)) Clean: Takkle issues reported by codeclimate
-- ([PR#306](https://github.com/dubzzz/fast-check/pull/306)) Doc: Add issues discovered by fast-check
-- ([PR#287](https://github.com/dubzzz/fast-check/pull/287)) Doc: Add issues discovered by fast-check
-- ([PR#322](https://github.com/dubzzz/fast-check/pull/322)) Doc: Links next to features described in Readme
-- ([PR#309](https://github.com/dubzzz/fast-check/pull/309)) Test: Factorize Jest configurations
-- ([PR#307](https://github.com/dubzzz/fast-check/pull/307)) Test: Ensure web-build is correct
-- ([PR#300](https://github.com/dubzzz/fast-check/pull/300)) Perf: No more holey array in `fc.array`
+- ([PR#1286](https://github.com/dubzzz/fast-check/pull/1286)) CI: Basic setup for codecov
+- ([PR#1287](https://github.com/dubzzz/fast-check/pull/1287)) CI: Only take into account files from src/ in coverage
+- ([PR#1289](https://github.com/dubzzz/fast-check/pull/1289)) CI: Remove coveralls from the CI
+- ([PR#1290](https://github.com/dubzzz/fast-check/pull/1290)) CI: Remove unused flags in coverage
+- ([PR#1296](https://github.com/dubzzz/fast-check/pull/1296)) CI: Comment with links to install the package defined by the PR
+- ([PR#1304](https://github.com/dubzzz/fast-check/pull/1304)) CI: Better message for automatic comments
+- ([PR#1307](https://github.com/dubzzz/fast-check/pull/1307)) CI: Randomly seed runs in CI (by default)
+- ([PR#1269](https://github.com/dubzzz/fast-check/pull/1269)) Doc: Fix typo in AdvancedArbitraries.md
+- ([PR#1288](https://github.com/dubzzz/fast-check/pull/1288)) Doc: Switch to codecov in README
+- ([PR#1291](https://github.com/dubzzz/fast-check/pull/1291)) Doc: Prefer spaces over tabs in the README (easier to fit in screen)
+- ([PR#1268](https://github.com/dubzzz/fast-check/pull/1268)) Test: Switch from (deprecated) tsd to tsc for type checking
+- ([PR#1280](https://github.com/dubzzz/fast-check/pull/1280)) Test: Reduce flakiness of array e2e
 
 ---
 
-# 1.10.2
+# 2.10.1
 
-_Infinite loop on replays with one-level-deep path_
-
-## Fixes
-
-- ([PR#418](https://github.com/dubzzz/fast-check/pull/418)) Infinite loop when path is one level deep and all runs succeed
-
-# 1.10.1
-
-_Fix browser bundle_
+_Avoid unsafe eval_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.10.1)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.10.0...v2.10.1)]
 
 ## Fixes
 
-- ([ISSUE#304](https://github.com/dubzzz/fast-check/issues/304)) Fix browser bundle
+- ([PR#1408](https://github.com/dubzzz/fast-check/pull/1408)) Bug/Security: Avoid using unsafe-eval in implementation of getGlobal
+- ([PR#1478](https://github.com/dubzzz/fast-check/pull/1478)) Typing: Add missing export for double constraints
 
-# 1.10.0
+# 2.10.0
 
-_Better shrinking of commands_
+_Increase performances of generic operations of arbitraries: map, filter, chain_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.10.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.9.0...v2.10.0)]
 
 ## Features
 
-- ([PR#280](https://github.com/dubzzz/fast-check/pull/280)) Better shrinking of commands
+- ([PR#1264](https://github.com/dubzzz/fast-check/pull/1264)) Extract inlined-classes outside of Arbitrary base-class
+
+## Fixes
+
+- ([PR#1260](https://github.com/dubzzz/fast-check/pull/1260)) Test: Better coverage of ArrayInt64 to reduce flakiness in coverage
 
 ---
 
-# 1.9.4
+# 2.9.1
 
-_Infinite loop on replays with one-level-deep path_
-
-## Fixes
-
-- ([PR#418](https://github.com/dubzzz/fast-check/pull/418)) Infinite loop when path is one level deep and all runs succeed
-
-# 1.9.3
-
-_Fix browser bundle_
+_Avoid unsafe eval_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.9.1)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.9.0...v2.9.1)]
 
 ## Fixes
 
-- ([ISSUE#304](https://github.com/dubzzz/fast-check/issues/304)) Fix browser bundle
+- ([PR#1408](https://github.com/dubzzz/fast-check/pull/1408)) Bug/Security: Avoid using unsafe-eval in implementation of getGlobal
+- ([PR#1478](https://github.com/dubzzz/fast-check/pull/1478)) Typing: Add missing export for double constraints
 
-# 1.9.2
+# 2.9.0
 
-_Adapt typings for older versions of TypeScript_
-
-## Fixes
-
-- ([PR#282](https://github.com/dubzzz/fast-check/pull/282)) Bug: Cannot find name 'bigint'
-- ([PR#282](https://github.com/dubzzz/fast-check/pull/282)) Declare umd build in package.json
-
-# 1.9.1
-
-_VerbosityLevel enum is accessible through fc.VerbosityLevel_
-
-## Fixes
-
-- ([PR#278](https://github.com/dubzzz/fast-check/pull/278)) Bug: VerbosityLevel values not accessible
-
-# 1.9.0
-
-_BigInt support and new verbosity level_
+_Add arbitraries for typed arrays_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.9.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.8.0...v2.9.0)]
 
 ## Features
 
-- ([PR#274](https://github.com/dubzzz/fast-check/pull/274)) Add support for asynchronous check method in AsyncCommand
-- ([PR#271](https://github.com/dubzzz/fast-check/pull/271)) More verbose option
-- ([PR#268](https://github.com/dubzzz/fast-check/pull/268)) Add `bigInt`, `bigIntN`, `bigUint`, `bigUintN` arbitraries
-- ([PR#263](https://github.com/dubzzz/fast-check/pull/263)) Default seed based on random in addition of timestamp
+- ([PR#1210](https://github.com/dubzzz/fast-check/pull/1210)) Wider defaults for numbers in objects
+- ([PR#1212](https://github.com/dubzzz/fast-check/pull/1212)) Add typed arrays arbitraries
+- ([PR#1237](https://github.com/dubzzz/fast-check/pull/1237)) Add option withTypedArray to `fc.object` and `fc.anything`
 
 ## Fixes
 
-- ([PR#272](https://github.com/dubzzz/fast-check/pull/272)) Bug: Commands partially cloned during the shrinking process
-- ([PR#264](https://github.com/dubzzz/fast-check/pull/264)) Bug: Non-integer seeds not using the full range of integers
-- ([PR#269](https://github.com/dubzzz/fast-check/pull/269)) Clean: Migrate tests to Jest
-- ([PR#276](https://github.com/dubzzz/fast-check/pull/276)) Clean: Unecessary try catch removed for `modelRun`
+- ([PR#1231](https://github.com/dubzzz/fast-check/pull/1231)) CI: Split test task into two tasks: one for units, another for e2e
+- ([PR#1232](https://github.com/dubzzz/fast-check/pull/1232)) CI: Run E2E tests on multiple platforms
+- ([PR#1243](https://github.com/dubzzz/fast-check/pull/1243)) CI: Add github-actions to dependabot list
+- ([PR#1230](https://github.com/dubzzz/fast-check/pull/1230)) Test: Reduce flakyness of object boxing coverage
+- ([PR#1233](https://github.com/dubzzz/fast-check/pull/1233)) Test: Wrongly defined test for 'Should box any number'
+- ([PR#1236](https://github.com/dubzzz/fast-check/pull/1236)) Test: Safer URL validation in our web urls e2e tests
+- ([PR#1238](https://github.com/dubzzz/fast-check/pull/1238)) Test: Add legacy tests for typed arrays
+- ([PR#1250](https://github.com/dubzzz/fast-check/pull/1250)) Test: Increase stability of e2e on floatNext/doubleNext
+- ([PR#1251](https://github.com/dubzzz/fast-check/pull/1251)) Test: Add more tests for fc.anything to reduce coverage flakiness
 
 ---
 
-# 1.8.3
+# 2.8.1
 
-_Infinite loop on replays with one-level-deep path_
-
-## Fixes
-
-- ([PR#418](https://github.com/dubzzz/fast-check/pull/418)) Infinite loop when path is one level deep and all runs succeed
-
-# 1.8.2
-
-_Fix regression introduced in the shrinking of cloneable_
+_Avoid unsafe eval_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.8.1)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.8.0...v2.8.1)]
 
 ## Fixes
 
-- ([PR#262](https://github.com/dubzzz/fast-check/pull/262)) Bug: Too many shrinks for `commands`
-- ([PR#261](https://github.com/dubzzz/fast-check/pull/261)) Bug: Unability to shrink mapped `commands`
-- ([PR#259](https://github.com/dubzzz/fast-check/pull/259)) Bug: Move cloning responsability at a single place in the code
-- ([PR#258](https://github.com/dubzzz/fast-check/pull/258)) Bug: Shrinker of commands failed to shrink twice (in depth)
+- ([PR#1408](https://github.com/dubzzz/fast-check/pull/1408)) Bug/Security: Avoid using unsafe-eval in implementation of getGlobal
+- ([PR#1478](https://github.com/dubzzz/fast-check/pull/1478)) Typing: Add missing export for double constraints
 
-# 1.8.1
+# 2.8.0
 
-_Support asynchronous model setup_
-
-## Fixes
-
-- ([PR#249](https://github.com/dubzzz/fast-check/pull/249)) Bug: `asyncModelRun` must accept asynchonous setup function
-
-# 1.8.0
-
-_Native handling of stateful generated values_
+_New opt-in implementation for fc.float and fc.double_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.8.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.7.0...v2.8.0)]
 
 ## Features
 
-- ([PR#245](https://github.com/dubzzz/fast-check/pull/245)) `seed` can be any possible `double` value
-- ([PR#229](https://github.com/dubzzz/fast-check/pull/229)) Add `context` arbitrary
-- ([PR#237](https://github.com/dubzzz/fast-check/pull/237)) Add `infiniteStream` arbitrary
-- ([PR#229](https://github.com/dubzzz/fast-check/pull/229)) Add cloneable capabilities for stateful generated values
+- ([PR#1040](https://github.com/dubzzz/fast-check/pull/1040)) New opt-in implementation for `fc.float`
+- ([PR#1185](https://github.com/dubzzz/fast-check/pull/1185)) Move NaN as an extreme value for floatNext
+- ([PR#1187](https://github.com/dubzzz/fast-check/pull/1187)) New opt-in implementation for `fc.double`
 
 ## Fixes
 
-- ([PR#241](https://github.com/dubzzz/fast-check/pull/241)) Doc: Add an example for `asyncProperty`
-- ([PR#238](https://github.com/dubzzz/fast-check/pull/238)) Better logs for `fc.func`, `fc.compareFunc` and `fc.compareBooleanFunc`
-- ([PR#235](https://github.com/dubzzz/fast-check/pull/235)) Better handling of `fc.commands`
+- ([PR#1190](https://github.com/dubzzz/fast-check/pull/1190)) CI: Check CJS/ESM against node 12.20
+- ([PR#1161](https://github.com/dubzzz/fast-check/pull/1161)) Doc: Show examples for `fc.__version` and `fc.__commitHash`
+- ([PR#1128](https://github.com/dubzzz/fast-check/pull/1128)) Doc: Add link to ReScript bindings
+- ([PR#1173](https://github.com/dubzzz/fast-check/pull/1173)) Test: Add more tests on biasNumeric
+- ([PR#1182](https://github.com/dubzzz/fast-check/pull/1182)) Test: Better error reporting with `isValidArbitrary`
+- ([PR#1184](https://github.com/dubzzz/fast-check/pull/1184)) Test: Pass the original `seed` to callbacks of `isValidArbitrary`
+- ([PR#1183](https://github.com/dubzzz/fast-check/pull/1183)) Test: Wrongly defined `isStrictlySmallerValue` for `floatNext`
+- ([PR#1186](https://github.com/dubzzz/fast-check/pull/1186)) Test: Wrongly defined `isStrictlySmallerValue` for `floatNext` (2)
+- ([PR#1199](https://github.com/dubzzz/fast-check/pull/1199)) Test: Invalid checks to compare zeros in tests of `fc.float(Next)`
+- ([PR#1207](https://github.com/dubzzz/fast-check/pull/1207)) Test: More stable coverage for floatNext
+- ([PR#1211](https://github.com/dubzzz/fast-check/pull/1211)) Test: Add missing legacy tests for node 8 on next floats and others
+- ([PR#1213](https://github.com/dubzzz/fast-check/pull/1213)) Test: Add some more tests for ArrayInt64 for coverage stability
 
 ---
 
-# 1.7.2
+# 2.7.1
 
-_Infinite loop on replays with one-level-deep path_
-
-## Fixes
-
-- ([PR#418](https://github.com/dubzzz/fast-check/pull/418)) Infinite loop when path is one level deep and all runs succeed
-
-# 1.7.1
-
-_Fix import of loremIpsum library_
+_Avoid unsafe eval_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.7.1)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.7.0...v2.7.1)]
 
 ## Fixes
 
-- ([PR#226](https://github.com/dubzzz/fast-check/pull/226)) Fix import of loremIpsum library
+- ([PR#1408](https://github.com/dubzzz/fast-check/pull/1408)) Bug/Security: Avoid using unsafe-eval in implementation of getGlobal
 
-# 1.7.0
+# 2.7.0
 
-_Switch to another PRNG for better performances, better fc.commands_
+_Better bias for integers and any derived arbitraries_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.7.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.6.1...v2.7.0)]
 
 ## Features
 
-- ([PR#221](https://github.com/dubzzz/fast-check/pull/221)) Better shrink capabilities for `fc.commands`
+- ([PR#1020](https://github.com/dubzzz/fast-check/pull/1020)) Faster implementation for set
+- ([PR#1034](https://github.com/dubzzz/fast-check/pull/1034)) Stricter limits on email arbitrary
+- ([PR#1035](https://github.com/dubzzz/fast-check/pull/1035)) Stricter limits on domain arbitrary :warning:
+- ([PR#1160](https://github.com/dubzzz/fast-check/pull/1160)) Add commit hash into the generated package (see `fc.__commitHash`)
+- ([PR#1149](https://github.com/dubzzz/fast-check/pull/1149)) Bias towards extreme values for integer and bigint :warning:
 
 ## Fixes
 
-- ([PR#220](https://github.com/dubzzz/fast-check/pull/220)) Switch to another PRNG as default random - *more performances*
-- ([PR#217](https://github.com/dubzzz/fast-check/pull/217)) Better typings for `fc.record`
+- ([PR#1112](https://github.com/dubzzz/fast-check/pull/1112)) Bug: Constraints on `fc.date` might be wrongly applied
+- ([PR#1139](https://github.com/dubzzz/fast-check/pull/1139)) Bug: Bump pure-rand to fix large integers
+- ([PR#1085](https://github.com/dubzzz/fast-check/pull/1085)) CI: Check package's compatibility against latest node
+- ([PR#1086](https://github.com/dubzzz/fast-check/pull/1086)) CI: Add Skypack package score during tests
+- ([PR#1155](https://github.com/dubzzz/fast-check/pull/1155)) CI: No more Travis CI, switch to GitHub actions - ([PR#1155](https://github.com/dubzzz/fast-check/pull/1155), [PR#1156](https://github.com/dubzzz/fast-check/pull/1156), [PR#1157](https://github.com/dubzzz/fast-check/pull/1157), [PR#1158](https://github.com/dubzzz/fast-check/pull/1158))
+- ([PR#1159](https://github.com/dubzzz/fast-check/pull/1159)) CI: Faster installs from production bundles
+- ([PR#1097](https://github.com/dubzzz/fast-check/pull/1097)) Typo: Fix typo in Tips.md
+- ([PR#1140](https://github.com/dubzzz/fast-check/pull/1140)) Tool: Clean warnings related to ts-jest
 
 ---
 
-# 1.6.3
+# 2.6.1
 
-_Infinite loop on replays with one-level-deep path_
-
-## Fixes
-
-- ([PR#418](https://github.com/dubzzz/fast-check/pull/418)) Infinite loop when path is one level deep and all runs succeed
-
-# 1.6.2
-
-_Performance improvements_
+_Wrongly typed `fc.record`_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.6.1)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.6.0...v2.6.1)]
 
 ## Fixes
 
-- ([PR#215](https://github.com/dubzzz/fast-check/pull/215)) Fix deopt in Stream.join and Random.uniformIn
-- ([PR#211](https://github.com/dubzzz/fast-check/pull/211)) Remove costly spread operator in ArrayArbitrary
-- ([PR#210](https://github.com/dubzzz/fast-check/pull/210)) Reduce the number of closures in Stream
-- ([PR#209](https://github.com/dubzzz/fast-check/pull/209)) Bump to `pure-rand@1.4.2`: improvements on mersenne twister
-- ([PR#208](https://github.com/dubzzz/fast-check/pull/208)) Bump to `pure-rand@1.4.1`: destructuring was too costly
+- ([PR#1142](https://github.com/dubzzz/fast-check/pull/1142)) Typings: Wrongly typed `fc.record`
 
-# 1.6.1
+# 2.6.0
 
-_Performance improvements_
-
-## Fixes
-
-- ([PR#207](https://github.com/dubzzz/fast-check/pull/207)) Performance improvements done on `pure-rand` side
-
-# 1.6.0
-
-_ESM version of the package published to npm, arbitraries to generate functions and more settings to be able to tweak the execution_
+_Towards a uniform way to constrain arbitraries - step 3: number arbitraries_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.6.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.5.0...v2.6.0)]
 
 ## Features
 
-- ([PR#201](https://github.com/dubzzz/fast-check/pull/201)) Add `compareBooleanFunc`, `compareFunc` and `func` arbitraries
-- ([PR#200](https://github.com/dubzzz/fast-check/pull/200)) Parameter `randomType` to choose the random generator
-- ([PR#202](https://github.com/dubzzz/fast-check/pull/202)) Property hooks for `beforeEach` and `afterEach`
-- ([PR#196](https://github.com/dubzzz/fast-check/pull/196)) Publish both cjs and esm versions of the package
-
-## Fixes
-
-- ([PR#175](https://github.com/dubzzz/fast-check/pull/175)) Characters must be biased by default
-- ([PR#184](https://github.com/dubzzz/fast-check/pull/184)) Update to latest lorem-ipsum
+- ([PR#1067](https://github.com/dubzzz/fast-check/pull/1067)) Unify signatures on arbitraries: fc.bigInt and fc.bigUint (see [#992](https://github.com/dubzzz/fast-check/issues/992))
+- ([PR#1068](https://github.com/dubzzz/fast-check/pull/1068)) Unify signatures on arbitraries: fc.float and fc.double (see [#992](https://github.com/dubzzz/fast-check/issues/992))
+- ([PR#1076](https://github.com/dubzzz/fast-check/pull/1076)) Unify signatures on arbitraries: fc.integer and fc.nat (see [#992](https://github.com/dubzzz/fast-check/issues/992))
+- ([PR#1080](https://github.com/dubzzz/fast-check/pull/1080)) Mark old signatures as deprecated (see [#992](https://github.com/dubzzz/fast-check/issues/992))
 
 ---
 
-# 1.5.1
+# 2.5.1
 
-_Infinite loop on replays with one-level-deep path_
+_Wrongly typed `fc.record`_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.5.1)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.5.0...v2.5.1)]
 
 ## Fixes
 
-- ([PR#418](https://github.com/dubzzz/fast-check/pull/418)) Infinite loop when path is one level deep and all runs succeed
+- ([PR#1142](https://github.com/dubzzz/fast-check/pull/1142)) Typings: Wrongly typed `fc.record`
 
-# 1.5.0
+# 2.5.0
 
-_Property based test state machine: UI, automata._
-_Addition of `subarray` and `shuffledSubarray` arbitraries_
+_Towards a uniform way to constrain arbitraries - step 2: remaining arbitraries except number related ones_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.5.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.4.0...v2.5.0)]
 
 ## Features
 
-- ([PR#177](https://github.com/dubzzz/fast-check/pull/177)) Add `subarray` and `shuffledSubarray` arbitraries
-- ([PR#157](https://github.com/dubzzz/fast-check/pull/157)) Model based testing and commands
-- ([PR#158](https://github.com/dubzzz/fast-check/pull/158)) Characters shrink towards printable ascii
-
+- ([PR#1023](https://github.com/dubzzz/fast-check/pull/1023)) Unify signatures on arbitraries: fc.\*\[jJ\]son\* (see [#992](https://github.com/dubzzz/fast-check/issues/992))
+- ([PR#1026](https://github.com/dubzzz/fast-check/pull/1026)) Unify signatures on arbitraries: fc.lorem (see [#992](https://github.com/dubzzz/fast-check/issues/992))
+- ([PR#1063](https://github.com/dubzzz/fast-check/pull/1063)) Rename fc.dedup into fc.clone (older name has been deprecated for the moment)
+- ([PR#1065](https://github.com/dubzzz/fast-check/pull/1065)) Add withDate option on fc.object
 
 ## Fixes
 
-- ([PR#170](https://github.com/dubzzz/fast-check/pull/170)) Fix: `fullUnicode` and `fullUnicodeString` were failing on old releases of node
-- ([PR#178](https://github.com/dubzzz/fast-check/pull/178)) Doc: Update typedoc
-- ([PR#161](https://github.com/dubzzz/fast-check/pull/161)) Doc: Suggest bundle.run instead of jsdelivr
+- ([PR#1022](https://github.com/dubzzz/fast-check/pull/1022)) Tool: Script udate:examples should not fail on updates
+- ([PR#1024](https://github.com/dubzzz/fast-check/pull/1024)) Doc: Support fc.option in codemod for [#992](https://github.com/dubzzz/fast-check/issues/992)
+- ([PR#1025](https://github.com/dubzzz/fast-check/pull/1025)) Doc: Support fc.commands in codemod for [#992](https://github.com/dubzzz/fast-check/issues/992)
 
 ---
 
-# 1.4.1
+# 2.4.1
 
-_Infinite loop on replays with one-level-deep path_
+_Wrongly typed `fc.record`_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.4.1)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.4.0...v2.4.1)]
 
 ## Fixes
 
-- ([PR#418](https://github.com/dubzzz/fast-check/pull/418)) Infinite loop when path is one level deep and all runs succeed
+- ([PR#1142](https://github.com/dubzzz/fast-check/pull/1142)) Typings: Wrongly typed `fc.record`
 
-# 1.4.0
+# 2.4.0
 
-_Suggest custom test values with `examples`_
+_Towards a uniform way to constrain arbitraries - step 1: array-like arbitraries_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.4.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.3.0...v2.4.0)]
 
 ## Features
 
-- ([PR#148](https://github.com/dubzzz/fast-check/pull/148)) Manually add concrete examples to test
+- ([PR#954](https://github.com/dubzzz/fast-check/pull/954)) Stringify supports typed arrays and buffers
+- ([PR#973](https://github.com/dubzzz/fast-check/pull/973)) Clean unneeded lines on toString for function arbitraries
+- ([PR#986](https://github.com/dubzzz/fast-check/pull/986)) Unify signatures on arbitraries: fc.array (see [#992](https://github.com/dubzzz/fast-check/issues/992)) :warning:
+- ([PR#988](https://github.com/dubzzz/fast-check/pull/988)) Unify signatures on arbitraries: fc.set (see [#992](https://github.com/dubzzz/fast-check/issues/992))
+- ([PR#1010](https://github.com/dubzzz/fast-check/pull/1010)) Unify signatures on arbitraries: fc.\*string (see [#992](https://github.com/dubzzz/fast-check/issues/992)) :warning:
+- ([PR#1011](https://github.com/dubzzz/fast-check/pull/1011)) Unify signatures on arbitraries: fc.\*subarray (see [#992](https://github.com/dubzzz/fast-check/issues/992))
 
 ## Fixes
 
-- ([PR#153](https://github.com/dubzzz/fast-check/pull/153)) Edit npm project description
-- ([PR#152](https://github.com/dubzzz/fast-check/pull/152)) Add minimal supported node engine version in package.json
-- ([PR#149](https://github.com/dubzzz/fast-check/pull/149)) Bump npm dependencies
+- ([PR#975](https://github.com/dubzzz/fast-check/pull/975)) Doc: Add runkit code example
+- ([PR#992](https://github.com/dubzzz/fast-check/pull/992)) Doc: Add automatic simplification of min and max in codemod for [#992](https://github.com/dubzzz/fast-check/issues/992)
+- ([PR#993](https://github.com/dubzzz/fast-check/pull/993)) Fix: Do not depreciate overloads for array-like (yet)
+- ([PR#1012](https://github.com/dubzzz/fast-check/pull/1012)) Fix: Adopt a safer signature recognition on array and set 
+- ([PR#1014](https://github.com/dubzzz/fast-check/pull/1014)) Test: Ensure old non-unified syntaxes still work
+- ([PR#991](https://github.com/dubzzz/fast-check/pull/991)) Tool: Fix .prettierignore
+- ([PR#976](https://github.com/dubzzz/fast-check/pull/976)) Typo: Use WebUrlConstraints instead of an inlined typing for webUrl
 
 ---
 
-# 1.3.0
+# 2.3.1
 
-_Filter invalid values directly in predicates using `fc.pre`_
+_Wrongly typed `fc.record`_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.3.1)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.3.0...v2.3.1)]
+
+## Fixes
+
+- ([PR#1142](https://github.com/dubzzz/fast-check/pull/1142)) Typings: Wrongly typed `fc.record`
+
+# 2.3.0
+
+_Add global beforeEach and afterEach hooks_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.3.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.2.1...v2.3.0)]
 
 ## Features
 
-- ([PR#140](https://github.com/dubzzz/fast-check/pull/140)) Make seed and path copy pasteable
-- ([PR#138](https://github.com/dubzzz/fast-check/pull/138)) Remove core-js, no more global namespace pollution
-- ([PR#118](https://github.com/dubzzz/fast-check/pull/118)) Enable preconditions in predicate
+- ([PR#900](https://github.com/dubzzz/fast-check/pull/900)) Add global beforeEach/afterEach hooks
+
+## Fixes
+
+- ([PR#970](https://github.com/dubzzz/fast-check/pull/970)) Doc: Rewrite the documentation to better target JavaScript users
 
 ---
 
-# 1.2.3
+# 2.2.2
 
-_Reduce package footprint and less restrictive API for `oneof`/`frequency`_
-
-## Fixes
-
-- ([PR#135](https://github.com/dubzzz/fast-check/pull/135)) Do not force explicitly one parameter in `oneof`/`frequency` 
-- ([PR#134](https://github.com/dubzzz/fast-check/pull/134)) Doc: Typos in README
-- ([PR#132](https://github.com/dubzzz/fast-check/pull/132)) Add missing exports for `jsonObject` and `unicodeJsonObject`
-- ([PR#131](https://github.com/dubzzz/fast-check/pull/131)) Reduce package size
-- ([PR#130](https://github.com/dubzzz/fast-check/pull/130)) Doc: Examples for generation of recursive structures
-
-# 1.2.2
-
-_Less restrictive API for `constantFrom`_
+_Wrongly typed `fc.record`_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.2.2)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.2.1...v2.2.2)]
 
 ## Fixes
 
-- ([PR#123](https://github.com/dubzzz/fast-check/pull/123)) Do not force explicitly one parameter in `constantFrom`
+- ([PR#1142](https://github.com/dubzzz/fast-check/pull/1142)) Typings: Wrongly typed `fc.record`
 
-# 1.2.1
+# 2.2.1
 
-_Readme update_
+_Fix infinite loop in `fc.date` when passing a NaN date_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.2.1)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.2.0...v2.2.1)]
 
 ## Fixes
 
-- ([b80b4f92](https://github.com/dubzzz/fast-check/commit/b80b4f92)) Doc: Model based testing example
-- ([cc4f4f4f](https://github.com/dubzzz/fast-check/commit/cc4f4f4f)) Doc: Getting started tutorial
+- ([PR#938](https://github.com/dubzzz/fast-check/pull/938)) Bug: Fix NaN passed to max in `fc.date()`
+- ([PR#936](https://github.com/dubzzz/fast-check/pull/936)) Doc: Switch to typedoc for the API Reference
+- ([PR#939](https://github.com/dubzzz/fast-check/pull/939)) Doc: Rename 'Documentation' badge into 'API Reference'
+- ([PR#948](https://github.com/dubzzz/fast-check/pull/948)) Doc: Mark TypeScript as an optional requirement in the README
+- ([PR#919](https://github.com/dubzzz/fast-check/pull/919)) Test: Reduce coverage flakiness on `HostArbitrary.ts`
 
-# 1.2.0
+# 2.2.0
 
-_Built-in chaining of arbitraries_
+_Export missing typings and various cleaning around the tsdoc_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.2.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.1.0...v2.2.0)]
 
 ## Features
 
-- ([PR#103](https://github.com/dubzzz/fast-check/pull/103)) Use the output of arbitraries to produce other ones with `.chain(...)`
-- ([PR#114](https://github.com/dubzzz/fast-check/pull/114)) Add shrink for `fc.lorem`
-- ([PR#116](https://github.com/dubzzz/fast-check/pull/116)) Throw exception in case of bad path when trying to replay a failure
+- ([PR#880](https://github.com/dubzzz/fast-check/pull/880)) Publish missing constraints types (option, scheduler)
+- ([PR#881](https://github.com/dubzzz/fast-check/pull/881)) Add an interface to better type (Async)Property
+- ([PR#902](https://github.com/dubzzz/fast-check/pull/902)) Standardize exported typings and add missing ones :warning:
+- ([PR#906](https://github.com/dubzzz/fast-check/pull/906)) Prefer interfaces and functions for exported entities
 
-## Fixes:
+## Fixes
 
-- ([PR#117](https://github.com/dubzzz/fast-check/pull/117)) Doc: Fully revamp the documentation
-- ([a5dcd71c](https://github.com/dubzzz/fast-check/commit/a5dcd71c)) Doc: New logo
+- ([PR#904](https://github.com/dubzzz/fast-check/pull/904)) Bug: Asynchrorous properties should be able to use `asyncReporter`
+- ([PR#850](https://github.com/dubzzz/fast-check/pull/850)) CI: Ignore fast-check bumps for some directories
+- ([PR#872](https://github.com/dubzzz/fast-check/pull/872)) CI: Slow down dependabot frequency
+- ([PR#879](https://github.com/dubzzz/fast-check/pull/879)) CI: Remove unneeded before_install step on .travis.yml
+- ([PR#882](https://github.com/dubzzz/fast-check/pull/882)) CI: Apply post-build script before generating the doc
+- ([PR#903](https://github.com/dubzzz/fast-check/pull/903)) CI: Break CI whenever documentation compiles with warnings
+- ([PR#905](https://github.com/dubzzz/fast-check/pull/905)) CI: Enable protobot-stale
+- ([PR#873](https://github.com/dubzzz/fast-check/pull/873)) Doc: Remove snyk badge
+- ([PR#878](https://github.com/dubzzz/fast-check/pull/878)) Doc: Fix some of the warnings raised by API Extractor
+- ([PR#883](https://github.com/dubzzz/fast-check/pull/883)) Doc: Update the template for new Pull Requests
+- ([PR#894](https://github.com/dubzzz/fast-check/pull/894)) Doc: Fix warnings related to invalid references raised by api-extractor
+- ([PR#907](https://github.com/dubzzz/fast-check/pull/907)) Doc: Fix examples leaking in to functions table
+- ([PR#908](https://github.com/dubzzz/fast-check/pull/908)) Doc: Document non-documented sections
+- ([PR#911](https://github.com/dubzzz/fast-check/pull/911)) Doc: Remove useless "fast-check#" prefix in @link
+- ([PR#848](https://github.com/dubzzz/fast-check/pull/848)) Test: Do not use `@testing-library/dom` directly in `examples/`
+- ([PR#851](https://github.com/dubzzz/fast-check/pull/851)) Test: Reduce coverage flakiness on `ReplayPath.ts`
+- ([PR#874](https://github.com/dubzzz/fast-check/pull/874)) Test: Reduce coverage flakiness on `hash.ts`
+- ([PR#893](https://github.com/dubzzz/fast-check/pull/893)) Tool: Add script to serve the generated documentation locally
 
 ---
 
-# 1.1.4
+# 2.1.0
 
-_Better performance for biased arbitraries (=default)_
-
-## Fixes
-
-- ([PR#107](https://github.com/dubzzz/fast-check/pull/107)) Fix: Performance issue when using biased arbitraries
-- ([743d7619](https://github.com/dubzzz/fast-check/commit/743d7619)) Fix: Bump to the latest version of `pure-rand`
-
-# 1.1.3
-
-_Export missing `fc.stringOf`_
-
-## Fixes
-
-- ([63915033](https://github.com/dubzzz/fast-check/commit/63915033)) Fix: Export missing `fc.stringOf`
-
-# 1.1.2
-
-_Readme update_
-
-## Fixes
-
-- ([68893e99](https://github.com/dubzzz/fast-check/commit/68893e99)) Doc: Why should I migrate section? in README.md
-- ([d779aa9e](https://github.com/dubzzz/fast-check/commit/d779aa9e)) Doc: Verbose mode explained in README.md
-- ([eacc7f0e](https://github.com/dubzzz/fast-check/commit/eacc7f0e)) Doc: Bug detected using property based testing and fast-check
-
-# 1.1.1
-
-_Ability to use min and max boundaries outside of 32 bits integers for `fc.integer`_
-
-## Fixes
-
-- ([b45b90eb](https://github.com/dubzzz/fast-check/commit/b45b90eb)) Ability to use min and max boundaries outside of 32 bits integers: `fc.integer(Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)`
-
-# 1.1.0
-
-_Straight to corner cases and verbose mode_
+_Better reported errors for `func`, `compareFunc` and `compareBooleanFunc`_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.1.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v2.0.0...v2.1.0)]
 
 ## Features
 
-- ([PR#91](https://github.com/dubzzz/fast-check/pull/91)) Straight to corner cases by default, see `unbiased` option of `assert` to disable it
-- ([PR#93](https://github.com/dubzzz/fast-check/pull/93)) Verbose mode on failure to have the list of all failing values encountered, see `verbose` option of `assert` to enable it
-- ([PR#94](https://github.com/dubzzz/fast-check/pull/94)) Better typings for `fc.record`
+- ([PR#843](https://github.com/dubzzz/fast-check/pull/843)) Report a valid `function` on `func` and `compareFunc`
+- ([PR#844](https://github.com/dubzzz/fast-check/pull/844)) Export internal `hash` function
+- ([PR#845](https://github.com/dubzzz/fast-check/pull/845)) Rewrite `hash` without using node specific APIs
+
+## Fixes
+
+- ([PR#833](https://github.com/dubzzz/fast-check/pull/833)) CI: Enable CodeQL Analysis
+- ([PR#837](https://github.com/dubzzz/fast-check/pull/837)) Clean: Remove usages of `!` operator in `ObjectArbitrary`
+- ([PR#838](https://github.com/dubzzz/fast-check/pull/838)) Clean: Remove custom implementation of `Array.prototype.find`
+- ([PR#816](https://github.com/dubzzz/fast-check/pull/816)) Doc: Fix typos in migration guide
+- ([PR#846](https://github.com/dubzzz/fast-check/pull/846)) Doc: Update links for `pika.dev` to `skypack.dev`
+- ([PR#819](https://github.com/dubzzz/fast-check/pull/819)) Test: Better test coverage for `fc.option`
+- ([PR#818](https://github.com/dubzzz/fast-check/pull/818)) Test: Reduce flakiness of coverage
 
 ---
 
-# 1.0.4
+# 2.0.0
 
-_TypeScript and JavaScript documentation of the code using TypeDoc_
+_Hybrid and full support for both ES Modules and CommonJS_
+[[Code](https://github.com/dubzzz/fast-check/tree/v2.0.0)][[Diff](https://github.com/dubzzz/fast-check/compare/v1.26.0...v2.0.0)]
 
-## Features
+This new major of fast-check is:
+- **lighter**: 906kB with 385 files to 505kB with 287 files
+- **faster**: takes between -15% (sync) to -40% (async) less time to run properties ([more](https://github.com/dubzzz/fast-check/pull/748))
+- **es-module** compatible: can be executed with `type:module`
 
-- ([cc73ab33](https://github.com/dubzzz/fast-check/commit/cc73ab33)) Add stringOf arbitrary
+## Breaking changes
 
-## Fixes
+- ([PR#748](https://github.com/dubzzz/fast-check/pull/748)) Drop support for old runtimes of JavaScript, requirements: node>=8 and ES2017+
+- ([PR#747](https://github.com/dubzzz/fast-check/pull/747)) Better typings of `fc.constantFrom`
+- ([PR#749](https://github.com/dubzzz/fast-check/pull/749)) Remove depreciated `with_deleted_keys` on `fc.record`
+- ([PR#750](https://github.com/dubzzz/fast-check/pull/750)) Drop support for TypeScript <3.2
+- ([PR#751](https://github.com/dubzzz/fast-check/pull/751)) Strip internal code at build time
+- ([PR#753](https://github.com/dubzzz/fast-check/pull/753)) Bump `pure-rand` package to use its hybrid build
+- ([PR#755](https://github.com/dubzzz/fast-check/pull/755)) Replace namespace `ObjectConstraints` by an type
+- ([PR#752](https://github.com/dubzzz/fast-check/pull/752)) Support ES Modules and CommonJS
+- ([PR#756](https://github.com/dubzzz/fast-check/pull/756)) Drop browser build
 
-- ([959fb52b](https://github.com/dubzzz/fast-check/commit/959fb52b)) Doc: Add a Tips section in the Readme
-- ([0dd1e66a](https://github.com/dubzzz/fast-check/commit/0dd1e66a)) Doc: Link towards the generated documentation in the Readme
-
-# 1.0.3
-
-_Reduce risk of using an unimplemented method of Node (older releases <6)_
-
-## Fixes
-
-- ([55ff3ff](https://github.com/dubzzz/fast-check/commit/55ff3ff)) Clean: Switch to the latest ES standard to use its implementations
-- ([ce75e4e](https://github.com/dubzzz/fast-check/commit/ce75e4e)) Fix: Safer polyfill for older version of node - rely on core-js
-
-# 1.0.2
-
-_Readme update following removal of depreciated devDependencies_
+*You may refer to our migration guide in case of issue: https://github.com/dubzzz/fast-check/blob/main/MIGRATION_1.X_TO_2.X.md*
 
 ## Fixes
 
-- ([309a00b](https://github.com/dubzzz/fast-check/commit/309a00b)) Doc: Update README.md
-- ([e13df27](https://github.com/dubzzz/fast-check/commit/e13df27)) Clean: Clean depreciated dependencies
-
-# 1.0.1
-
-_Fix infinite loop when shrinking array having a minimal length defined_
-
-## Fixes
-
-- ([d6468dc](https://github.com/dubzzz/fast-check/commit/d6468dc)) Fix: shrink an array with minimal length lead to infinite loop
-
-# 1.0.0
-
-_Easier replay of failures_
-
-_Faster shrinks_
-
-_No recursion when shrinking_
-
-## Features
-
-- ([7dd6fdb](https://github.com/dubzzz/fast-check/commit/7dd6fdb)) Add min/max parameters on fc.float and fc.double
-- ([e294eed](https://github.com/dubzzz/fast-check/commit/e294eed)) Naming: lower camel case for settings keys
-- ([6f35cdd](https://github.com/dubzzz/fast-check/commit/6f35cdd)) Check inputs provided to fc.property for easier troubleshoot
-- ([b960938](https://github.com/dubzzz/fast-check/commit/b960938)) Naming: rename generic_tuple into genericTuple
-- ([d1dde51](https://github.com/dubzzz/fast-check/commit/d1dde51)) Faster shrink of arrays (and must of others because built on top of arrays x integers)
-- ([fc57174](https://github.com/dubzzz/fast-check/commit/fc57174)) Faster shrink of integers
-- ([be038f0](https://github.com/dubzzz/fast-check/commit/be038f0)) Replay a failure by setting seed and path
-- ([d25d233](https://github.com/dubzzz/fast-check/commit/d25d233)) Feature counterexamplePath in case of failure
-- ([c7a1508](https://github.com/dubzzz/fast-check/commit/c7a1508)) Update error message content in case of failure in fc.assert
-- ([eb0d3c2](https://github.com/dubzzz/fast-check/commit/eb0d3c2)) Better rendering of strings
-- ([1e0a73d](https://github.com/dubzzz/fast-check/commit/1e0a73d)) Switch to pure-rand library to handle the random number generation
-
-## Fixes
-
-- ([56f1e03](https://github.com/dubzzz/fast-check/commit/56f1e03)) Clean: Bump versions of dependencies
-- ([d0027d7](https://github.com/dubzzz/fast-check/commit/d0027d7)) Clean: Do not throw raw strings but Error
-- ([6af9e6b](https://github.com/dubzzz/fast-check/commit/6af9e6b)) Clean: Remove power-assert from devDependencies
-- ([fe44db5](https://github.com/dubzzz/fast-check/commit/fe44db5)) Fix: Avoid recursion during shrinking
-- ([e3ecc3c](https://github.com/dubzzz/fast-check/commit/e3ecc3c)) Fix: Bad number of shrinks in case of failure (offset by one)
-- ([79c08f7](https://github.com/dubzzz/fast-check/commit/79c08f7)) Fix: Export dictionary arbitrary
-
----
-
-# 0.0.13
-
-_Readme update_
-
-## Fixes
-
-- ([79fadb2](https://github.com/dubzzz/fast-check/commit/79fadb2)) Update README.md
-
-# 0.0.12
-
-_New arbitraries: constantFrom and record_
-
-## Features:
-
-- ([786e16e](https://github.com/dubzzz/fast-check/commit/786e16e)) Modify default values available for fc.object
-- ([8984e78](https://github.com/dubzzz/fast-check/commit/8984e78)) Add flag to generate fc.record with missing keys
-- ([850158b](https://github.com/dubzzz/fast-check/commit/850158b)) Add fc.record Arbitrary
-- ([262b809](https://github.com/dubzzz/fast-check/commit/262b809)) Add fc.constantFrom Arbitrary
-
-## Fixes:
-
-- ([6db53f2](https://github.com/dubzzz/fast-check/commit/6db53f2)) Clean: Exclude example/ from npm package
-- ([036cd2f](https://github.com/dubzzz/fast-check/commit/036cd2f)) Doc: Documentation noShrink
-- ([0ee3a03](https://github.com/dubzzz/fast-check/commit/0ee3a03)) Doc: Link towards jsDelivr
-
-# 0.0.11
-
-_Bundled for web-browsers and node_
-
-## Features:
-- Add bundle for web-browsers
-- Add code examples in the source code
-- Add minimal length parameter on all strings arbitraries
-- Add es3 support in order to support oldest versions of node
-- Add `set`, `char16bits` and `fullUnicode` arbitraries
-- Add timeout parameter on asychronous properties
-
-## Fixes:
-- Fix: unicode character generators
-
-# 0.0.10
-
-_Fix shrink of async properties_
-
-## Fixes:
-
-- Fix: bug in shrink of async properties
-
-# 0.0.9
-
-_JSON arbitraries and shrinker kill switch_
-
-## Features:
-
-- `noShrink` method can remove shrink from existing arbitraries
-- Add `jsonObject` and `unicodeJsonObject` arbitraries
-- Support higher number of arbitraies in tuples and properties
-
-# 0.0.8
-
-_Code and documentation alignment_
-
-## Fixes:
-
-- Doc: align documentation with code
-- Doc: missing parts in the documentation
-
-# 0.0.7
-
-_Going async/await_
-
-## Features:
-
-- Support async/await properties
-- Add `frequency`, `anything`, `object`, `json`, `dictionary` arbitraries
-- Accept min and max length on `array`
-
-## Fixes:
-
-- Clean: Better integration with modern tests frameworks (throw Error not strings)
-
-# 0.0.6
-
-_Force ready to be used version_
-
-## Features:
-
-- Add `option`, `float`, `double`, `boolean` arbitraries
-- Add function to extract generated values `fc.sample` and `fc.statitistics`
-
-## Fixes:
-
-- Doc: creation of a documentation
+- ([PR#752](https://github.com/dubzzz/fast-check/pull/752)) Doc: Update compatibility table
+- ([PR#730](https://github.com/dubzzz/fast-check/pull/730)) Test: Reproducible tests by adding missing lockfiles

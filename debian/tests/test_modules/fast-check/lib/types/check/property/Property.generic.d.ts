@@ -1,40 +1,48 @@
-import { Random } from '../../random/generator/Random';
-import { Arbitrary } from '../arbitrary/definition/Arbitrary';
-import { Shrinkable } from '../arbitrary/definition/Shrinkable';
-import { PreconditionFailure } from '../precondition/PreconditionFailure';
 import { IRawProperty } from './IRawProperty';
+import { GlobalPropertyHookFunction } from '../runner/configuration/GlobalParameters';
+/**
+ * Type of legal hook function that can be used to call `beforeEach` or `afterEach`
+ * on a {@link IPropertyWithHooks}
+ *
+ * @remarks Since 2.2.0
+ * @public
+ */
+export declare type PropertyHookFunction = (globalHookFunction: GlobalPropertyHookFunction) => void;
 /**
  * Interface for synchronous property, see {@link IRawProperty}
+ * @remarks Since 1.19.0
+ * @public
  */
 export interface IProperty<Ts> extends IRawProperty<Ts, false> {
 }
-declare type HookFunction = () => void;
 /**
- * Property, see {@link IProperty}
- *
- * Prefer using {@link property} instead
+ * Interface for synchronous property defining hooks, see {@link IProperty}
+ * @remarks Since 2.2.0
+ * @public
  */
-export declare class Property<Ts> implements IProperty<Ts> {
-    readonly arb: Arbitrary<Ts>;
-    readonly predicate: (t: Ts) => boolean | void;
-    static dummyHook: HookFunction;
-    private beforeEachHook;
-    private afterEachHook;
-    constructor(arb: Arbitrary<Ts>, predicate: (t: Ts) => boolean | void);
-    isAsync: () => false;
-    generate(mrng: Random, runId?: number): Shrinkable<Ts>;
-    run(v: Ts): PreconditionFailure | string | null;
+export interface IPropertyWithHooks<Ts> extends IProperty<Ts> {
     /**
      * Define a function that should be called before all calls to the predicate
-     * @param hookFunction Function to be called
+     * @param invalidHookFunction - Function to be called, please provide a valid hook function
+     * @remarks Since 1.6.0
      */
-    beforeEach(invalidHookFunction: () => Promise<unknown>): 'beforeEach expects a synchronous function but was given a function returning a Promise';
-    beforeEach(validHookFunction: HookFunction): Property<Ts>;
+    beforeEach(invalidHookFunction: (hookFunction: GlobalPropertyHookFunction) => Promise<unknown>): 'beforeEach expects a synchronous function but was given a function returning a Promise';
+    /**
+     * Define a function that should be called before all calls to the predicate
+     * @param hookFunction - Function to be called
+     * @remarks Since 1.6.0
+     */
+    beforeEach(hookFunction: PropertyHookFunction): IPropertyWithHooks<Ts>;
     /**
      * Define a function that should be called after all calls to the predicate
-     * @param hookFunction Function to be called
+     * @param invalidHookFunction - Function to be called, please provide a valid hook function
+     * @remarks Since 1.6.0
      */
-    afterEach(invalidHookFunction: () => Promise<unknown>): 'afterEach expects a synchronous function but was given a function returning a Promise';
-    afterEach(validHookFunction: HookFunction): Property<Ts>;
+    afterEach(invalidHookFunction: (hookFunction: GlobalPropertyHookFunction) => Promise<unknown>): 'afterEach expects a synchronous function but was given a function returning a Promise';
+    /**
+     * Define a function that should be called after all calls to the predicate
+     * @param hookFunction - Function to be called
+     * @remarks Since 1.6.0
+     */
+    afterEach(hookFunction: PropertyHookFunction): IPropertyWithHooks<Ts>;
 }
-export {};

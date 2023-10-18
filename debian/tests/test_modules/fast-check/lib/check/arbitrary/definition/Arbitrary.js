@@ -1,110 +1,107 @@
 "use strict";
-exports.__esModule = true;
-var tslib_1 = require("tslib");
-var Shrinkable_1 = require("./Shrinkable");
-var Arbitrary = (function () {
-    function Arbitrary() {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.assertIsArbitrary = exports.Arbitrary = void 0;
+const Shrinkable_1 = require("./Shrinkable");
+class Arbitrary {
+    filter(refinement) {
+        return new FilterArbitrary(this, refinement);
     }
-    Arbitrary.prototype.filter = function (refinement) {
-        var arb = this;
-        var refinementOnShrinkable = function (s) {
-            return refinement(s.value);
-        };
-        return new ((function (_super) {
-            tslib_1.__extends(class_1, _super);
-            function class_1() {
-                return _super !== null && _super.apply(this, arguments) || this;
-            }
-            class_1.prototype.generate = function (mrng) {
-                var g = arb.generate(mrng);
-                while (!refinementOnShrinkable(g)) {
-                    g = arb.generate(mrng);
-                }
-                return g.filter(refinement);
-            };
-            class_1.prototype.withBias = function (freq) {
-                return arb.withBias(freq).filter(refinement);
-            };
-            return class_1;
-        }(Arbitrary)))();
-    };
-    Arbitrary.prototype.map = function (mapper) {
-        var arb = this;
-        return new ((function (_super) {
-            tslib_1.__extends(class_2, _super);
-            function class_2() {
-                return _super !== null && _super.apply(this, arguments) || this;
-            }
-            class_2.prototype.generate = function (mrng) {
-                return arb.generate(mrng).map(mapper);
-            };
-            class_2.prototype.withBias = function (freq) {
-                return arb.withBias(freq).map(mapper);
-            };
-            return class_2;
-        }(Arbitrary)))();
-    };
-    Arbitrary.shrinkChain = function (mrng, src, dst, fmapper) {
-        return new Shrinkable_1.Shrinkable(dst.value, function () {
-            return src
-                .shrink()
-                .map(function (v) {
-                return Arbitrary.shrinkChain(mrng.clone(), v, fmapper(v.value).generate(mrng.clone()), fmapper);
-            })
-                .join(dst.shrink());
-        });
-    };
-    Arbitrary.prototype.chain = function (fmapper) {
-        var arb = this;
-        return new ((function (_super) {
-            tslib_1.__extends(class_3, _super);
-            function class_3() {
-                return _super !== null && _super.apply(this, arguments) || this;
-            }
-            class_3.prototype.generate = function (mrng) {
-                var clonedMrng = mrng.clone();
-                var src = arb.generate(mrng);
-                var dst = fmapper(src.value).generate(mrng);
-                return Arbitrary.shrinkChain(clonedMrng, src, dst, fmapper);
-            };
-            class_3.prototype.withBias = function (freq) {
-                return arb.withBias(freq).chain(function (t) { return fmapper(t).withBias(freq); });
-            };
-            return class_3;
-        }(Arbitrary)))();
-    };
-    Arbitrary.prototype.noShrink = function () {
-        var arb = this;
-        return new ((function (_super) {
-            tslib_1.__extends(class_4, _super);
-            function class_4() {
-                return _super !== null && _super.apply(this, arguments) || this;
-            }
-            class_4.prototype.generate = function (mrng) {
-                return new Shrinkable_1.Shrinkable(arb.generate(mrng).value);
-            };
-            class_4.prototype.withBias = function (freq) {
-                return arb.withBias(freq).noShrink();
-            };
-            return class_4;
-        }(Arbitrary)))();
-    };
-    Arbitrary.prototype.withBias = function (_freq) {
+    map(mapper) {
+        return new MapArbitrary(this, mapper);
+    }
+    chain(fmapper) {
+        return new ChainArbitrary(this, fmapper);
+    }
+    noShrink() {
+        return new NoShrinkArbitrary(this);
+    }
+    withBias(_freq) {
         return this;
-    };
-    Arbitrary.prototype.noBias = function () {
-        var arb = this;
-        return new ((function (_super) {
-            tslib_1.__extends(class_5, _super);
-            function class_5() {
-                return _super !== null && _super.apply(this, arguments) || this;
-            }
-            class_5.prototype.generate = function (mrng) {
-                return arb.generate(mrng);
-            };
-            return class_5;
-        }(Arbitrary)))();
-    };
-    return Arbitrary;
-}());
+    }
+    noBias() {
+        return new NoBiasArbitrary(this);
+    }
+}
 exports.Arbitrary = Arbitrary;
+class ChainArbitrary extends Arbitrary {
+    constructor(arb, fmapper) {
+        super();
+        this.arb = arb;
+        this.fmapper = fmapper;
+    }
+    generate(mrng) {
+        const clonedMrng = mrng.clone();
+        const src = this.arb.generate(mrng);
+        const dst = this.fmapper(src.value).generate(mrng);
+        return ChainArbitrary.shrinkChain(clonedMrng, src, dst, this.fmapper);
+    }
+    withBias(freq) {
+        return this.arb.withBias(freq).chain((t) => this.fmapper(t).withBias(freq));
+    }
+    static shrinkChain(mrng, src, dst, fmapper) {
+        return new Shrinkable_1.Shrinkable(dst.value, () => src
+            .shrink()
+            .map((v) => ChainArbitrary.shrinkChain(mrng.clone(), v, fmapper(v.value).generate(mrng.clone()), fmapper))
+            .join(dst.shrink()));
+    }
+}
+class MapArbitrary extends Arbitrary {
+    constructor(arb, mapper) {
+        super();
+        this.arb = arb;
+        this.mapper = mapper;
+    }
+    generate(mrng) {
+        return this.arb.generate(mrng).map(this.mapper);
+    }
+    withBias(freq) {
+        return this.arb.withBias(freq).map(this.mapper);
+    }
+}
+class FilterArbitrary extends Arbitrary {
+    constructor(arb, refinement) {
+        super();
+        this.arb = arb;
+        this.refinement = refinement;
+    }
+    generate(mrng) {
+        let g = this.arb.generate(mrng);
+        while (!this.refinementOnShrinkable(g)) {
+            g = this.arb.generate(mrng);
+        }
+        return g.filter(this.refinement);
+    }
+    withBias(freq) {
+        return this.arb.withBias(freq).filter(this.refinement);
+    }
+    refinementOnShrinkable(s) {
+        return this.refinement(s.value);
+    }
+}
+class NoShrinkArbitrary extends Arbitrary {
+    constructor(arb) {
+        super();
+        this.arb = arb;
+    }
+    generate(mrng) {
+        return new Shrinkable_1.Shrinkable(this.arb.generate(mrng).value);
+    }
+    withBias(freq) {
+        return this.arb.withBias(freq).noShrink();
+    }
+}
+class NoBiasArbitrary extends Arbitrary {
+    constructor(arb) {
+        super();
+        this.arb = arb;
+    }
+    generate(mrng) {
+        return this.arb.generate(mrng);
+    }
+}
+function assertIsArbitrary(instance) {
+    if (typeof instance !== 'object' || instance === null || !('generate' in instance)) {
+        throw new Error('Unexpected value received: not an instance of Arbitrary');
+    }
+}
+exports.assertIsArbitrary = assertIsArbitrary;

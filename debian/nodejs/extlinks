@@ -1,1 +1,5 @@
-babel-jest test
+babel-jest	test
+@rollup/plugin-babel
+@rollup/plugin-replace
+@rollup/plugin-typescript
+@types/node

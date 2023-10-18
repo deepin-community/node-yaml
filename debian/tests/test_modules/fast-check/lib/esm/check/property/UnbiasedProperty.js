@@ -1,11 +1,17 @@
-var UnbiasedProperty = (function () {
-    function UnbiasedProperty(property) {
-        var _this = this;
+export class UnbiasedProperty {
+    constructor(property) {
         this.property = property;
-        this.isAsync = function () { return _this.property.isAsync(); };
-        this.generate = function (mrng, _runId) { return _this.property.generate(mrng); };
-        this.run = function (v) { return _this.property.run(v); };
     }
-    return UnbiasedProperty;
-}());
-export { UnbiasedProperty };
+    isAsync() {
+        return this.property.isAsync();
+    }
+    generate(mrng, _runId) {
+        return this.property.generate(mrng, undefined);
+    }
+    shrink(value) {
+        return this.property.shrink(value);
+    }
+    run(v) {
+        return this.property.run(v);
+    }
+}

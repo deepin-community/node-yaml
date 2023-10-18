@@ -1,21 +1,18 @@
 "use strict";
-exports.__esModule = true;
-var tslib_1 = require("tslib");
-var Arbitrary_1 = require("./Arbitrary");
-var BiasedArbitraryWrapper = (function (_super) {
-    tslib_1.__extends(BiasedArbitraryWrapper, _super);
-    function BiasedArbitraryWrapper(freq, arb, biasedArbBuilder) {
-        var _this = _super.call(this) || this;
-        _this.freq = freq;
-        _this.arb = arb;
-        _this.biasedArbBuilder = biasedArbBuilder;
-        return _this;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.biasWrapper = void 0;
+const Arbitrary_1 = require("./Arbitrary");
+class BiasedArbitraryWrapper extends Arbitrary_1.Arbitrary {
+    constructor(freq, arb, biasedArbBuilder) {
+        super();
+        this.freq = freq;
+        this.arb = arb;
+        this.biasedArbBuilder = biasedArbBuilder;
     }
-    BiasedArbitraryWrapper.prototype.generate = function (mrng) {
+    generate(mrng) {
         return mrng.nextInt(1, this.freq) === 1 ? this.biasedArbBuilder(this.arb).generate(mrng) : this.arb.generate(mrng);
-    };
-    return BiasedArbitraryWrapper;
-}(Arbitrary_1.Arbitrary));
+    }
+}
 function biasWrapper(freq, arb, biasedArbBuilder) {
     return new BiasedArbitraryWrapper(freq, arb, biasedArbBuilder);
 }

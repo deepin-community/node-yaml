@@ -1,44 +1,67 @@
 "use strict";
-exports.__esModule = true;
-var PreconditionFailure_1 = require("../precondition/PreconditionFailure");
-var IRawProperty_1 = require("./IRawProperty");
-var Property = (function () {
-    function Property(arb, predicate) {
-        this.arb = arb;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Property = void 0;
+const PreconditionFailure_1 = require("../precondition/PreconditionFailure");
+const IRawProperty_1 = require("./IRawProperty");
+const GlobalParameters_1 = require("../runner/configuration/GlobalParameters");
+const Converters_1 = require("../arbitrary/definition/Converters");
+const Stream_1 = require("../../stream/Stream");
+const NoUndefinedAsContext_1 = require("../../arbitrary/_internals/helpers/NoUndefinedAsContext");
+class Property {
+    constructor(rawArb, predicate) {
         this.predicate = predicate;
-        this.beforeEachHook = Property.dummyHook;
-        this.afterEachHook = Property.dummyHook;
-        this.isAsync = function () { return false; };
+        const { beforeEach = Property.dummyHook, afterEach = Property.dummyHook, asyncBeforeEach, asyncAfterEach, } = (0, GlobalParameters_1.readConfigureGlobal)() || {};
+        if (asyncBeforeEach !== undefined) {
+            throw Error('"asyncBeforeEach" can\'t be set when running synchronous properties');
+        }
+        if (asyncAfterEach !== undefined) {
+            throw Error('"asyncAfterEach" can\'t be set when running synchronous properties');
+        }
+        this.beforeEachHook = beforeEach;
+        this.afterEachHook = afterEach;
+        this.arb = (0, Converters_1.convertToNext)(rawArb);
     }
-    Property.prototype.generate = function (mrng, runId) {
-        return runId != null ? this.arb.withBias(IRawProperty_1.runIdToFrequency(runId)).generate(mrng) : this.arb.generate(mrng);
-    };
-    Property.prototype.run = function (v) {
+    isAsync() {
+        return false;
+    }
+    generate(mrng, runId) {
+        const value = this.arb.generate(mrng, runId != null ? (0, IRawProperty_1.runIdToFrequency)(runId) : undefined);
+        return (0, NoUndefinedAsContext_1.noUndefinedAsContext)(value);
+    }
+    shrink(value) {
+        if (value.context === undefined && !this.arb.canShrinkWithoutContext(value.value_)) {
+            return Stream_1.Stream.nil();
+        }
+        const safeContext = value.context !== NoUndefinedAsContext_1.UndefinedContextPlaceholder ? value.context : undefined;
+        return this.arb.shrink(value.value_, safeContext).map(NoUndefinedAsContext_1.noUndefinedAsContext);
+    }
+    run(v) {
         this.beforeEachHook();
         try {
-            var output = this.predicate(v);
+            const output = this.predicate(v);
             return output == null || output === true ? null : 'Property failed by returning false';
         }
         catch (err) {
             if (PreconditionFailure_1.PreconditionFailure.isFailure(err))
                 return err;
             if (err instanceof Error && err.stack)
-                return err + "\n\nStack trace: " + err.stack;
-            return "" + err;
+                return `${err}\n\nStack trace: ${err.stack}`;
+            return `${err}`;
         }
         finally {
             this.afterEachHook();
         }
-    };
-    Property.prototype.beforeEach = function (hookFunction) {
-        this.beforeEachHook = hookFunction;
+    }
+    beforeEach(hookFunction) {
+        const previousBeforeEachHook = this.beforeEachHook;
+        this.beforeEachHook = () => hookFunction(previousBeforeEachHook);
         return this;
-    };
-    Property.prototype.afterEach = function (hookFunction) {
-        this.afterEachHook = hookFunction;
+    }
+    afterEach(hookFunction) {
+        const previousAfterEachHook = this.afterEachHook;
+        this.afterEachHook = () => hookFunction(previousAfterEachHook);
         return this;
-    };
-    Property.dummyHook = function () { };
-    return Property;
-}());
+    }
+}
 exports.Property = Property;
+Property.dummyHook = () => { };

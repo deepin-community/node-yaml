@@ -8,8 +8,5 @@
 	dh $@
 
 override_dh_auto_build:
-	mkdir -p node_modules
-	ln -s ../debian/tests/test_modules/babel-plugin-trace node_modules/
-	rollup -c rollup.node-config.js
-	#rollup -c rollup.browser-config.js
-	rm -f node_modules/babel-plugin-trace
+	rollup -c config/rollup.node-config.mjs
+	rollup -c config/rollup.browser-config.mjs
