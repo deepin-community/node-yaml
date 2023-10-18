@@ -1,36 +1,33 @@
-import { __awaiter, __generator } from "tslib";
-var timeoutAfter = function (timeMs) {
-    var timeoutHandle = null;
-    var promise = new Promise(function (resolve) {
-        timeoutHandle = setTimeout(function () {
-            resolve("Property timeout: exceeded limit of " + timeMs + " milliseconds");
+const timeoutAfter = (timeMs) => {
+    let timeoutHandle = null;
+    const promise = new Promise((resolve) => {
+        timeoutHandle = setTimeout(() => {
+            resolve(`Property timeout: exceeded limit of ${timeMs} milliseconds`);
         }, timeMs);
     });
     return {
-        clear: function () { return clearTimeout(timeoutHandle); },
-        promise: promise
+        clear: () => clearTimeout(timeoutHandle),
+        promise,
     };
 };
-var TimeoutProperty = (function () {
-    function TimeoutProperty(property, timeMs) {
+export class TimeoutProperty {
+    constructor(property, timeMs) {
         this.property = property;
         this.timeMs = timeMs;
-        this.isAsync = function () { return true; };
     }
-    TimeoutProperty.prototype.generate = function (mrng, runId) {
+    isAsync() {
+        return true;
+    }
+    generate(mrng, runId) {
         return this.property.generate(mrng, runId);
-    };
-    TimeoutProperty.prototype.run = function (v) {
-        return __awaiter(this, void 0, void 0, function () {
-            var t, propRun;
-            return __generator(this, function (_a) {
-                t = timeoutAfter(this.timeMs);
-                propRun = Promise.race([this.property.run(v), t.promise]);
-                propRun.then(t.clear, t.clear);
-                return [2, propRun];
-            });
-        });
-    };
-    return TimeoutProperty;
-}());
-export { TimeoutProperty };
+    }
+    shrink(value) {
+        return this.property.shrink(value);
+    }
+    async run(v) {
+        const t = timeoutAfter(this.timeMs);
+        const propRun = Promise.race([this.property.run(v), t.promise]);
+        propRun.then(t.clear, t.clear);
+        return propRun;
+    }
+}

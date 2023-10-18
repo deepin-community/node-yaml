@@ -4,3 +4,4 @@ Bug-Database: https://github.com/eemeli/yaml/issues
 Bug-Submit: https://github.com/eemeli/yaml/issues/new
 Repository: https://github.com/eemeli/yaml.git
 Repository-Browse: https://github.com/eemeli/yaml
+Security-Contact: https://github.com/eemeli/yaml/tree/HEAD/docs/SECURITY.md

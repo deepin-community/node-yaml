@@ -10,8 +10,11 @@ import { Parameters } from './configuration/Parameters';
  * fc.sample(fc.nat(), {seed: 42}); // extract values from fc.nat() as if we were running fc.assert with seed=42
  * ```
  *
- * @param generator {@link IProperty} or {@link Arbitrary} to extract the values from
- * @param params Integer representing the number of values to generate or {@link Parameters} as in {@link assert}
+ * @param generator - {@link IProperty} or {@link Arbitrary} to extract the values from
+ * @param params - Integer representing the number of values to generate or `Parameters` as in {@link assert}
+ *
+ * @remarks Since 0.0.6
+ * @public
  */
 declare function sample<Ts>(generator: IRawProperty<Ts> | Arbitrary<Ts>, params?: Parameters<Ts> | number): Ts[];
 /**
@@ -31,9 +34,12 @@ declare function sample<Ts>(generator: IRawProperty<Ts> | Arbitrary<Ts>, params?
  * // The output will be sent line by line to the logger
  * ```
  *
- * @param generator {@link IProperty} or {@link Arbitrary} to extract the values from
- * @param classify Classifier function that can classify the generated value in zero, one or more categories (with free labels)
- * @param params Integer representing the number of values to generate or {@link Parameters} as in {@link assert}
+ * @param generator - {@link IProperty} or {@link Arbitrary} to extract the values from
+ * @param classify - Classifier function that can classify the generated value in zero, one or more categories (with free labels)
+ * @param params - Integer representing the number of values to generate or `Parameters` as in {@link assert}
+ *
+ * @remarks Since 0.0.6
+ * @public
  */
 declare function statistics<Ts>(generator: IRawProperty<Ts> | Arbitrary<Ts>, classify: (v: Ts) => string | string[], params?: Parameters<Ts> | number): void;
 export { sample, statistics };

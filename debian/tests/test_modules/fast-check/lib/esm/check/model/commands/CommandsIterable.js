@@ -1,23 +1,21 @@
 import { cloneMethod } from '../../symbols.js';
-var CommandsIterable = (function () {
-    function CommandsIterable(commands, metadataForReplay) {
+export class CommandsIterable {
+    constructor(commands, metadataForReplay) {
         this.commands = commands;
         this.metadataForReplay = metadataForReplay;
     }
-    CommandsIterable.prototype[Symbol.iterator] = function () {
+    [Symbol.iterator]() {
         return this.commands[Symbol.iterator]();
-    };
-    CommandsIterable.prototype[cloneMethod] = function () {
-        return new CommandsIterable(this.commands.map(function (c) { return c.clone(); }), this.metadataForReplay);
-    };
-    CommandsIterable.prototype.toString = function () {
-        var serializedCommands = this.commands
-            .filter(function (c) { return c.hasRan; })
-            .map(function (c) { return c.toString(); })
+    }
+    [cloneMethod]() {
+        return new CommandsIterable(this.commands.map((c) => c.clone()), this.metadataForReplay);
+    }
+    toString() {
+        const serializedCommands = this.commands
+            .filter((c) => c.hasRan)
+            .map((c) => c.toString())
             .join(',');
-        var metadata = this.metadataForReplay();
-        return metadata.length !== 0 ? serializedCommands + " /*" + metadata + "*/" : serializedCommands;
-    };
-    return CommandsIterable;
-}());
-export { CommandsIterable };
+        const metadata = this.metadataForReplay();
+        return metadata.length !== 0 ? `${serializedCommands} /*${metadata}*/` : serializedCommands;
+    }
+}

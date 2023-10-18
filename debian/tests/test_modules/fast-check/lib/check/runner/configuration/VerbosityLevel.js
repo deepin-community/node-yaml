@@ -1,5 +1,6 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.VerbosityLevel = void 0;
 var VerbosityLevel;
 (function (VerbosityLevel) {
     VerbosityLevel[VerbosityLevel["None"] = 0] = "None";

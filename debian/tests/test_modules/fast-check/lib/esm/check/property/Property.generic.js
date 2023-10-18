@@ -1,42 +1,63 @@
 import { PreconditionFailure } from '../precondition/PreconditionFailure.js';
 import { runIdToFrequency } from './IRawProperty.js';
-var Property = (function () {
-    function Property(arb, predicate) {
-        this.arb = arb;
+import { readConfigureGlobal } from '../runner/configuration/GlobalParameters.js';
+import { convertToNext } from '../arbitrary/definition/Converters.js';
+import { Stream } from '../../stream/Stream.js';
+import { noUndefinedAsContext, UndefinedContextPlaceholder, } from '../../arbitrary/_internals/helpers/NoUndefinedAsContext.js';
+export class Property {
+    constructor(rawArb, predicate) {
         this.predicate = predicate;
-        this.beforeEachHook = Property.dummyHook;
-        this.afterEachHook = Property.dummyHook;
-        this.isAsync = function () { return false; };
+        const { beforeEach = Property.dummyHook, afterEach = Property.dummyHook, asyncBeforeEach, asyncAfterEach, } = readConfigureGlobal() || {};
+        if (asyncBeforeEach !== undefined) {
+            throw Error('"asyncBeforeEach" can\'t be set when running synchronous properties');
+        }
+        if (asyncAfterEach !== undefined) {
+            throw Error('"asyncAfterEach" can\'t be set when running synchronous properties');
+        }
+        this.beforeEachHook = beforeEach;
+        this.afterEachHook = afterEach;
+        this.arb = convertToNext(rawArb);
     }
-    Property.prototype.generate = function (mrng, runId) {
-        return runId != null ? this.arb.withBias(runIdToFrequency(runId)).generate(mrng) : this.arb.generate(mrng);
-    };
-    Property.prototype.run = function (v) {
+    isAsync() {
+        return false;
+    }
+    generate(mrng, runId) {
+        const value = this.arb.generate(mrng, runId != null ? runIdToFrequency(runId) : undefined);
+        return noUndefinedAsContext(value);
+    }
+    shrink(value) {
+        if (value.context === undefined && !this.arb.canShrinkWithoutContext(value.value_)) {
+            return Stream.nil();
+        }
+        const safeContext = value.context !== UndefinedContextPlaceholder ? value.context : undefined;
+        return this.arb.shrink(value.value_, safeContext).map(noUndefinedAsContext);
+    }
+    run(v) {
         this.beforeEachHook();
         try {
-            var output = this.predicate(v);
+            const output = this.predicate(v);
             return output == null || output === true ? null : 'Property failed by returning false';
         }
         catch (err) {
             if (PreconditionFailure.isFailure(err))
                 return err;
             if (err instanceof Error && err.stack)
-                return err + "\n\nStack trace: " + err.stack;
-            return "" + err;
+                return `${err}\n\nStack trace: ${err.stack}`;
+            return `${err}`;
         }
         finally {
             this.afterEachHook();
         }
-    };
-    Property.prototype.beforeEach = function (hookFunction) {
-        this.beforeEachHook = hookFunction;
+    }
+    beforeEach(hookFunction) {
+        const previousBeforeEachHook = this.beforeEachHook;
+        this.beforeEachHook = () => hookFunction(previousBeforeEachHook);
         return this;
-    };
-    Property.prototype.afterEach = function (hookFunction) {
-        this.afterEachHook = hookFunction;
+    }
+    afterEach(hookFunction) {
+        const previousAfterEachHook = this.afterEachHook;
+        this.afterEachHook = () => hookFunction(previousAfterEachHook);
         return this;
-    };
-    Property.dummyHook = function () { };
-    return Property;
-}());
-export { Property };
+    }
+}
+Property.dummyHook = () => { };

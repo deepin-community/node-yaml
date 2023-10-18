@@ -1,17 +1,11 @@
-import { __extends } from "tslib";
-var PreconditionFailure = (function (_super) {
-    __extends(PreconditionFailure, _super);
-    function PreconditionFailure(interruptExecution) {
-        if (interruptExecution === void 0) { interruptExecution = false; }
-        var _this = _super.call(this) || this;
-        _this.interruptExecution = interruptExecution;
-        _this.footprint = PreconditionFailure.SharedFootPrint;
-        return _this;
+export class PreconditionFailure extends Error {
+    constructor(interruptExecution = false) {
+        super();
+        this.interruptExecution = interruptExecution;
+        this.footprint = PreconditionFailure.SharedFootPrint;
     }
-    PreconditionFailure.isFailure = function (err) {
+    static isFailure(err) {
         return err != null && err.footprint === PreconditionFailure.SharedFootPrint;
-    };
-    PreconditionFailure.SharedFootPrint = Symbol["for"]('fast-check/PreconditionFailure');
-    return PreconditionFailure;
-}(Error));
-export { PreconditionFailure };
+    }
+}
+PreconditionFailure.SharedFootPrint = Symbol('fast-check/PreconditionFailure');

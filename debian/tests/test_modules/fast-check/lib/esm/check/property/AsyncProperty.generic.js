@@ -1,57 +1,63 @@
-import { __awaiter, __generator } from "tslib";
 import { PreconditionFailure } from '../precondition/PreconditionFailure.js';
 import { runIdToFrequency } from './IRawProperty.js';
-var AsyncProperty = (function () {
-    function AsyncProperty(arb, predicate) {
-        this.arb = arb;
+import { readConfigureGlobal } from '../runner/configuration/GlobalParameters.js';
+import { Stream } from '../../stream/Stream.js';
+import { convertToNext } from '../arbitrary/definition/Converters.js';
+import { noUndefinedAsContext, UndefinedContextPlaceholder, } from '../../arbitrary/_internals/helpers/NoUndefinedAsContext.js';
+export class AsyncProperty {
+    constructor(rawArb, predicate) {
         this.predicate = predicate;
-        this.beforeEachHook = AsyncProperty.dummyHook;
-        this.afterEachHook = AsyncProperty.dummyHook;
-        this.isAsync = function () { return true; };
+        const { asyncBeforeEach, asyncAfterEach, beforeEach, afterEach } = readConfigureGlobal() || {};
+        if (asyncBeforeEach !== undefined && beforeEach !== undefined) {
+            throw Error('Global "asyncBeforeEach" and "beforeEach" parameters can\'t be set at the same time when running async properties');
+        }
+        if (asyncAfterEach !== undefined && afterEach !== undefined) {
+            throw Error('Global "asyncAfterEach" and "afterEach" parameters can\'t be set at the same time when running async properties');
+        }
+        this.beforeEachHook = asyncBeforeEach || beforeEach || AsyncProperty.dummyHook;
+        this.afterEachHook = asyncAfterEach || afterEach || AsyncProperty.dummyHook;
+        this.arb = convertToNext(rawArb);
     }
-    AsyncProperty.prototype.generate = function (mrng, runId) {
-        return runId != null ? this.arb.withBias(runIdToFrequency(runId)).generate(mrng) : this.arb.generate(mrng);
-    };
-    AsyncProperty.prototype.run = function (v) {
-        return __awaiter(this, void 0, void 0, function () {
-            var output, err_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4, this.beforeEachHook()];
-                    case 1:
-                        _a.sent();
-                        _a.label = 2;
-                    case 2:
-                        _a.trys.push([2, 4, 5, 7]);
-                        return [4, this.predicate(v)];
-                    case 3:
-                        output = _a.sent();
-                        return [2, output == null || output === true ? null : 'Property failed by returning false'];
-                    case 4:
-                        err_1 = _a.sent();
-                        if (PreconditionFailure.isFailure(err_1))
-                            return [2, err_1];
-                        if (err_1 instanceof Error && err_1.stack)
-                            return [2, err_1 + "\n\nStack trace: " + err_1.stack];
-                        return [2, "" + err_1];
-                    case 5: return [4, this.afterEachHook()];
-                    case 6:
-                        _a.sent();
-                        return [7];
-                    case 7: return [2];
-                }
-            });
-        });
-    };
-    AsyncProperty.prototype.beforeEach = function (hookFunction) {
-        this.beforeEachHook = hookFunction;
+    isAsync() {
+        return true;
+    }
+    generate(mrng, runId) {
+        const value = this.arb.generate(mrng, runId != null ? runIdToFrequency(runId) : undefined);
+        return noUndefinedAsContext(value);
+    }
+    shrink(value) {
+        if (value.context === undefined && !this.arb.canShrinkWithoutContext(value.value_)) {
+            return Stream.nil();
+        }
+        const safeContext = value.context !== UndefinedContextPlaceholder ? value.context : undefined;
+        return this.arb.shrink(value.value_, safeContext).map(noUndefinedAsContext);
+    }
+    async run(v) {
+        await this.beforeEachHook();
+        try {
+            const output = await this.predicate(v);
+            return output == null || output === true ? null : 'Property failed by returning false';
+        }
+        catch (err) {
+            if (PreconditionFailure.isFailure(err))
+                return err;
+            if (err instanceof Error && err.stack)
+                return `${err}\n\nStack trace: ${err.stack}`;
+            return `${err}`;
+        }
+        finally {
+            await this.afterEachHook();
+        }
+    }
+    beforeEach(hookFunction) {
+        const previousBeforeEachHook = this.beforeEachHook;
+        this.beforeEachHook = () => hookFunction(previousBeforeEachHook);
         return this;
-    };
-    AsyncProperty.prototype.afterEach = function (hookFunction) {
-        this.afterEachHook = hookFunction;
+    }
+    afterEach(hookFunction) {
+        const previousAfterEachHook = this.afterEachHook;
+        this.afterEachHook = () => hookFunction(previousAfterEachHook);
         return this;
-    };
-    AsyncProperty.dummyHook = function () { };
-    return AsyncProperty;
-}());
-export { AsyncProperty };
+    }
+}
+AsyncProperty.dummyHook = () => { };

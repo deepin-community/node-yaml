@@ -1,23 +1,23 @@
 "use strict";
-exports.__esModule = true;
-var LazyIterableIterator = (function () {
-    function LazyIterableIterator(producer) {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.makeLazy = void 0;
+class LazyIterableIterator {
+    constructor(producer) {
         this.producer = producer;
     }
-    LazyIterableIterator.prototype[Symbol.iterator] = function () {
+    [Symbol.iterator]() {
         if (this.it === undefined) {
             this.it = this.producer();
         }
         return this.it;
-    };
-    LazyIterableIterator.prototype.next = function () {
+    }
+    next() {
         if (this.it === undefined) {
             this.it = this.producer();
         }
         return this.it.next();
-    };
-    return LazyIterableIterator;
-}());
+    }
+}
 function makeLazy(producer) {
     return new LazyIterableIterator(producer);
 }

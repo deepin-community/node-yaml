@@ -1,26 +1,26 @@
 "use strict";
-exports.__esModule = true;
-var SourceValuesIterator = (function () {
-    function SourceValuesIterator(initialValues, maxInitialIterations, remainingSkips) {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SourceValuesIterator = void 0;
+class SourceValuesIterator {
+    constructor(initialValues, maxInitialIterations, remainingSkips) {
         this.initialValues = initialValues;
         this.maxInitialIterations = maxInitialIterations;
         this.remainingSkips = remainingSkips;
     }
-    SourceValuesIterator.prototype[Symbol.iterator] = function () {
+    [Symbol.iterator]() {
         return this;
-    };
-    SourceValuesIterator.prototype.next = function (value) {
+    }
+    next() {
         if (--this.maxInitialIterations !== -1 && this.remainingSkips >= 0) {
-            var n = this.initialValues.next();
+            const n = this.initialValues.next();
             if (!n.done)
                 return { value: n.value(), done: false };
         }
-        return { value: value, done: true };
-    };
-    SourceValuesIterator.prototype.skippedOne = function () {
+        return { value: undefined, done: true };
+    }
+    skippedOne() {
         --this.remainingSkips;
         ++this.maxInitialIterations;
-    };
-    return SourceValuesIterator;
-}());
+    }
+}
 exports.SourceValuesIterator = SourceValuesIterator;

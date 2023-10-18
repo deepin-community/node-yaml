@@ -1,23 +1,7 @@
-function toUint32(num) {
-    return (num | 0) >= 0 ? num | 0 : (num | 0) + 4294967296;
-}
-function product32bits(a, b) {
-    var alo = a & 0xffff;
-    var ahi = (a >>> 16) & 0xffff;
-    var blo = b & 0xffff;
-    var bhi = (b >>> 16) & 0xffff;
-    return alo * blo + ((alo * bhi + ahi * blo) << 16);
-}
 var MersenneTwister = (function () {
     function MersenneTwister(states, index) {
-        if (index >= MersenneTwister.N) {
-            this.states = MersenneTwister.twist(states);
-            this.index = 0;
-        }
-        else {
-            this.states = states;
-            this.index = index;
-        }
+        this.states = states;
+        this.index = index;
     }
     MersenneTwister.twist = function (prev) {
         var mt = prev.slice();
@@ -38,12 +22,12 @@ var MersenneTwister = (function () {
         out[0] = seed;
         for (var idx = 1; idx !== MersenneTwister.N; ++idx) {
             var xored = out[idx - 1] ^ (out[idx - 1] >>> 30);
-            out[idx] = (product32bits(MersenneTwister.F, xored) + idx) | 0;
+            out[idx] = (Math.imul(MersenneTwister.F, xored) + idx) | 0;
         }
         return out;
     };
     MersenneTwister.from = function (seed) {
-        return new MersenneTwister(MersenneTwister.seeded(seed), MersenneTwister.N);
+        return new MersenneTwister(MersenneTwister.twist(MersenneTwister.seeded(seed)), 0);
     };
     MersenneTwister.prototype.min = function () {
         return MersenneTwister.min;
@@ -51,13 +35,25 @@ var MersenneTwister = (function () {
     MersenneTwister.prototype.max = function () {
         return MersenneTwister.max;
     };
+    MersenneTwister.prototype.clone = function () {
+        return new MersenneTwister(this.states, this.index);
+    };
     MersenneTwister.prototype.next = function () {
+        var nextRng = new MersenneTwister(this.states, this.index);
+        var out = nextRng.unsafeNext();
+        return [out, nextRng];
+    };
+    MersenneTwister.prototype.unsafeNext = function () {
         var y = this.states[this.index];
         y ^= this.states[this.index] >>> MersenneTwister.U;
         y ^= (y << MersenneTwister.S) & MersenneTwister.B;
         y ^= (y << MersenneTwister.T) & MersenneTwister.C;
         y ^= y >>> MersenneTwister.L;
-        return [toUint32(y), new MersenneTwister(this.states, this.index + 1)];
+        if (++this.index >= MersenneTwister.N) {
+            this.states = MersenneTwister.twist(this.states);
+            this.index = 0;
+        }
+        return y >>> 0;
     };
     MersenneTwister.min = 0;
     MersenneTwister.max = 0xffffffff;

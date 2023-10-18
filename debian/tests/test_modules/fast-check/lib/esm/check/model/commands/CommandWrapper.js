@@ -1,24 +1,35 @@
+import { asyncToStringMethod, hasAsyncToStringMethod, hasToStringMethod, toStringMethod, } from '../../../utils/stringify.js';
 import { cloneMethod, hasCloneMethod } from '../../symbols.js';
-var CommandWrapper = (function () {
-    function CommandWrapper(cmd) {
+export class CommandWrapper {
+    constructor(cmd) {
         this.cmd = cmd;
         this.hasRan = false;
+        if (hasToStringMethod(cmd)) {
+            const method = cmd[toStringMethod];
+            this[toStringMethod] = function toStringMethod() {
+                return method.call(cmd);
+            };
+        }
+        if (hasAsyncToStringMethod(cmd)) {
+            const method = cmd[asyncToStringMethod];
+            this[asyncToStringMethod] = function asyncToStringMethod() {
+                return method.call(cmd);
+            };
+        }
     }
-    CommandWrapper.prototype.check = function (m) {
+    check(m) {
         return this.cmd.check(m);
-    };
-    CommandWrapper.prototype.run = function (m, r) {
+    }
+    run(m, r) {
         this.hasRan = true;
         return this.cmd.run(m, r);
-    };
-    CommandWrapper.prototype.clone = function () {
+    }
+    clone() {
         if (hasCloneMethod(this.cmd))
             return new CommandWrapper(this.cmd[cloneMethod]());
         return new CommandWrapper(this.cmd);
-    };
-    CommandWrapper.prototype.toString = function () {
+    }
+    toString() {
         return this.cmd.toString();
-    };
-    return CommandWrapper;
-}());
-export { CommandWrapper };
+    }
+}

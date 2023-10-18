@@ -1,3 +1,5 @@
 "use strict";
-exports.__esModule = true;
-exports.runIdToFrequency = function (runId) { return 2 + Math.floor(Math.log(runId + 1) / Math.log(10)); };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.runIdToFrequency = void 0;
+const runIdToFrequency = (runId) => 2 + Math.floor(Math.log(runId + 1) / Math.log(10));
+exports.runIdToFrequency = runIdToFrequency;

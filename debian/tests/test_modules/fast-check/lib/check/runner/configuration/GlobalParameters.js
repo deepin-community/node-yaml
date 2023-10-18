@@ -1,13 +1,16 @@
 "use strict";
-exports.__esModule = true;
-var globalThis_1 = require("../../../utils/globalThis");
-var globalParametersSymbol = Symbol["for"]('fast-check/GlobalParameters');
-exports.configureGlobal = function (parameters) {
-    globalThis_1.getGlobal()[globalParametersSymbol] = parameters;
-};
-exports.readConfigureGlobal = function () {
-    return globalThis_1.getGlobal()[globalParametersSymbol];
-};
-exports.resetConfigureGlobal = function () {
-    delete globalThis_1.getGlobal()[globalParametersSymbol];
-};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.resetConfigureGlobal = exports.readConfigureGlobal = exports.configureGlobal = void 0;
+let globalParameters = {};
+function configureGlobal(parameters) {
+    globalParameters = parameters;
+}
+exports.configureGlobal = configureGlobal;
+function readConfigureGlobal() {
+    return globalParameters;
+}
+exports.readConfigureGlobal = readConfigureGlobal;
+function resetConfigureGlobal() {
+    globalParameters = {};
+}
+exports.resetConfigureGlobal = resetConfigureGlobal;

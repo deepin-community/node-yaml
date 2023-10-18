@@ -1,23 +1,28 @@
-import * as prand from 'pure-rand';
+import { PureRandom } from './PureRandom';
+/**
+ * Wrapper around an instance of a `pure-rand`'s random number generator
+ * offering a simpler interface to deal with random with impure patterns
+ *
+ * @public
+ */
 export declare class Random {
-    private internalRng;
     private static MIN_INT;
     private static MAX_INT;
     private static DBL_FACTOR;
     private static DBL_DIVISOR;
+    private internalRng;
     /**
-     * Create a mutable random number generator
-     * @param internalRng Immutable random generator from pure-rand library
+     * Create a mutable random number generator by cloning the passed one and mutate it
+     * @param sourceRng - Immutable random generator from pure-rand library, will not be altered (a clone will be)
      */
-    constructor(internalRng: prand.RandomGenerator);
+    constructor(sourceRng: PureRandom);
     /**
      * Clone the random number generator
      */
     clone(): Random;
-    private uniformIn;
     /**
      * Generate an integer having `bits` random bits
-     * @param bits Number of bits to generate
+     * @param bits - Number of bits to generate
      */
     next(bits: number): number;
     /**
@@ -30,16 +35,31 @@ export declare class Random {
     nextInt(): number;
     /**
      * Generate a random integer between min (included) and max (included)
-     * @param min Minimal integer value
-     * @param max Maximal integer value
+     * @param min - Minimal integer value
+     * @param max - Maximal integer value
      */
     nextInt(min: number, max: number): number;
     /**
-     * Generate a random any between min (included) and max (included)
-     * @param min Minimal any value
-     * @param max Maximal any value
+     * Generate a random bigint between min (included) and max (included)
+     * @param min - Minimal bigint value
+     * @param max - Maximal bigint value
      */
-    nextBigInt(min: any, max: any): any;
+    nextBigInt(min: bigint, max: bigint): bigint;
+    /**
+     * Generate a random ArrayInt between min (included) and max (included)
+     * @param min - Minimal ArrayInt value
+     * @param max - Maximal ArrayInt value
+     */
+    nextArrayInt(min: {
+        sign: 1 | -1;
+        data: number[];
+    }, max: {
+        sign: 1 | -1;
+        data: number[];
+    }): {
+        sign: 1 | -1;
+        data: number[];
+    };
     /**
      * Generate a random floating point number between 0.0 (included) and 1.0 (excluded)
      */

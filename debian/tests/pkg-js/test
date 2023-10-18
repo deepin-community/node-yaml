@@ -1,9 +1,5 @@
 # Test
-LIST=`find tests/ -name '*.js'|grep -v tests/yaml-test-suite.js|grep -v tests/doc/YAML-1.2.spec.js`
-if test "$AUTOPKGTEST_TMP" = ""; then
-	LIST="$LIST tests/doc/YAML-1.2.spec.js"
-fi
-jest -u --ci $LIST
+jest --config config/jest.config.js --ci --testPathIgnorePatterns tests/yaml-test-suite.ts tests/_utils.ts tests/json-test-suite.ts .pc/ debian/tests/
 
 # Types test
-tsc --lib ES2017 --noEmit tests/typings.ts
+tsc --allowJs --moduleResolution node --noEmit --target es5 dist/index.js

@@ -1,46 +1,12 @@
-function uniformIntInternal(from, diff, rng) {
-    var MinRng = rng.min();
-    var NumValues = rng.max() - rng.min() + 1;
-    if (diff <= NumValues) {
-        var nrng_1 = rng;
-        var MaxAllowed = NumValues - (NumValues % diff);
-        while (true) {
-            var out = nrng_1.next();
-            var deltaV = out[0] - MinRng;
-            nrng_1 = out[1];
-            if (deltaV < MaxAllowed) {
-                return [(deltaV % diff) + from, nrng_1];
-            }
-        }
-    }
-    var FinalNumValues = 1;
-    var NumIterations = 0;
-    while (FinalNumValues < diff) {
-        FinalNumValues *= NumValues;
-        ++NumIterations;
-    }
-    var MaxAcceptedRandom = diff * Math.floor((1 * FinalNumValues) / diff);
-    var nrng = rng;
-    while (true) {
-        var value = 0;
-        for (var num = 0; num !== NumIterations; ++num) {
-            var out = nrng.next();
-            value = NumValues * value + (out[0] - MinRng);
-            nrng = out[1];
-        }
-        if (value < MaxAcceptedRandom) {
-            var inDiff = value - diff * Math.floor((1 * value) / diff);
-            return [inDiff + from, nrng];
-        }
-    }
-}
+import { unsafeUniformIntDistribution } from './UnsafeUniformIntDistribution.js';
 function uniformIntDistribution(from, to, rng) {
-    var diff = to - from + 1;
     if (rng != null) {
-        return uniformIntInternal(from, diff, rng);
+        var nextRng = rng.clone();
+        return [unsafeUniformIntDistribution(from, to, nextRng), nextRng];
     }
     return function (rng) {
-        return uniformIntInternal(from, diff, rng);
+        var nextRng = rng.clone();
+        return [unsafeUniformIntDistribution(from, to, nextRng), nextRng];
     };
 }
 export { uniformIntDistribution };
