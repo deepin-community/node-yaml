@@ -1,0 +1,11 @@
+# rollup does not like +~ in path
+TMPBUILDDIR=$(mktemp -d)
+CURDIR=$(pwd)
+mkdir -p dist
+mkdir -p browser/dist
+trap 'rm -rf -- "$TMPBUILDDIR"' EXIT
+rsync -av --exclude=".git" --exclude="debian/" . $TMPBUILDDIR/build
+(cd $TMPBUILDDIR/build; rollup -c config/rollup.browser-config.mjs; rollup -c config/rollup.node-config.mjs)
+rsync -av  --exclude=".git" $TMPBUILDDIR/build/ .
+
+
