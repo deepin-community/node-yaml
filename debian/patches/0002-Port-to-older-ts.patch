@@ -1,0 +1,103 @@
+From: =?utf-8?q?Bastien_Roucari=C3=A8s?= <rouca@debian.org>
+Date: Wed, 31 Jul 2024 13:53:32 +0000
+Subject: Port to older ts
+
+Forwarded: not-needed
+---
+ yaml-types/src/class.ts       | 2 +-
+ yaml-types/src/error.ts       | 2 +-
+ yaml-types/src/function.ts    | 2 +-
+ yaml-types/src/null-object.ts | 2 +-
+ yaml-types/src/regexp.ts      | 2 +-
+ yaml-types/src/symbol.ts      | 4 ++--
+ yaml-types/tsconfig.json      | 5 ++---
+ 7 files changed, 9 insertions(+), 10 deletions(-)
+
+diff --git a/yaml-types/src/class.ts b/yaml-types/src/class.ts
+index da0c3c5..580710d 100644
+--- a/yaml-types/src/class.ts
++++ b/yaml-types/src/class.ts
+@@ -45,4 +45,4 @@ export const classTag = {
+     const type: Scalar.Type = originalType || options.defaultType
+     return stringifyString({ ...i, type, value }, ctx, onComment, onChompKeep)
+   }
+-} satisfies ScalarTag & { options: typeof options }
++} as ScalarTag & { options: typeof options }
+diff --git a/yaml-types/src/error.ts b/yaml-types/src/error.ts
+index 66f720b..eedcb82 100644
+--- a/yaml-types/src/error.ts
++++ b/yaml-types/src/error.ts
+@@ -98,4 +98,4 @@ export const error = {
+   collection: 'map',
+   nodeClass: YAMLErrorObject,
+   identify: (er: any) => er instanceof Error
+-} satisfies CollectionTag
++} as CollectionTag
+diff --git a/yaml-types/src/function.ts b/yaml-types/src/function.ts
+index 8db0f04..6facf40 100644
+--- a/yaml-types/src/function.ts
++++ b/yaml-types/src/function.ts
+@@ -40,4 +40,4 @@ export const functionTag = {
+     const type: Scalar.Type = originalType || options.defaultType
+     return stringifyString({ ...i, type, value }, ctx, onComment, onChompKeep)
+   }
+-} satisfies ScalarTag & { options: typeof options }
++} as ScalarTag & { options: typeof options }
+diff --git a/yaml-types/src/null-object.ts b/yaml-types/src/null-object.ts
+index 3d08847..5cf7d49 100644
+--- a/yaml-types/src/null-object.ts
++++ b/yaml-types/src/null-object.ts
+@@ -19,4 +19,4 @@ export const nullobject = {
+   collection: 'map',
+   nodeClass: YAMLNullObject,
+   identify: v => !!(typeof v === 'object' && v && !Object.getPrototypeOf(v))
+-} satisfies CollectionTag
++} as CollectionTag
+diff --git a/yaml-types/src/regexp.ts b/yaml-types/src/regexp.ts
+index 1a6fdad..f142813 100644
+--- a/yaml-types/src/regexp.ts
++++ b/yaml-types/src/regexp.ts
+@@ -14,4 +14,4 @@ export const regexp = {
+     if (!match) throw new Error('Invalid RegExp value')
+     return new RegExp(match[1], match[2])
+   }
+-} satisfies ScalarTag
++} as ScalarTag
+diff --git a/yaml-types/src/symbol.ts b/yaml-types/src/symbol.ts
+index 1715fa1..477b3b2 100644
+--- a/yaml-types/src/symbol.ts
++++ b/yaml-types/src/symbol.ts
+@@ -13,7 +13,7 @@ export const sharedSymbol = {
+     }
+     return stringifyString({ value: key }, ctx, onComment, onChompKeep)
+   }
+-} satisfies ScalarTag
++} as ScalarTag
+ 
+ export const symbol = {
+   identify: value =>
+@@ -26,4 +26,4 @@ export const symbol = {
+     const value = String(sym).replace(/^Symbol\(|\)$/g, '')
+     return stringifyString({ value }, ctx, onComment, onChompKeep)
+   }
+-} satisfies ScalarTag
++} as ScalarTag
+diff --git a/yaml-types/tsconfig.json b/yaml-types/tsconfig.json
+index e46102f..3bf34cd 100644
+--- a/yaml-types/tsconfig.json
++++ b/yaml-types/tsconfig.json
+@@ -1,12 +1,11 @@
+ {
+   "compilerOptions": {
+     "declaration": true,
+-    "module": "Node16",
+-    "moduleResolution": "node16",
+     "noUnusedLocals": true,
++    "module": "CommonJS",
+     "noUnusedParameters": true,
++    "moduleResolution": "node16",
+     "outDir": "dist",
+-    "resolvePackageJsonExports": true,
+     "rootDir": "src",
+     "skipLibCheck": true,
+     "sourceMap": true,
