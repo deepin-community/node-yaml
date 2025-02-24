@@ -1,11 +1,18 @@
-Description: these tests requires some git sub-directories
-Author: Yadd <yadd@debian.org>
+From: Yadd <yadd@debian.org>
+Date: Wed, 31 Jul 2024 13:39:44 +0000
+Subject: these tests requires some git sub-directories
+
 Forwarded: not-needed
 Last-Update: 2022-05-03
+---
+ tests/json-test-suite.ts | 2 ++
+ 1 file changed, 2 insertions(+)
 
+diff --git a/tests/json-test-suite.ts b/tests/json-test-suite.ts
+index 9c41db2..bc02fe0 100644
 --- a/tests/json-test-suite.ts
 +++ b/tests/json-test-suite.ts
-@@ -49,6 +49,7 @@
+@@ -49,6 +49,7 @@ function testSuccess(name: string, src: string) {
    })
  }
  
@@ -13,7 +20,7 @@ Last-Update: 2022-05-03
  describe('json-test-suite test_parsing', () => {
    const dir = resolve(__dirname, 'json-test-suite', 'test_parsing')
    for (const fn of readdirSync(dir)) {
-@@ -68,3 +69,4 @@
+@@ -68,3 +69,4 @@ describe('json-test-suite test_transform', () => {
      testSuccess(basename(fn, '.json'), src)
    }
  })

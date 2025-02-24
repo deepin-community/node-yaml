@@ -1,0 +1,3 @@
+mkdir -p node_modules
+ln -s ../.. node_modules/yaml
+tsc

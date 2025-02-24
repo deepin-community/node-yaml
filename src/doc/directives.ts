@@ -143,10 +143,17 @@ export class Directives {
       return verbatim
     }
 
-    const [, handle, suffix] = source.match(/^(.*!)([^!]*)$/) as string[]
+    const [, handle, suffix] = source.match(/^(.*!)([^!]*)$/s) as string[]
     if (!suffix) onError(`The ${source} tag has no suffix`)
     const prefix = this.tags[handle]
-    if (prefix) return prefix + decodeURIComponent(suffix)
+    if (prefix) {
+      try {
+        return prefix + decodeURIComponent(suffix)
+      } catch (error) {
+        onError(String(error))
+        return null
+      }
+    }
     if (handle === '!') return source // local tag
 
     onError(`Could not resolve tag: ${source}`)

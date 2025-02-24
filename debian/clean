@@ -1,2 +1,5 @@
 browser/dist/
 dist/
+yaml-types/node_modules/
+yaml-types/dist/
+node_modules/
