@@ -12,9 +12,11 @@ Build-Depends:
  , node-rollup-plugin-babel
  , node-rollup-plugin-replace
  , node-rollup-plugin-typescript
- , node-tslib <!nocheck>
- , node-typescript <!nocheck>
+ , node-tslib
+ , node-typescript
+ , node-tap
  , rollup
+ , rsync
 Standards-Version: 4.6.2
 Homepage: https://eemeli.org/yaml/
 Vcs-Git: https://salsa.debian.org/js-team/node-yaml.git
