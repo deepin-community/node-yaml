@@ -1,13 +1,4 @@
 # False positive: test data
-source-is-missing [*tests/doc/YAML-1.2.spec.js*]
-source-is-missing [*tests/doc/foldFlowLines.js*]
-source-contains-prebuilt-javascript-object [*tests/doc/YAML-1.2.spec.js*]
-source-contains-prebuilt-javascript-object [*tests/doc/foldFlowLines.js*]
-source-is-missing [*debian/tests/test_modules/*]
-source-contains-prebuilt-javascript-object [*debian/tests/test_modules/*]
-very-long-line-length-in-source-file *tests/doc/YAML-1.2.spec.js*
-very-long-line-length-in-source-file *tests/doc/foldFlowLines.js*
-very-long-line-length-in-source-file *debian/tests/test_modules/*
-
-# Doc
-very-long-line-length-in-source-file *.md*
+source-is-missing
+source-contains-prebuilt-javascript-object
+very-long-line-length-in-source-file

@@ -7,6 +7,3 @@
 %:
 	dh $@
 
-override_dh_auto_build:
-	rollup -c config/rollup.node-config.mjs
-	rollup -c config/rollup.browser-config.mjs
