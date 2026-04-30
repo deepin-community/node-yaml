@@ -1,2 +1,3 @@
 fix-test.patch
 0002-Port-to-older-ts.patch
+CVE-2026-33532.patch
